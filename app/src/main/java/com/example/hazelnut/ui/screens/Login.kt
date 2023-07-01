@@ -1,5 +1,6 @@
 package com.example.hazelnut.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,13 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hazelnut.ui.widgets.AppButton
 import com.togitech.ccp.component.TogiCountryCodePicker
+import com.togitech.ccp.component.getFullPhoneNumber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(modifier: Modifier = Modifier) {
     val phoneNumber = rememberSaveable { mutableStateOf("") }
-    val fullPhoneNumber = rememberSaveable { mutableStateOf("") }
-    val onlyPhoneNumber = rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -61,7 +61,13 @@ fun Login(modifier: Modifier = Modifier) {
             )
         )
         Spacer(modifier = Modifier.padding(top = 40.dp))
-        AppButton(modifier = Modifier.fillMaxWidth(), onClick = { /*TODO*/ }) {
+        AppButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                Log.i("send otp click", getFullPhoneNumber())
+            },
+            isEnable = false
+        ) {
             Text(text = "Send Otp", style = MaterialTheme.typography.labelMedium)
         }
     }
