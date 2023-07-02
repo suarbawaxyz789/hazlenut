@@ -6,10 +6,13 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,18 +43,37 @@ fun AppButton(
     content: @Composable RowScope.() -> Unit,
 ) {
     val buildButton: @Composable () -> Unit = {
+
+        fun isButtonEnable(): Boolean {
+            if (isLoading) return false
+            if (isEnable) return true
+            return true
+        }
+
         Button(
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = Color.White
             ),
             onClick = onClick,
+            enabled = isButtonEnable(),
             modifier = modifier
         ) {
             Row(
                 modifier = Modifier.padding(vertical = 10.dp),
-                content = content
-            )
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier
+                            .width(19.dp)
+                            .height(19.dp)
+                            .padding(end = 5.dp, top = 1.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+                content()
+            }
         }
     }
 

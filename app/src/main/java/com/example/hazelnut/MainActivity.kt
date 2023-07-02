@@ -9,10 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.hazelnut.navigation.AppNavigation
-import com.example.hazelnut.ui.features.AuthenticationViewModel
-import com.example.hazelnut.ui.features.Login
+import com.example.hazelnut.ui.features.authentication.AuthenticationViewModel
 import com.example.hazelnut.ui.theme.HazelnutTheme
-import com.example.hazelnut.ui.theme.widgets.PageContainer
 
 class MainActivity : ComponentActivity() {
 

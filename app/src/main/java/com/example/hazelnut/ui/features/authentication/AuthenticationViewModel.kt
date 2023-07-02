@@ -1,10 +1,11 @@
-package com.example.hazelnut.ui.features
+package com.example.hazelnut.ui.features.authentication
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 class AuthenticationViewModel : ViewModel() {
     private val _data = mutableStateOf(Authentication())
@@ -12,12 +13,13 @@ class AuthenticationViewModel : ViewModel() {
     fun data(): Authentication {
         return _data.value
     }
-    fun requestOtp() {
-        _data.value = _data.value.copy(isSendingOtpInProgress = true)
 
-        runBlocking {
+    fun requestOtp(navController: NavController) {
+        viewModelScope.launch {
+            _data.value = _data.value.copy(isSendingOtpInProgress = true)
             delay(1000)
             _data.value = _data.value.copy(isSendingOtpInProgress = false)
+            navController.navigate("landing")
         }
     }
 

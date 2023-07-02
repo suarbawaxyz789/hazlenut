@@ -1,8 +1,5 @@
-package com.example.hazelnut.ui.features
+package com.example.hazelnut.ui.features.authentication
 
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +19,6 @@ import androidx.navigation.NavController
 import com.example.hazelnut.ui.theme.widgets.AppButton
 import com.example.hazelnut.ui.theme.widgets.PageContainer
 import com.togitech.ccp.component.TogiCountryCodePicker
-import com.togitech.ccp.component.getFullPhoneNumber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,9 +66,10 @@ fun Login(modifier: Modifier = Modifier, navController: NavController) {
             AppButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    Log.i("send otp click", getFullPhoneNumber())
+                    model.requestOtp(navController = navController)
                 },
-                isEnable = model.data().isSentOtpButtonEnable
+                isEnable = model.data().isSentOtpButtonEnable,
+                isLoading = model.data().isSendingOtpInProgress,
             ) {
                 Text(text = "Send Otp", style = MaterialTheme.typography.labelMedium)
             }
