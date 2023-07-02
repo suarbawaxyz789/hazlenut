@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.widgets
+package com.example.hazelnut.ui.theme.widgets
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope

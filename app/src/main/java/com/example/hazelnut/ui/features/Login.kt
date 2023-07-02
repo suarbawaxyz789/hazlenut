@@ -1,6 +1,7 @@
-package com.example.hazelnut.ui.screens
+package com.example.hazelnut.ui.features
 
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,22 +11,20 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.hazelnut.ui.widgets.AppButton
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.hazelnut.ui.theme.widgets.AppButton
 import com.togitech.ccp.component.TogiCountryCodePicker
 import com.togitech.ccp.component.getFullPhoneNumber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Login(modifier: Modifier = Modifier) {
-    val phoneNumber = rememberSaveable { mutableStateOf("") }
-
+    val model: AuthenticationViewModel = viewModel()
     Column(
         modifier = modifier
     ) {
@@ -46,8 +45,10 @@ fun Login(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.padding(top = 20.dp))
         TogiCountryCodePicker(
-            text = phoneNumber.value,
-            onValueChange = { phoneNumber.value = it },
+            text = model.data().phoneNumber,
+            onValueChange = {
+                model.setCurrentPhoneNumber(it)
+            },
             bottomStyle = false,
             shape = RoundedCornerShape(5.dp),
             color = MaterialTheme.colorScheme.background,
@@ -66,7 +67,7 @@ fun Login(modifier: Modifier = Modifier) {
             onClick = {
                 Log.i("send otp click", getFullPhoneNumber())
             },
-            isEnable = false
+            isEnable = model.data().isSentOtpButtonEnable
         ) {
             Text(text = "Send Otp", style = MaterialTheme.typography.labelMedium)
         }

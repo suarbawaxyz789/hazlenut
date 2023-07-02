@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.widgets
+package com.example.hazelnut.ui.theme.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
