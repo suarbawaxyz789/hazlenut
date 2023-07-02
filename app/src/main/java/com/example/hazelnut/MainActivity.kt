@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.hazelnut.navigation.AppNavigation
 import com.example.hazelnut.ui.features.AuthenticationViewModel
 import com.example.hazelnut.ui.features.Login
 import com.example.hazelnut.ui.theme.HazelnutTheme
@@ -27,9 +28,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PageContainer {
-                        Login()
-                    }
+                    AppNavigation()
                 }
             }
         }

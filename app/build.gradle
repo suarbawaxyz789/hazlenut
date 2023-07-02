@@ -66,4 +66,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     implementation 'com.github.togisoft:jetpack_compose_country_code_picker:1.1.4'
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    /// 2.6.0 have issue with duplicate class
+    implementation "androidx.navigation:navigation-compose:2.5.3"
 }
