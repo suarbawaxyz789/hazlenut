@@ -7,4 +7,279 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+
+    <color name="primary">#424242</color>
+    <color name="primary_dark">#212121</color>
+    <color name="primary_dark_2">#121212</color>
+    <color name="accent">#757575</color>
+    <color name="background_color">#F5F5F5</color>
+    <color name="text_color_primary">#FAFAFA</color>
+    <color name="text_color_primary_dark">#000000</color>
+    <color name="text_color_primary_grey">#424242</color>
+    <color name="text_color_hint_grey">#757575</color>
+    <color name="text_color_light_grey">#7E7E7E</color>
+    <color name="text_color_hint_search_box">#cccccc</color>
+    <color name="text_color_red">#c2002f</color>
+    <color name="text_color_orange">#dd6210</color>
+    <color name="text_color_greeting">#4a4a4a</color>
+    <color name="text_color_grey">#cc212121</color>
+    <color name="text_color_offline">#6d7278</color>
+    <color name="text_color_blue">#0091ff</color>
+    <color name="text_date_light_grey">#99212121</color>
+    <color name="text_date_grey">#cc212121</color>
+    <color name="text_color_dark_blue">#042ca9</color>
+    <color name="text_parcel_success">#035f1d</color>
+    <color name="text_parcel_failed">#e02020</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="text_color_purple">#772182</color>
+    <color name="background_dark">#cc000000</color>
+    <color name="background_grand_purple">#3d3d75</color>
+    <color name="background_radio_button_selected">#0050c7</color>
+    <color name="dark_green_bg">#077d52</color>
+    <color name="text_color_clear">#0064fa</color>
+    <color name="text_color_dark_grey">#121212</color>
+    <color name="text_color_near_black">#121212</color>
+    <color name="button_border_line_blue">#0064fa</color>
+    <color name="button_text_blue">#0064fa</color>
+    <color name="button_blue">#005ae0</color>
+    <color name="checkbox_bg_blue">#f0f6ff</color>
+    <color name="neutral">#687281</color>
+    <color name="compulsory_red">#fa002c</color>
+
+    <!-- tabs colors -->
+    <color name="tab_indicator_color">#FFAD00</color>
+    <color name="tab_waypoint_indicator_color">#2e2e2e</color>
+
+    <!-- drawer slider colors -->
+    <color name="drawer_fragment_background">#424242</color>
+    <color name="drawer_list_text">#000000</color>
+    <color name="drawer_background_morocco">#072545</color>
+
+    <!-- list cardview colors -->
+    <color name="card_view_selector">#B3E5FC</color>
+
+    <!-- waypoint list colors -->
+    <color name="btn_scan_parcels">#148014</color>
+    <color name="fail_bg">#f8a3bc</color>
+    <color name="success_bg">#79d97c</color>
+    <color name="partial_bg">#ffad00</color>
+    <color name="error_bg">#E8E8E8</color>
+    <color name="critical_error_bg">#898989</color>
+    <color name="orange_bg">#FFAD00</color>
+    <color name="white_card_bg">#fff</color>
+    <color name="scan_sync_bg">#f8a3bc</color>
+    <color name="late_waypoint_background_color">#19c2002f</color>
+    <color name="selected_waypoint_background_color">#dfecff</color>
+    <color name="running_late_waypoint_background_color">#19dd6210</color>
+    <color name="bg_cod_tag">#19e02020</color>
+    <color name="bg_id_check_tag">#332b50ec</color>
+    <color name="bg_doorstep_tag">#4c6a4405</color>
+    <color name="text_doorstep_tag">#6a4405</color>
+    <color name="bg_open_box_tag">#4a9307</color>
+    <color name="bg_prior_tag">#772182</color>
+    <color name="bg_rpu_tag">#4C4C4C</color>
+    <color name="bg_prior_tag_2">#f1e8f2</color>
+    <color name="waypoint_card_background">#fff0f3</color>
+    <color name="waypoint_disabled">#e5e5e5</color>
+    <color name="waypoint_card_bottom_line">#e9e8e9</color>
+    <color name="waypoint_success">#f1fef9</color>
+    <color name="waypoint_fail">#fff0f3</color>
+    <color name="waypoint_partial_success">#fff7f0</color>
+
+    <!-- Scanner Tab colors -->
+    <color name="input_bg">#FAFAFA</color>
+    <color name="scanned_list_border">#c4c4c4</color>
+    <color name="scan_success_green">#148014</color>
+    <color name="scanned_green">#DAFFE4</color>
+    <color name="scanned_extra_parcel">#FFE97C</color>
+    <color name="positive_green">#008000</color>
+    <color name="background_light_grey">#dfdfdf</color>
+    <color name="white_grey">#f1f1f1</color>
+    <color name="background_grey">#f0f0f0</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_pink">#FFB6C1</color>
+    <color name="background_red">#CF0000</color>
+    <color name="background_dark_green">#006400</color>
+    <color name="background_dark_blue">#0000EF</color>
+    <color name="background_brown">#A0522D</color>
+    <color name="border_grey">#979797</color>
+
+    <!-- waypoint details colors -->
+    <color name="counter_bg">#8cd47c</color>
+    <color name="cod_bg">#2c5494</color>
+    <color name="cod_highlighter">#e9a71f</color>
+    <color name="reservation_badge_bg">#2c5494</color>
+
+    <!-- border color -->
+    <color name="border_color">#424242</color>
+    <color name="border_color_red">#C62828</color>
+    <color name="border_mustard">#e9a71f</color>
+
+    <!-- button colors -->
+    <color name="button_problem_bg">#c2002f</color>
+    <color name="button_proceed_bg">#077d52</color>
+    <color name="button_utility_bg">#B2DFDB</color>
+    <color name="button_details_recipient_bg">#d8d8d8</color>
+    <color name="button_black_bg">#000000</color>
+    <color name="button_white_bg">#FAFAFA</color>
+    <color name="button_grey_bg">#a8a8a8</color>
+    <color name="button_receipt_grey_bg">#e1e1e1</color>
+    <color name="button_orange_bg">#f06c00</color>
+    <color name="text_hint_color">#a8a8a8</color>
+    <color name="switch_on_thumb_green">#0f7d04</color>
+    <color name="switch_on_track_green">#14a605</color>
+
+    <!-- line seperator horizontal -->
+    <color name="horizontal_divider">#c0c0c0</color>
+    <color name="horizontal_divider_grey">#a8a8a8</color>
+
+    <!-- text colors -->
+    <color name="font_red">#C62828</color>
+    <color name="instructions_dark">#2b2b2b</color>
+    <color name="text_blue">#0050c7</color>
+    <color name="text_blue_30_opacity">#4D0050c7</color>
+    <color name="text_light_grey">#8a9096</color>
+    <color name="text_purple">#4c4c77</color>
+
+    <!-- Receipt Activity Colors -->
+    <color name="activity_receipt_bg">#ba0c2f</color>
+    <color name="delivery_success_bg">#307830</color>
+    <color name="delivery_partial_success_bg">#784818</color>
+    <color name="delivery_receipt_bg_morocco">#414042</color>
+
+    <!-- Rounded Corner BG colors -->
+    <color name="rounded_red_counter_bg">#f0a8c0</color>
+    <color name="rounded_dark_blue_bg">#253746</color>
+    <color name="rounded_deselected_bg">#6b6c6e</color>
+
+    <!-- Messenger Activity Colors -->
+    <color name="unread_text_color">#8B6914</color>
+    <color name="icon_red_bg">#a81e39</color>
+    <color name="icon_yellow_bg">#f4a404</color>
+    <color name="container_red_bg">#f0dadc</color>
+    <color name="icon_gray_bg">#424242</color>
+    <color name="btn_active">#797979</color>
+    <color name="btn_inactive">#cccbcc</color>
+
+    <!-- Signature gesture color -->
+    <color name="signature_color">#000000</color>
+
+    <!-- Time slot background colors -->
+    <color name="time_slot_9_12">#f7b500</color>
+    <color name="time_slot_9_6">#a8ad2b</color>
+    <color name="time_slot_12_3">#0091ff</color>
+    <color name="time_slot_3_6">#44d7b6</color>
+    <color name="time_slot_6_10">#8a9096</color>
+    <color name="time_slot_none">#00000000</color>
+
+    <!-- Map Zones colors -->
+    <color name="bg_red">#FF0000</color>
+    <color name="bg_green">#90EE90</color>
+    <color name="bg_dark_green">#006400</color>
+    <color name="bg_light_blue">#e0f1ff</color>
+
+    <color name="new_brown_bg">#8B5220</color>
+    <color name="new_navy_blue_bg">#334C61</color>
+    <color name="light_blue_bg">#bbd8f1</color>
+    <color name="textview_recipient_name_color">#8c8c8c</color>
+
+    <!-- ODP colors -->
+    <color name="sub_toolbar">#404448</color>
+    <color name="text_view_headers">#797979</color>
+    <color name="stepper_bg">#EBEBEB</color>
+    <color name="stepper_font_color">#a8a8a8</color>
+    <color name="text_color_next_confirmation">#267226</color>
+    <color name="card_background_orange">#ffedbc</color>
+
+    <color name="cod_text_color_badge">#e02020</color>
+    <color name="time_slot_text_color">#02087b</color>
+    <color name="waypoint_icon_color">#5f5f5f</color>
+    <color name="priority_level_color_low">#be7b07</color>
+    <color name="priority_level_color_medium">#d25609</color>
+    <color name="priority_level_color_high">#be0707</color>
+    <color name="unprocessed_parcels">#DCE4ECF7</color>
+    <color name="processed_parcels">#E8E6F0FA</color>
+    <color name="recipient_checkbox_color">#212125</color>
+    <color name="alt_button_background">#ebedf0</color>
+    <color name="navigation_header">#072545</color>
+    <color name="divider_gray">#d9d9d9</color>
+    <color name="divider_gray_horizontal">#e8e8e8</color>
+    <color name="instructions_icon_red">#d0021b</color>
+    <color name="invalid">#dedede</color>
+    <color name="invalid_outer">#f5f5f5</color>
+    <color name="shadow_orange">#ccf5a623</color>
+    <color name="success_text">#cc035f1d</color>
+    <color name="fail_text">#ccc2002f</color>
+    <color name="table_row_background">#19bce8fe</color>
+    <color name="table_row_separator">#4cbce8fe</color>
+    <color name="bar_chart_color">#3a7312</color>
+    <color name="tutorial_dim_bg">#4c212121</color>
+    <color name="info_color">#042ca9</color>
+    <color name="inside_grey_capture_button">#cfd8dc</color>
+    <color name="border_search_box">#8c8c8c</color>
+    <color name="top_banner_bg">#f1f8fe</color>
+    <color name="border_light_grey">#11000000</color>
+    <color name="text_color_disabled">#bfbfbf</color>
+    <color name="pick_divider_bg">#dedede</color>
+    <color name="bg_empty">#f8fdfb</color>
+    <color name="scanner_hint">#bfbfbf</color>
+    <color name="success_parcel_bg">#f1fef9</color>
+    <color name="failed_parcel_pink">#ffdee4</color>
+    <color name="loading_overlay">#e6e6e6</color>
+    <color name="opacity_70">#b3000000</color>
+    <color name="scanning_error_red">#cf0c16</color>
+
+    <!-- Ripple effect color-->
+    <color name="ripple_effect">#d9d9d9</color>
+    <color name="scan_qr_code_bg">#f3404040</color>
+    <color name="handover_header">#404040</color>
+    <color name="declaration_orange">#ff8e32</color>
+
+    <!-- Snackbar    -->
+    <color name="snackbar_warning_bg_color">#fff7f0</color>
+    <color name="snackbar_warning_border_color">#ff8e32</color>
+
+    <!-- Black With Opacity -->
+    <color name="black_50">#88000000</color>
+
+    <color name="banner_background_orange">#FAECDF</color>
+
+    <!-- Not hub inbounded warning -->
+    <color name="adapter_item_background">#fff7f0</color>
+
+    <color name="fab_map_mode_color">#4C4C4C</color>
+    <color name="fab_scroll_to_first_waypoint_color">#F2F2F2</color>
+
+    <color name="black2e">#2e2e2e</color>
+    <color name="black8c">#8c8c8c</color>
+    <color name="grayf8">#f8f8f8</color>
+    <color name="map_onboarding_bubble_color">#d1ebff</color>
+
+    <color name="custom_toast_background">#515151</color>
+    <color name="dupe_rsvn_background_color">#F3F2F2</color>
+
+    <color name="appealed_pill_bg_color">#318fd6</color>
+    <color name="reviewed_pill_bg_color">#009961</color>
+    <color name="qr_scanner_background">#919191</color>
+
+    <color name="neutral_grey">#4c4c4c</color>
+    <color name="tab_color_red">#c31424</color>
+    <color name="gray8f">#8f8f8f</color>
+
+    <color name="banner_alert_information_bg">#d1ebff</color>
+    <color name="divider_color">#e5e5e5</color>
+
+    <color name="color_02ca81">#02ca81</color>
+    <color name="color_ffbf00">#ffbf00</color>
+    <color name="color_b3b3b3">#b3b3b3</color>
+    <color name="indicator_green">#02ca81</color>
+    <color name="indicator_orange">#ff8e32</color>
+    <color name="indicator_thumb_yellow">#ffc100</color>
+    <color name="tutorial_highlight">#c31424</color>
+    <color name="banner_warning_background_color">#ffe2c7</color>
+    <color name="banner_info_background_color">#d1ebff</color>
+    <color name="edit_sequence_banner_warning_background_color">#ffe2c7</color>
+    <color name="banner_info_divider_color">#2aa1db</color>
 </resources>

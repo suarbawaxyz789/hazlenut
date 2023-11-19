@@ -18,8 +18,8 @@ class AuthenticationViewModel : ViewModel() {
         viewModelScope.launch {
             _data.value = _data.value.copy(isSendingOtpInProgress = true)
             delay(1000)
-            _data.value = _data.value.copy(isSendingOtpInProgress = false)
             navController.navigate("landing")
+            _data.value = _data.value.copy(isSendingOtpInProgress = false)
         }
     }
 
