@@ -1,5 +1,6 @@
 package com.example.hazelnut.ui.features.ninjas
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,9 +22,10 @@ import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.theme.ninjas.TextView
 
+@VisibleForTesting
 @Preview
 @Composable
-fun TestPreview() {
+internal fun TestPreview() {
     Row(
         modifier = Modifier
             .background(color = colorResource(id = R.color.white))
