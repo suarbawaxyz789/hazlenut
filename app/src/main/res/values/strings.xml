@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hazelnut</string>
+    <string name="prefix_rp_with_amount">RP %s</string>
+    <string name="prefix_rp_amount_suffix_each">RP %s each</string>
 </resources>

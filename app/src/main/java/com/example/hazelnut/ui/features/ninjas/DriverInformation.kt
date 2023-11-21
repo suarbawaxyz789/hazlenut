@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -20,12 +21,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.ninjas.items.entities.ParcelTypeCardItem
+import com.example.hazelnut.ui.features.ninjas.utils.StringUtil
+import com.example.hazelnut.ui.theme.ninjas.Common
 import com.example.hazelnut.ui.theme.ninjas.TextView
 
 @VisibleForTesting
 @Preview
 @Composable
 internal fun TestPreview() {
+
+    var parcelList = listOf<ParcelTypeCardItem>(
+        ParcelTypeCardItem(
+            parcelCategory = "Regular | non-MP",
+            parcelSize = "Small & Medium",
+            parcelPrice = 6000.toDouble(),
+            totalParcelDelivered = 0,
+            totalParcelIncome = 0.toDouble()
+        )
+    )
+
     Row(
         modifier = Modifier
             .background(color = colorResource(id = R.color.white))
@@ -41,6 +56,7 @@ internal fun TestPreview() {
             BottomSheetHeader()
             DriverInformation(modifier = Modifier.padding(top = 10.dp, bottom = 30.dp))
             EarningPerParcelInstruction()
+            ParcelsComponent(parcelTypeCardItem = parcelList.first())
         }
     }
 }
@@ -133,5 +149,46 @@ fun EarningPerParcelInstruction() {
                 modifier = Modifier.padding(top = 10.dp)
             )
         }
+    }
+}
+
+
+@Composable
+private fun ParcelsComponent(
+    parcelTypeCardItem: ParcelTypeCardItem,
+) {
+    Column(modifier = Modifier.padding(top = 14.dp, start = 20.dp, end = 20.dp).fillMaxWidth()) {
+        Row(
+            modifier = Modifier.padding(start = 10.dp).fillMaxWidth(),
+            verticalAlignment = Alignment.Top
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 10.dp).fillMaxWidth()
+                    .weight(1f, true)
+            ) {
+                TextView.Bold(text = parcelTypeCardItem.parcelCategory, fontSize = 14.sp)
+                TextView.Regular(
+                    modifier = Modifier.padding(top = 2.dp),
+                    text = parcelTypeCardItem.parcelCategory,
+                    color = R.color.color_b3b3b3
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                TextView.Bold(
+                    text = LocalContext.current.getString(
+                        R.string.prefix_rp_with_amount,
+                        StringUtil.getFormattedAmountInDouble(parcelTypeCardItem.totalParcelIncome)
+                    ), textAlign = TextAlign.End
+                )
+                TextView.Regular(
+                    text = LocalContext.current.getString(
+                        R.string.prefix_rp_amount_suffix_each,
+                        StringUtil.getFormattedAmountInDouble(parcelTypeCardItem.parcelPrice)
+                    ), color = R.color.color_b3b3b3, textAlign = TextAlign.End
+                )
+            }
+        }
+        Common.Divider(modifier = Modifier.padding(top = 10.dp))
     }
 }
