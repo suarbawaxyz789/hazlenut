@@ -9,7 +9,9 @@ enum class EarningItemType {
     BONUS_CALCULATION_MESSAGE_CARD,
     LEARN_SALARY_CALCULATION_CARD,
     BAR_GRAPH_CARD,
-    DAILY_EARNING_CARD;
+    DAILY_EARNING_CARD,
+    INSTRUCTION_DRIVER_INFORMATION,
+    CATEGORY_HEADER;
 
     companion object {
         private val values = values()
