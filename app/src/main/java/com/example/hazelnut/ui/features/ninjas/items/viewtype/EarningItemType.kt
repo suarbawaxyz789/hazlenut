@@ -11,6 +11,7 @@ enum class EarningItemType {
     BAR_GRAPH_CARD,
     DAILY_EARNING_CARD,
     INSTRUCTION_DRIVER_INFORMATION,
+    INSTRUCTION_HEADER,
     CATEGORY_HEADER;
 
     companion object {

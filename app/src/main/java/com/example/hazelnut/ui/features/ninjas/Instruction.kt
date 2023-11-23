@@ -31,6 +31,65 @@ import ninjavan.swiftninja.mvvm.ui.myearning.items.viewtype.EarningItemType
 import androidx.compose.foundation.lazy.items
 import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
+import com.example.hazelnut.ui.features.ninjas.items.entities.InstructionHeaderItem
+
+
+//@VisibleForTesting
+@Preview
+@Composable
+internal fun PerParcelWithDailyBonusTestPreview() {
+
+    var itemList = listOf(
+        DriverInformationItem(
+            driverName = "Driver Name", region = "Greater Jakarta A",
+        ),
+        InstructionHeaderItem(
+            title = "Earning Per Delivery",
+            instruction = "the amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.",
+        ),
+        ParcelTypeCardItem(
+            parcelCategory = "Regular | non-MP",
+            parcelSize = "Small & Medium",
+            parcelPrice = 0.toDouble(),
+            totalParcelDelivered = 0,
+            totalParcelIncome = 6000.toDouble()
+        ),
+        ParcelTypeCardItem(
+            parcelCategory = "Regular | marketplace",
+            parcelSize = "Small & Medium",
+            parcelPrice = 0.toDouble(),
+            totalParcelDelivered = 0,
+            totalParcelIncome = 4800.toDouble()
+        ),
+        ParcelTypeCardItem(
+            parcelCategory = "RTS",
+            parcelSize = "Large & X-Large",
+            parcelPrice = 0.toDouble(),
+            totalParcelDelivered = 0,
+            totalParcelIncome = 1000.toDouble()
+        ),
+        InstructionHeaderItem(
+            title = "Daily Bonus",
+            instruction = "For each successful parcel you'll earn bonus points. To earn your daily bonus you have to reach certain points.\n" +
+                    "• 120 points = get total bonus of Rp15,000 \n" +
+                    "• 300 points = get total bonus of Rp30,000",
+        ),
+    )
+    Row(
+        modifier = Modifier
+            .background(color = colorResource(id = R.color.white))
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            BottomSheetHeader()
+            EarningListComponent(itemList)
+        }
+    }
+}
+
 
 //@VisibleForTesting
 @Preview
@@ -40,9 +99,12 @@ internal fun EarningPerParcelTestPreview() {
     var itemList = listOf(
         DriverInformationItem(
             driverName = "Driver Name", region = "Greater Jakarta A",
-            instructionTitle = "Earning per parcel",
+        ),
+        InstructionHeaderItem(
+            title = "Earning per parcel",
             instruction = "The amount you'll receive for delivering a parcel depends on the size of the parcel.\\n\" + \"1. Marketplace: Lazada, Tiktok, Shopee, Tokopedia, Bukalapak, Blibli\\n\" + \"2. Non-MP: Soscom, KPP, BPJS, Bank, Mitra",
-        ), CategoryHeaderItem(
+        ),
+        CategoryHeaderItem(
             title = "DELIVERY",
         ), ParcelTypeCardItem(
             parcelCategory = "Regular | non-MP",
@@ -72,8 +134,6 @@ internal fun EarningPerParcelTestPreview() {
             totalParcelIncome = 8200.toDouble()
         )
     )
-
-    /// content goes here.
     Row(
         modifier = Modifier
             .background(color = colorResource(id = R.color.white))
@@ -97,7 +157,9 @@ internal fun EarningPerDeliveryTestPreview() {
     var itemList = listOf(
         DriverInformationItem(
             driverName = "Driver Name", region = "Greater Jakarta A",
-            instructionTitle = "Earning Per Delivery",
+        ),
+        InstructionHeaderItem(
+            title = "Earning Per Delivery",
             instruction = "the amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.",
         ),
         ParcelTypeCardItem(
@@ -122,8 +184,6 @@ internal fun EarningPerDeliveryTestPreview() {
             totalParcelIncome = 1000.toDouble()
         ),
     )
-
-    /// content goes here.
     Row(
         modifier = Modifier
             .background(color = colorResource(id = R.color.white))
@@ -138,7 +198,6 @@ internal fun EarningPerDeliveryTestPreview() {
         }
     }
 }
-
 
 @Composable
 private fun EarningListComponent(data: List<ListItem>) {
@@ -156,6 +215,10 @@ private fun EarningListComponent(data: List<ListItem>) {
 
                 EarningItemType.MONTH_TOTAL_EARNING -> {
 
+                }
+
+                EarningItemType.INSTRUCTION_HEADER -> {
+                    InstructionHeader(item as InstructionHeaderItem)
                 }
 
                 EarningItemType.INSTRUCTION_DRIVER_INFORMATION -> {
@@ -260,56 +323,55 @@ private fun CategoryHeaderItem(
 fun DriverInformation(
     driverInformationCardItem: DriverInformationItem,
 ) {
-    Column {
-        Row(
+    Row(
+        modifier = Modifier
+            .padding(start = 20.dp, end = 20.dp, top = 10.dp)
+            .wrapContentWidth()
+            .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+    ) {
+        DisplayImage(
+            R.drawable.driver_information,
+        )
+        Column(
             modifier = Modifier
-                .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 30.dp)
-                .wrapContentWidth()
-                .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 12.dp)
         ) {
-            DisplayImage(
-                R.drawable.driver_information,
+            TextView.Bold(
+                text = driverInformationCardItem.driverName,
+                textAlign = TextAlign.End,
+                fontSize = 18.sp,
             )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, end = 12.dp)
-            ) {
-                TextView.Bold(
-                    text = driverInformationCardItem.driverName,
-                    textAlign = TextAlign.End,
-                    fontSize = 18.sp,
-                )
-                TextView.Regular(
-                    text = driverInformationCardItem.region,
-                    textAlign = TextAlign.End,
-                    fontSize = 16.sp
-                )
-            }
+            TextView.Regular(
+                text = driverInformationCardItem.region,
+                textAlign = TextAlign.End,
+                fontSize = 16.sp
+            )
         }
-        Row(
-            modifier = Modifier
-                .padding(start = 20.dp, end = 20.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                TextView.Bold(
-                    text = driverInformationCardItem.instructionTitle,
-                    textAlign = TextAlign.End,
-                    fontSize = 18.sp,
-                )
-                TextView.Regular(
-                    text = driverInformationCardItem.instruction,
-                    textAlign = TextAlign.Start,
-                    fontSize = 14.sp,
-                    color = R.color.gray8f,
-                    modifier = Modifier.padding(top = 10.dp)
-                )
-            }
-        }
+    }
+}
+
+@Composable
+fun InstructionHeader(
+    instructionHeaderItem: InstructionHeaderItem,
+) {
+    Column(
+        modifier = Modifier
+            .padding(start = 20.dp, end = 20.dp, top = 30.dp)
+            .fillMaxWidth(),
+    ) {
+        TextView.Bold(
+            text = instructionHeaderItem.title,
+            textAlign = TextAlign.End,
+            fontSize = 18.sp,
+        )
+        TextView.Regular(
+            text = instructionHeaderItem.instruction,
+            textAlign = TextAlign.Start,
+            fontSize = 14.sp,
+            color = R.color.gray8f,
+            modifier = Modifier.padding(top = 10.dp)
+        )
     }
 }
 
