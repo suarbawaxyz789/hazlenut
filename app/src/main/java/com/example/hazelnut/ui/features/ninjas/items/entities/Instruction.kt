@@ -2,7 +2,7 @@ package com.example.hazelnut.ui.features.ninjas.items.entities
 
 import ninjavan.swiftninja.mvvm.ui.myearning.items.viewtype.EarningItemType
 
-data class DriverInformationItem(
+data class Instruction(
     val driverName: String,
     val region: String,
     val instructionTitle : String,
