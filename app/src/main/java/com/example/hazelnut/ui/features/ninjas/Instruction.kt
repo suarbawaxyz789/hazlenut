@@ -30,7 +30,7 @@ import com.example.hazelnut.ui.theme.ninjas.TextView
 import ninjavan.swiftninja.mvvm.ui.myearning.items.viewtype.EarningItemType
 import androidx.compose.foundation.lazy.items
 import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
-import com.example.hazelnut.ui.features.ninjas.items.entities.Instruction
+import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
 
 //@VisibleForTesting
 @Preview
@@ -38,7 +38,7 @@ import com.example.hazelnut.ui.features.ninjas.items.entities.Instruction
 internal fun EarningPerParcelTestPreview() {
 
     var itemList = listOf(
-        Instruction(
+        DriverInformationItem(
             driverName = "Driver Name", region = "Greater Jakarta A",
             instructionTitle = "Earning per parcel",
             instruction = "The amount you'll receive for delivering a parcel depends on the size of the parcel.\\n\" + \"1. Marketplace: Lazada, Tiktok, Shopee, Tokopedia, Bukalapak, Blibli\\n\" + \"2. Non-MP: Soscom, KPP, BPJS, Bank, Mitra",
@@ -95,7 +95,7 @@ internal fun EarningPerParcelTestPreview() {
 internal fun EarningPerDeliveryTestPreview() {
 
     var itemList = listOf(
-        Instruction(
+        DriverInformationItem(
             driverName = "Driver Name", region = "Greater Jakarta A",
             instructionTitle = "Earning Per Delivery",
             instruction = "the amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.",
@@ -159,7 +159,7 @@ private fun EarningListComponent(data: List<ListItem>) {
                 }
 
                 EarningItemType.INSTRUCTION_DRIVER_INFORMATION -> {
-                    DriverInformation(item as Instruction)
+                    DriverInformation(item as DriverInformationItem)
                 }
 
                 EarningItemType.CATEGORY_HEADER -> {
@@ -258,7 +258,7 @@ private fun CategoryHeaderItem(
 
 @Composable
 fun DriverInformation(
-    driverInformationCardItem: Instruction,
+    driverInformationCardItem: DriverInformationItem,
 ) {
     Column {
         Row(
