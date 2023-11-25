@@ -2,4 +2,7 @@
     <string name="app_name">Hazelnut</string>
     <string name="prefix_rp_with_amount">RP %s</string>
     <string name="prefix_rp_amount_suffix_each">RP %s each</string>
+    <string name="suffix_points">%s Points</string>
+    <string name="youCanSeeYourDailyBonusTarges">You can see your daily bonus targets and progress under the Today section on the \'My Earnings\' page.</string>
+    <string name="theAmoutOfPointsYouWillEarnDependsOnTheSize">The amount of points you\'ll earn depends on the size of the parcels.</string>
 </resources>
