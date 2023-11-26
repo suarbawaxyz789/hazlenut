@@ -2,14 +2,20 @@ package com.example.hazelnut.ui.features.ninjas.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,10 +33,10 @@ import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.items.entities.BonusCalculationMessageCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
-import com.example.hazelnut.ui.features.ninjas.items.entities.MessageCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.InstructionHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ListItem
+import com.example.hazelnut.ui.features.ninjas.items.entities.MessageCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ParcelTypeCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.PointByParcelItem
 import com.example.hazelnut.ui.features.ninjas.utils.StringUtil
@@ -39,24 +45,138 @@ import com.example.hazelnut.ui.theme.ninjas.TextView
 import ninjavan.swiftninja.mvvm.ui.myearning.items.viewtype.EarningItemType
 
 @Composable
-fun CustomLinearProgressIndicator(
-    progress: Float,
-    backgroundColor: Color,
-    indicatorColor: Color
+fun PointCircleSmall(
+    modifier: Modifier = Modifier,
+    point: Int,
 ) {
-    Column {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(37.dp)
+                    .border(
+                        width = 2.dp, color = colorResource(id = R.color.white), shape = CircleShape
+                    ),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .background(colorResource(id = R.color.indicator_thumb_yellow), CircleShape)
+                        .padding(2.dp), contentAlignment = Alignment.Center
+                ) {
+                    TextView.Regular(
+                        text = point.toString(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        color = R.color.white
+                    )
+                }
+            }
+            TextView.Bold(
+                text = LocalContext.current.getString(
+                    R.string.prefix_rp_with_amount, StringUtil.getFormattedAmountInDouble(150000.0)
+                ),
+                textAlign = TextAlign.Center,
+                fontSize = 14.sp,
+                color = R.color.neutral_grey,
+            )
+        }
+    }
+}
+
+@Composable
+fun PointCircleLarge(
+    modifier: Modifier = Modifier,
+    point: Int,
+) {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Box(
+                contentAlignment = Alignment.CenterEnd,
+                modifier = Modifier
+                    .size(47.dp)
+                    .border(
+                        width = 2.dp, color = colorResource(id = R.color.white), shape = CircleShape
+                    ),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .background(colorResource(id = R.color.indicator_thumb_yellow), CircleShape)
+                        .padding(2.dp), contentAlignment = Alignment.Center
+                ) {
+                    TextView.Regular(
+                        text = point.toString(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        color = R.color.white
+                    )
+                }
+            }
+            TextView.Bold(
+                text = LocalContext.current.getString(
+                    R.string.prefix_rp_with_amount, StringUtil.getFormattedAmountInDouble(300000.0)
+                ),
+                textAlign = TextAlign.End,
+                fontSize = 14.sp,
+                color = R.color.neutral_grey,
+            )
+        }
+    }
+}
+
+/// TODO find the way to put 120 point based on percent of total points
+@Composable
+fun PointLinearProgressIndicator(
+    progress: Float, backgroundColor: Color, indicatorColor: Color
+) {
+    Column(modifier = Modifier.padding(start = 20.dp, end = 20.dp)) {
         LinearProgressIndicator(
             progress = progress,
             backgroundColor = backgroundColor,
             color = indicatorColor,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 30.dp, end = 20.dp)
         )
+        Row(
+            modifier = Modifier
+                .offset(y = -25.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1.0f)
+            ) {
+                PointCircleSmall(point = 120, modifier = Modifier.offset(x = 100.dp))
+            }
+            PointCircleLarge(point = 300)
+        }
         TextView.Regular(
             text = "64.6 Points",
             textAlign = TextAlign.Start,
             fontSize = 14.sp,
             color = R.color.neutral_grey,
+            modifier = Modifier.offset(y = -63.dp),
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCustomLinearProgress() {
+    Column {
+        PointLinearProgressIndicator(
+            progress = 0.2f, backgroundColor = Color.Gray, indicatorColor = Color.Red
         )
     }
 }
@@ -81,8 +201,7 @@ fun PointByParcelCard(pointByParcelItem: PointByParcelItem) {
             Column(horizontalAlignment = Alignment.End) {
                 TextView.Bold(
                     text = LocalContext.current.getString(
-                        R.string.suffix_points,
-                        pointByParcelItem.point.toString()
+                        R.string.suffix_points, pointByParcelItem.point.toString()
                     ), textAlign = TextAlign.End
                 )
             }
@@ -153,9 +272,7 @@ private fun MessageCardItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextView.Regular(
-            text = messageCardItem.text,
-            fontSize = 14.sp,
-            color = R.color.gray8f
+            text = messageCardItem.text, fontSize = 14.sp, color = R.color.gray8f
         )
     }
 
@@ -205,9 +322,7 @@ private fun CategoryHeaderItem(
         modifier = Modifier.padding(top = 30.dp, start = 20.dp, end = 20.dp)
     ) {
         TextView.Bold(
-            text = categoryHeaderItem.title,
-            fontSize = 14.sp,
-            color = R.color.gray8f
+            text = categoryHeaderItem.title, fontSize = 14.sp, color = R.color.gray8f
         )
         Common.Divider(modifier = Modifier.padding(top = 10.dp))
     }
@@ -237,9 +352,7 @@ fun DriverInformation(
                 fontSize = 18.sp,
             )
             TextView.Regular(
-                text = driverInformationCardItem.region,
-                textAlign = TextAlign.End,
-                fontSize = 16.sp
+                text = driverInformationCardItem.region, textAlign = TextAlign.End, fontSize = 16.sp
             )
         }
     }
@@ -304,18 +417,6 @@ private fun InstructionParcelsComponent(
     }
 }
 
-//@Preview
-@Composable
-fun PreviewCustomLinearProgress() {
-    Column {
-        CustomLinearProgressIndicator(
-            progress = 0.2f,
-            backgroundColor = Color.Gray,
-            indicatorColor = Color.Red
-        )
-    }
-}
-
 //@VisibleForTesting
 @Preview
 @Composable
@@ -351,9 +452,7 @@ internal fun PerParcelWithDailyBonusTestPreview() {
         ),
         InstructionHeaderItem(
             title = "Daily Bonus",
-            instruction = "For each successful parcel you'll earn bonus points. To earn your daily bonus you have to reach certain points.\n" +
-                    "• 120 points = get total bonus of Rp15,000 \n" +
-                    "• 300 points = get total bonus of Rp30,000",
+            instruction = "For each successful parcel you'll earn bonus points. To earn your daily bonus you have to reach certain points.\n" + "• 120 points = get total bonus of Rp15,000 \n" + "• 300 points = get total bonus of Rp30,000",
         ),
         /// TODO points progress bar.
         MessageCardItem(
@@ -405,12 +504,10 @@ internal fun EarningPerParcelTestPreview() {
     var itemList = listOf(
         DriverInformationItem(
             driverName = "Driver Name", region = "Greater Jakarta A",
-        ),
-        InstructionHeaderItem(
+        ), InstructionHeaderItem(
             title = "Earning per parcel",
             instruction = "The amount you'll receive for delivering a parcel depends on the size of the parcel.\\n\" + \"1. Marketplace: Lazada, Tiktok, Shopee, Tokopedia, Bukalapak, Blibli\\n\" + \"2. Non-MP: Soscom, KPP, BPJS, Bank, Mitra",
-        ),
-        CategoryHeaderItem(
+        ), CategoryHeaderItem(
             title = "DELIVERY",
         ), ParcelTypeCardItem(
             parcelCategory = "Regular | non-MP",
