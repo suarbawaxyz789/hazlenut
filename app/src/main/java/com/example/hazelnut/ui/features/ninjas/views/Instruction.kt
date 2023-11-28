@@ -1,20 +1,17 @@
 package com.example.hazelnut.ui.features.ninjas.views
 
+import android.content.Context
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,47 +26,18 @@ import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.items.entities.BonusCalculationMessageCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
+import com.example.hazelnut.ui.features.ninjas.items.entities.DangerCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.InstructionHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ListItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.MessageCardItem
+import com.example.hazelnut.ui.features.ninjas.items.entities.MonthlyBonusItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ParcelTypeCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.PointByParcelItem
 import com.example.hazelnut.ui.features.ninjas.utils.StringUtil
 import com.example.hazelnut.ui.theme.ninjas.Common
 import com.example.hazelnut.ui.theme.ninjas.TextView
 import ninjavan.swiftninja.mvvm.ui.myearning.items.viewtype.EarningItemType
-
-@Composable
-fun PointByParcelCard(pointByParcelItem: PointByParcelItem) {
-    Column(
-        modifier = Modifier.padding(top = 14.dp, start = 20.dp, end = 20.dp)
-    ) {
-        Row(
-            modifier = Modifier, verticalAlignment = Alignment.Top
-        ) {
-            Column(
-                modifier = Modifier.weight(1f, true)
-            ) {
-                TextView.Regular(
-                    text = pointByParcelItem.parcelType,
-                    fontSize = 14.sp,
-                    color = R.color.neutral_grey
-                )
-            }
-            Column(horizontalAlignment = Alignment.End) {
-                TextView.Bold(
-                    text = LocalContext.current.getString(
-                        R.string.suffix_points, pointByParcelItem.point.toString()
-                    ), textAlign = TextAlign.End
-                )
-            }
-        }
-        Common.Divider(
-            modifier = Modifier.padding(top = 10.dp)
-        )
-    }
-}
 
 @Composable
 fun EarningListComponent(data: List<ListItem>) {
@@ -90,6 +58,14 @@ fun EarningListComponent(data: List<ListItem>) {
 
                 EarningItemType.INSTRUCTION_DRIVER_INFORMATION -> {
                     DriverInformation(item as DriverInformationItem)
+                }
+
+                EarningItemType.MONTHLY_BONUS_CARD -> {
+                    MonthlyBonusCard(item as MonthlyBonusItem)
+                }
+
+                EarningItemType.DANGER_CARD -> {
+                    DangerCardComponent(item as DangerCardItem)
                 }
 
                 EarningItemType.CATEGORY_HEADER -> {
@@ -117,6 +93,67 @@ fun EarningListComponent(data: List<ListItem>) {
             }
 
         }
+    }
+}
+
+@Composable
+fun MonthlyBonusCard(monthlyBonusItem: MonthlyBonusItem) {
+    Column(
+        modifier = Modifier.padding(top = 14.dp, start = 20.dp, end = 20.dp)
+    ) {
+        Row(
+            modifier = Modifier, verticalAlignment = Alignment.Top
+        ) {
+            Column(
+                modifier = Modifier.weight(1f, true)
+            ) {
+                TextView.Regular(
+                    text = monthlyBonusItem.title,
+                    fontSize = 14.sp,
+                    color = R.color.neutral_grey
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                TextView.Bold(
+                    text = monthlyBonusItem.value, textAlign = TextAlign.End
+                )
+            }
+        }
+        Common.Divider(
+            modifier = Modifier.padding(top = 10.dp)
+        )
+    }
+}
+
+
+@Composable
+fun PointByParcelCard(pointByParcelItem: PointByParcelItem) {
+    Column(
+        modifier = Modifier.padding(top = 14.dp, start = 20.dp, end = 20.dp)
+    ) {
+        Row(
+            modifier = Modifier, verticalAlignment = Alignment.Top
+        ) {
+            Column(
+                modifier = Modifier.weight(1f, true)
+            ) {
+                TextView.Regular(
+                    text = pointByParcelItem.parcelType,
+                    fontSize = 14.sp,
+                    color = R.color.neutral_grey
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                TextView.Bold(
+                    text = LocalContext.current.getString(
+                        R.string.suffix_points, StringUtil.formatPoint(pointByParcelItem.point)
+                    ), textAlign = TextAlign.End
+                )
+            }
+        }
+        Common.Divider(
+            modifier = Modifier.padding(top = 10.dp)
+        )
     }
 }
 
@@ -276,46 +313,19 @@ private fun InstructionParcelsComponent(
     }
 }
 
+
 @Composable
-fun PointCircleLarge(
-    modifier: Modifier = Modifier,
-    point: Int,
-) {
-    Box(contentAlignment = Alignment.Center, modifier = modifier) {
-        Column(
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Box(
-                contentAlignment = Alignment.CenterEnd,
-                modifier = Modifier
-                    .size(47.dp)
-                    .border(
-                        width = 2.dp, color = colorResource(id = R.color.white), shape = CircleShape
-                    ),
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(45.dp)
-                        .background(colorResource(id = R.color.indicator_thumb_yellow), CircleShape)
-                        .padding(2.dp), contentAlignment = Alignment.Center
-                ) {
-                    TextView.Regular(
-                        text = point.toString(),
-                        textAlign = TextAlign.Center,
-                        fontSize = 14.sp,
-                        color = R.color.white
-                    )
-                }
-            }
-            TextView.Bold(
-                text = LocalContext.current.getString(
-                    R.string.prefix_rp_with_amount, StringUtil.getFormattedAmountInDouble(300000.0)
-                ),
-                textAlign = TextAlign.End,
-                fontSize = 14.sp,
-                color = R.color.neutral_grey,
-            )
-        }
+public fun DangerCardComponent(item: DangerCardItem) {
+    Card(
+        modifier = Modifier.padding(top = 30.dp, start = 20.dp, end = 20.dp),
+        shape = RoundedCornerShape(10.dp),
+        backgroundColor = colorResource(id = R.color.danger_card_background),
+        elevation = 0.dp
+    ) {
+        TextView.Italic(
+            modifier = Modifier.padding(15.dp),
+            text = item.message,
+            color = R.color.danger_card_text_color
+        )
     }
 }

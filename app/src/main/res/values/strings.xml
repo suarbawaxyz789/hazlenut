@@ -15,7 +15,7 @@
         The amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.
     </string>
     <string name="daily_bonus_delivery_instruction">
-        The amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.
+        For each successful parcel you\'ll earn bonus points. To earn your daily bonus you have to reach certain points.\n1• 120 points = get total bonus of Rp15,000\n1• 300 points = get total bonus of Rp30,000
     </string>
     <string name="driver_name">Driver Name</string>
     <string name="region_greater_jakarta">Greater Jakarta A</string>
@@ -31,4 +31,12 @@
     <string name="daily_bonus">Daily Bonus</string>
     <string name="bulky_marketplace">Bulky | marketplace</string>
     <string name="bulky_non_mp">Bulky | non-MP</string>
+    <string name="montly_bonus">Monthly Bonus</string>
+    <string name="montly_bonus_description">To earn your monthly bonus you have to deliver a minimum number of parcels while also maintain a high success rate of your deliveries.</string>
+    <string name="montly_deliveries">Monthly deliveries</string>
+    <string name="success_rate">Success rate</string>
+    <string name="none">None</string>
+    <string name="customer_complaints">Customer complaints</string>
+    <string name="fraudenlent_behaviour">Fraudulent behaviour</string>
+    <string name="montly_danger_message_not_be_eligible_for_a_bonus">You will not be eligible for a bonus in a month, if there are any customer complaints or signs of fraudulent behaviour.</string>
 </resources>

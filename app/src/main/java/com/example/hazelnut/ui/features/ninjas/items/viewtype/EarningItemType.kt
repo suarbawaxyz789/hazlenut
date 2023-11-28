@@ -14,6 +14,8 @@ enum class EarningItemType {
     INSTRUCTION_HEADER,
     POINT_BY_PARCEL_TYPE_CARD,
     MESSAGE_CARD_ITEM,
+    MONTHLY_BONUS_CARD,
+    DANGER_CARD,
     CATEGORY_HEADER;
 
     companion object {

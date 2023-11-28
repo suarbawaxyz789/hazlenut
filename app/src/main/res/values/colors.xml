@@ -282,4 +282,6 @@
     <color name="banner_info_background_color">#d1ebff</color>
     <color name="edit_sequence_banner_warning_background_color">#ffe2c7</color>
     <color name="banner_info_divider_color">#2aa1db</color>
+    <color name="danger_card_background">#fff0f2</color>
+    <color name="danger_card_text_color">#9a191f</color>
 </resources>

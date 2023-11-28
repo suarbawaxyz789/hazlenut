@@ -119,3 +119,48 @@ fun PreviewCustomLinearProgress() {
         )
     }
 }
+
+
+@Composable
+fun PointCircleLarge(
+    modifier: Modifier = Modifier,
+    point: Int,
+) {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Box(
+                contentAlignment = Alignment.CenterEnd,
+                modifier = Modifier
+                    .size(47.dp)
+                    .border(
+                        width = 2.dp, color = colorResource(id = R.color.white), shape = CircleShape
+                    ),
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(45.dp)
+                        .background(colorResource(id = R.color.indicator_thumb_yellow), CircleShape)
+                        .padding(2.dp), contentAlignment = Alignment.Center
+                ) {
+                    TextView.Regular(
+                        text = point.toString(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        color = R.color.white
+                    )
+                }
+            }
+            TextView.Bold(
+                text = LocalContext.current.getString(
+                    R.string.prefix_rp_with_amount, StringUtil.getFormattedAmountInDouble(300000.0)
+                ),
+                textAlign = TextAlign.End,
+                fontSize = 14.sp,
+                color = R.color.neutral_grey,
+            )
+        }
+    }
+}
