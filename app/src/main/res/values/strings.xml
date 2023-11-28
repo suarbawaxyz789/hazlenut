@@ -5,4 +5,30 @@
     <string name="suffix_points">%s Points</string>
     <string name="youCanSeeYourDailyBonusTarges">You can see your daily bonus targets and progress under the Today section on the \'My Earnings\' page.</string>
     <string name="theAmoutOfPointsYouWillEarnDependsOnTheSize">The amount of points you\'ll earn depends on the size of the parcels.</string>
+
+    <string name="earning_per_parcel_title">Earning per parcel</string>
+    <string name="earning_per_delivery_title">Earning Per Delivery</string>
+    <string name="parcel_instruction">
+        The amount you\'ll receive for delivering a parcel depends on the size of the parcel.\n1. Marketplace: Lazada, Tiktok, Shopee, Tokopedia, Bukalapak, Blibli\n2. Non-MP: Soscom, KPP, BPJS, Bank, Mitra
+    </string>
+    <string name="delivery_instruction">
+        The amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.
+    </string>
+    <string name="daily_bonus_delivery_instruction">
+        The amount you’ll receive for delivering a parcel depends on the size of the parcel, who is sending the parcel and in what region you’re delivering it.
+    </string>
+    <string name="driver_name">Driver Name</string>
+    <string name="region_greater_jakarta">Greater Jakarta A</string>
+    <string name="header_delivery">DELIVERY</string>
+    <string name="header_pickup">PICKUP</string>
+    <string name="regular_non_mp">Regular | non-MP</string>
+    <string name="regular_marketplace">Regular | marketplace</string>
+    <string name="regular_pickup">Regular | pickup</string>
+    <string name="bulky_pickup">Bulky | pickup</string>
+    <string name="small_medium">Small &amp; Medium</string>
+    <string name="large_x_large">Large &amp; X-Large</string>
+    <string name="parcel_rts">RTS</string>
+    <string name="daily_bonus">Daily Bonus</string>
+    <string name="bulky_marketplace">Bulky | marketplace</string>
+    <string name="bulky_non_mp">Bulky | non-MP</string>
 </resources>
