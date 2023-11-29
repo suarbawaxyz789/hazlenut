@@ -39,4 +39,10 @@
     <string name="customer_complaints">Customer complaints</string>
     <string name="fraudenlent_behaviour">Fraudulent behaviour</string>
     <string name="montly_danger_message_not_be_eligible_for_a_bonus">You will not be eligible for a bonus in a month, if there are any customer complaints or signs of fraudulent behaviour.</string>
+    <string name="invalid_poda">Invalid PODA</string>
+    <string name="invalid_poda_description">Proof of delivery attempt uploaded by rider and after investigation, if it\'s legally declared not in accordance with applicable regulations, rider will be subject to a fine.</string>
+    <string name="lost_and_damage">Lost and Damage</string>
+    <string name="lost_and_damage_description">Parcel are lost or damaged and after investigation, if it\'s legally declared that parcel was lost or damaged because of rider in accordance with applicable regulations, rider will be subject to a fine.</string>
+    <string name="others">Others</string>
+    <string name="others_description">Other deductions, such as rider committing COD fund fraud, etc</string>
 </resources>

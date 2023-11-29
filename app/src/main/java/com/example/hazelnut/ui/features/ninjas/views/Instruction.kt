@@ -3,7 +3,6 @@ package com.example.hazelnut.ui.features.ninjas.views
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -183,13 +182,13 @@ private fun MessageCardItem(
 }
 
 @Composable
-fun DisplayImage(imageResId: Int) {
+fun DisplayImage(imageResId: Int, modifier: Modifier = Modifier) {
     val painter: Painter = painterResource(id = imageResId)
 
     Image(
         painter = painter,
         contentDescription = null, // Provide a description for accessibility
-        modifier = Modifier.wrapContentWidth(),
+        modifier = modifier.wrapContentWidth(),
         contentScale = ContentScale.Fit // Adjust this based on how you want the image to fit
     )
 }
@@ -361,14 +360,14 @@ internal fun ExpandableListPreview() {
 fun ExpandableListWithHeader() {
     val items = listOf(
         ExpandableItem(
-            "Header 1",
-            "Proof of delivery attempt uploaded by rider and after investigation, if it's legally declared not in accordance with applicable regulations, rider will be subject to a fine."
+            LocalContext.current.getString(R.string.invalid_poda),
+            LocalContext.current.getString(R.string.invalid_poda_description)
         ),
         ExpandableItem(
-            "Header 2",
-            "Parcel are lost or damaged and after investigation, if it's legally declared that parcel was lost or damaged because of rider in accordance with applicable regulations, rider will be subject to a fine."
+            LocalContext.current.getString(R.string.lost_and_damage),
+            LocalContext.current.getString(R.string.lost_and_damage_description)
         ),
-        ExpandableItem("Header 3", "Other deductions, such as rider committing COD fund fraud, etc")
+        ExpandableItem(LocalContext.current.getString(R.string.others), LocalContext.current.getString(R.string.others_description))
     )
 
     LazyColumn {
@@ -386,32 +385,26 @@ fun ExpandableItemView(expandableItem: ExpandableItem) {
 
     Column {
         Column {
-            Common.Divider(
-                modifier = Modifier.padding(),
-            )
+            Common.Divider()
             Row(
-                verticalAlignment = Alignment.CenterVertically, // Vertically center contents
-                modifier = Modifier.fillMaxWidth()
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded }
             ) {
                 TextView.Bold(
                     text = expandableItem.header,
-                    color = R.color.neutral_grey,
                     modifier = Modifier
-                        .clickable { expanded = !expanded }
                         .padding(15.dp),
                 )
-                Column(horizontalAlignment = Alignment.End) {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        DisplayImage(
-                            if (expanded) R.drawable.icon_m_angle_up else R.drawable.icon_m_angle_down
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.weight(1f))
+                DisplayImage(
+                    if (expanded) R.drawable.icon_m_angle_up else R.drawable.icon_m_angle_down,
+                    modifier = Modifier.padding(end = 20.dp)
+                )
 
             }
-            Common.Divider(
-                modifier = Modifier.padding()
-            )
+            Common.Divider()
         }
 
         if (expanded) {
