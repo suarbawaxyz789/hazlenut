@@ -1,7 +1,6 @@
 package com.example.hazelnut.ui.features.ninjas.views
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,13 +26,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.items.entities.BonusCalculationMessageCardItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DangerCardItem
+import com.example.hazelnut.ui.features.ninjas.items.entities.DeductionExpandableListItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.InstructionHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ListItem
@@ -61,6 +60,10 @@ fun EarningListComponent(data: List<ListItem>) {
 
                 EarningItemType.INSTRUCTION_HEADER -> {
                     InstructionHeader(item as InstructionHeaderItem)
+                }
+
+                EarningItemType.DEDUCTION_EXPANDABLE_LIST -> {
+                    ExpandableItem(item as DeductionExpandableListItem)
                 }
 
                 EarningItemType.INSTRUCTION_DRIVER_INFORMATION -> {
@@ -106,10 +109,12 @@ fun EarningListComponent(data: List<ListItem>) {
 @Composable
 fun MonthlyBonusCard(monthlyBonusItem: MonthlyBonusItem) {
     Column(
-        modifier = Modifier.padding(top = 14.dp, start = 20.dp, end = 20.dp)
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp)
     ) {
+        Common.Divider()
         Row(
-            modifier = Modifier, verticalAlignment = Alignment.Top
+            modifier = Modifier.padding(top = 14.dp, bottom = 10.dp),
+            verticalAlignment = Alignment.Top
         ) {
             Column(
                 modifier = Modifier.weight(1f, true)
@@ -126,9 +131,7 @@ fun MonthlyBonusCard(monthlyBonusItem: MonthlyBonusItem) {
                 )
             }
         }
-        Common.Divider(
-            modifier = Modifier.padding(top = 10.dp)
-        )
+        Common.Divider()
     }
 }
 
@@ -222,7 +225,7 @@ private fun CategoryHeaderItem(
     categoryHeaderItem: CategoryHeaderItem,
 ) {
     Column(
-        modifier = Modifier.padding(top = 30.dp, start = 20.dp, end = 20.dp)
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp)
     ) {
         TextView.Bold(
             text = categoryHeaderItem.title, fontSize = 14.sp, color = R.color.gray8f
@@ -267,7 +270,7 @@ fun InstructionHeader(
 ) {
     Column(
         modifier = Modifier
-            .padding(start = 20.dp, end = 20.dp, top = 30.dp)
+            .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 30.dp)
             .fillMaxWidth(),
     ) {
         TextView.Bold(
@@ -337,53 +340,11 @@ public fun DangerCardComponent(item: DangerCardItem) {
     }
 }
 
-@Preview
 @Composable
-internal fun ExpandableListPreview() {
-    Row(
-        modifier = Modifier
-            .background(color = colorResource(id = R.color.white))
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            BottomSheetHeader()
-            ExpandableListWithHeader()
-        }
-    }
-}
-
-
-@Composable
-fun ExpandableListWithHeader() {
-    val items = listOf(
-        ExpandableItem(
-            LocalContext.current.getString(R.string.invalid_poda),
-            LocalContext.current.getString(R.string.invalid_poda_description)
-        ),
-        ExpandableItem(
-            LocalContext.current.getString(R.string.lost_and_damage),
-            LocalContext.current.getString(R.string.lost_and_damage_description)
-        ),
-        ExpandableItem(LocalContext.current.getString(R.string.others), LocalContext.current.getString(R.string.others_description))
-    )
-
-    LazyColumn {
-        items(items) { expandableItem ->
-            ExpandableItemView(expandableItem)
-        }
-    }
-}
-
-data class ExpandableItem(val header: String, val item: String)
-
-@Composable
-fun ExpandableItemView(expandableItem: ExpandableItem) {
+fun ExpandableItem(deductionItem: DeductionExpandableListItem) {
     var expanded by remember { mutableStateOf(false) }
 
-    Column {
+    Column(modifier = Modifier.padding(start = 20.dp, end = 20.dp)) {
         Column {
             Common.Divider()
             Row(
@@ -393,9 +354,9 @@ fun ExpandableItemView(expandableItem: ExpandableItem) {
                     .clickable { expanded = !expanded }
             ) {
                 TextView.Bold(
-                    text = expandableItem.header,
+                    text = deductionItem.title,
                     modifier = Modifier
-                        .padding(15.dp),
+                        .padding(top = 11.dp, bottom = 11.dp),
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 DisplayImage(
@@ -410,8 +371,8 @@ fun ExpandableItemView(expandableItem: ExpandableItem) {
         if (expanded) {
             Column {
                 TextView.Regular(
-                    modifier = Modifier.padding(15.dp),
-                    text = expandableItem.item,
+                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
+                    text = deductionItem.description,
                     color = R.color.gray8f
                 )
             }

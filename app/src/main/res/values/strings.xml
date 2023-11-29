@@ -45,4 +45,6 @@
     <string name="lost_and_damage_description">Parcel are lost or damaged and after investigation, if it\'s legally declared that parcel was lost or damaged because of rider in accordance with applicable regulations, rider will be subject to a fine.</string>
     <string name="others">Others</string>
     <string name="others_description">Other deductions, such as rider committing COD fund fraud, etc</string>
+    <string name="deduction">Deduction</string>
+    <string name="deduction_description">The amount you\'ll receive might be deducted for the following reason:</string>
 </resources>

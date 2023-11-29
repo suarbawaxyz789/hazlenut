@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.ninjas.items.entities.CategoryHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.DriverInformationItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.InstructionHeaderItem
 import com.example.hazelnut.ui.features.ninjas.items.entities.ParcelTypeCardItem
@@ -29,6 +30,9 @@ internal fun EarningPerParcelTestPreview() {
         InstructionHeaderItem(
             title = LocalContext.current.getString(R.string.earning_per_delivery_title),
             instruction = LocalContext.current.getString(R.string.delivery_instruction),
+        ),
+        CategoryHeaderItem(
+            title = LocalContext.current.getString(R.string.header_delivery),
         ),
         ParcelTypeCardItem(
             parcelCategory = LocalContext.current.getString(R.string.regular_non_mp),
@@ -65,34 +69,6 @@ internal fun EarningPerParcelTestPreview() {
             totalParcelDelivered = 0,
             totalParcelIncome = 1050.toDouble()
         ),
-//        InstructionHeaderItem(
-//            title = LocalContext.current.getString(R.string.daily_bonus),
-//            instruction = LocalContext.current.getString(R.string.daily_bonus_delivery_instruction),
-//        ),
-//        MessageCardItem(
-//            text = LocalContext.current.getString(R.string.theAmoutOfPointsYouWillEarnDependsOnTheSize)
-//        ),
-//        CategoryHeaderItem(
-//            title = LocalContext.current.getString(R.string.header_delivery),
-//        ),
-//        PointByParcelItem(
-//            parcelType = LocalContext.current.getString(R.string.regular_non_mp),
-//            point = 1.4,
-//        ),
-//        CategoryHeaderItem(
-//            title = "PICKUP",
-//        ),
-//        PointByParcelItem(
-//            parcelType = LocalContext.current.getString(R.string.regular_non_mp),
-//            point = 1.4,
-//        ),
-//        PointByParcelItem(
-//            parcelType = "Bulky | pickup",
-//            point = 0.75,
-//        ),
-//        BonusCalculationMessageCardItem(
-//            message = R.string.youCanSeeYourDailyBonusTarges
-//        ),
     )
     Row(
         modifier = Modifier
@@ -108,62 +84,3 @@ internal fun EarningPerParcelTestPreview() {
         }
     }
 }
-
-
-//
-////@VisibleForTesting
-////@Preview
-//@Composable
-//internal fun EarningPerParcelTestPreview() {
-//
-//    var itemList = listOf(
-//        DriverInformationItem(
-//            driverName = "Driver Name", region = LocalContext.current.getString(R.string.region_greater_jakarta
-//            ),
-//        ), InstructionHeaderItem(
-//            title = LocalContext.current.getString(R.string.earning_per_parcel_title),
-//            instruction = LocalContext.current.getString(R.string.parcel_instruction),
-//        ), CategoryHeaderItem(
-//            title = LocalContext.current.getString(R.string.header_delivery),
-//        ), ParcelTypeCardItem(
-//            parcelCategory = LocalContext.current.getString(R.string.regular_non_mp),
-//            parcelSize = LocalContext.current.getString(R.string.small_medium),
-//            parcelPrice = 0.toDouble(),
-//            totalParcelDelivered = 0,
-//            totalParcelIncome = 6000.toDouble()
-//        ), ParcelTypeCardItem(
-//            parcelCategory = LocalContext.current.getString(R.string.regular_marketplace),
-//            parcelSize = LocalContext.current.getString(R.string.small_medium),
-//            parcelPrice = 0.toDouble(),
-//            totalParcelDelivered = 0,
-//            totalParcelIncome = 4800.toDouble()
-//        ), CategoryHeaderItem(
-//            title = "PICKUP",
-//        ), ParcelTypeCardItem(
-//            parcelCategory = "Regular | pickup",
-//            parcelSize = LocalContext.current.getString(R.string.small_medium),
-//            parcelPrice = 0.toDouble(),
-//            totalParcelDelivered = 0,
-//            totalParcelIncome = 6000.toDouble()
-//        ), ParcelTypeCardItem(
-//            parcelCategory = "Bulky | pickup",
-//            parcelSize = LocalContext.current.getString(R.string.small_medium),
-//            parcelPrice = 0.toDouble(),
-//            totalParcelDelivered = 0,
-//            totalParcelIncome = 8200.toDouble()
-//        )
-//    )
-//    Row(
-//        modifier = Modifier
-//            .background(color = colorResource(id = R.color.white))
-//            .fillMaxWidth(),
-//        verticalAlignment = Alignment.CenterVertically,
-//    ) {
-//        Column(
-//            modifier = Modifier.fillMaxWidth()
-//        ) {
-//            BottomSheetHeader()
-//            EarningListComponent(itemList)
-//        }
-//    }
-//}
