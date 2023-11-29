@@ -1,9 +1,12 @@
 package com.example.hazelnut.ui.features.ninjas.views
 
-import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -21,6 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hazelnut.R
@@ -327,5 +335,93 @@ public fun DangerCardComponent(item: DangerCardItem) {
             text = item.message,
             color = R.color.danger_card_text_color
         )
+    }
+}
+
+@Preview
+@Composable
+internal fun ExpandableListPreview() {
+    Row(
+        modifier = Modifier
+            .background(color = colorResource(id = R.color.white))
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            BottomSheetHeader()
+            ExpandableListWithHeader()
+        }
+    }
+}
+
+
+@Composable
+fun ExpandableListWithHeader() {
+    val items = listOf(
+        ExpandableItem(
+            "Header 1",
+            "Proof of delivery attempt uploaded by rider and after investigation, if it's legally declared not in accordance with applicable regulations, rider will be subject to a fine."
+        ),
+        ExpandableItem(
+            "Header 2",
+            "Parcel are lost or damaged and after investigation, if it's legally declared that parcel was lost or damaged because of rider in accordance with applicable regulations, rider will be subject to a fine."
+        ),
+        ExpandableItem("Header 3", "Other deductions, such as rider committing COD fund fraud, etc")
+    )
+
+    LazyColumn {
+        items(items) { expandableItem ->
+            ExpandableItemView(expandableItem)
+        }
+    }
+}
+
+data class ExpandableItem(val header: String, val item: String)
+
+@Composable
+fun ExpandableItemView(expandableItem: ExpandableItem) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column {
+        Column {
+            Common.Divider(
+                modifier = Modifier.padding(),
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically, // Vertically center contents
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TextView.Bold(
+                    text = expandableItem.header,
+                    color = R.color.neutral_grey,
+                    modifier = Modifier
+                        .clickable { expanded = !expanded }
+                        .padding(15.dp),
+                )
+                Column(horizontalAlignment = Alignment.End) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        DisplayImage(
+                            if (expanded) R.drawable.icon_m_angle_up else R.drawable.icon_m_angle_down
+                        )
+                    }
+                }
+
+            }
+            Common.Divider(
+                modifier = Modifier.padding()
+            )
+        }
+
+        if (expanded) {
+            Column {
+                TextView.Regular(
+                    modifier = Modifier.padding(15.dp),
+                    text = expandableItem.item,
+                    color = R.color.gray8f
+                )
+            }
+        }
     }
 }
