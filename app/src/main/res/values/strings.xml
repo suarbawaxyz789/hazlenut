@@ -49,4 +49,5 @@
     <string name="deduction_description">The amount you\'ll receive might be deducted for the following reason:</string>
     <string name="remove_parcel_dialog_title">Remove parcel not in waypoint</string>
     <string name="remove_parcel_dialog_decs">This parcel is not in the selected waypoint. Please set aside.</string>
+    <string name="dialog_tid">TID %s</string>
 </resources>
