@@ -1,19 +1,14 @@
 package com.example.hazelnut.ui.features.nijaswaypointdetail.components
 
-import android.graphics.Outline
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -62,7 +57,6 @@ fun DangerButtonPreview() {
     )
 }
 
-/// TODO add style, use primary as default.
 @Composable
 fun RoundedButton(
     modifier: Modifier = Modifier,
@@ -107,12 +101,15 @@ fun RoundedButton(
         shape = RoundedCornerShape(cornerRadius),
         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = background)),
         elevation = ButtonDefaults.elevation(defaultElevation = elevation),
-        border = BorderStroke(1.dp, colorResource(id = strokeColor))
+        border = BorderStroke(1.dp, colorResource(id = strokeColor)),
+        modifier = modifier.fillMaxWidth()
     ) {
         TextView.Regular(
-            text = text, color = textColor, modifier = Modifier.padding(
-                horizontal = 16.dp
-            )
+            text = text, color = textColor, modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                )
+                .padding(top = 3.dp, bottom = 5.dp)
         )
     }
 }

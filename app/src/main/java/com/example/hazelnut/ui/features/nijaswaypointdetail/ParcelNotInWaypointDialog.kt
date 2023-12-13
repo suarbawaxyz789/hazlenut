@@ -32,12 +32,12 @@ fun ParcelNotInWaypointDialog(
                 )
             }
         },
-        buttonText = "Scan Parcel before proces",
+        primaryButtonText = "Scan Parcel before proces",
         isVisible = isVisible,
         onDismiss = {
             onDismiss?.invoke()
         },
-        onConfirmButtonClick = {
+        onPrimaryButtonClick = {
             onConfirmButtonClick?.invoke()
         }
     )

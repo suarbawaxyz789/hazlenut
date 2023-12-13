@@ -1,5 +1,6 @@
 package com.example.hazelnut.ui.features.nijaswaypointdetail.components
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -21,23 +22,46 @@ import androidx.compose.ui.unit.dp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.theme.ninjas.TextView
 
+@VisibleForTesting
+@Composable
+@Preview
+fun DialogLeaveWithExistingScansPreview() {
+    BottomSheet(
+        dialogTitle = stringResource(id = R.string.leave_with_existing_scans),
+        /// this should ignored. not sure this good practice or not.
+        desc = stringResource(id = R.string.you_have_registered_parcels_in_this_waypoint),
+        primaryButtonText = stringResource(id = R.string.back_to_waypoint),
+
+        secondaryButtonText = stringResource(id = R.string.exit_to_route_list),
+        onSecondaryButtonClick = {
+
+        },
+        onPrimaryButtonClick = {
+
+        },
+        isVisible = true,
+    )
+}
+
+@VisibleForTesting
 @Composable
 @Preview
 fun DialogStandardPreview() {
     BottomSheet(
         dialogTitle = stringResource(id = R.string.remove_parcel_dialog_title),
         desc = stringResource(id = R.string.remove_parcel_dialog_decs),
-        buttonText = "Scan Parcel before proces",
+        primaryButtonText = "Scan Parcel before proces",
         isVisible = true,
     )
 }
 
+@VisibleForTesting
 @Composable
 @Preview
 fun DialogWithCustomContentPreview() {
     BottomSheet(
         dialogTitle = stringResource(id = R.string.remove_parcel_dialog_title),
-        /// this should ignored.
+        /// this should ignored. not sure this good practice or not.
         desc = stringResource(id = R.string.remove_parcel_dialog_decs),
         customContent = {
             Column {
@@ -51,28 +75,34 @@ fun DialogWithCustomContentPreview() {
                 )
             }
         },
-        buttonText = "Scan Parcel before proces",
+        primaryButtonText = "Scan Parcel before proces",
         isVisible = true,
     )
 }
+
 
 @Composable
 fun BottomSheet(
     dialogTitle: String,
     desc: String? = null,
-    buttonText: String,
     isVisible: Boolean = true,
     onDismiss: (() -> Unit)? = null,
-    onConfirmButtonClick: (() -> Unit)? = null,
-    /// use custom content, will ignore desc. but keep tittle
-    customContent: @Composable (() -> Unit)? = null
+    /// use custom content, will ignore desc. but keep title and buttons
+    customContent: @Composable (() -> Unit)? = null,
+    primaryButtonText: String,
+    primaryButtonStyle: ButtonStyle = ButtonStyle.PRIMARY,
+    onPrimaryButtonClick: (() -> Unit)? = null,
+    /// secondary button will shown if callback and string not empty or null.
+    secondaryButtonText: String = "",
+    secondaryButtonStyle: ButtonStyle = ButtonStyle.SECONDARY,
+    onSecondaryButtonClick: (() -> Unit)? = null,
 ) {
     if (isVisible) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = Color.Black.copy(alpha = 0.5f) // Semi-transparent black
+                    color = Color.Black.copy(alpha = 0.5f)
                 )
                 .clickable(onClick = {
                     onDismiss?.invoke()
@@ -88,20 +118,41 @@ fun BottomSheet(
                     modifier = Modifier
                         .background(Color.White)
                         .padding(16.dp)
+                        .fillMaxWidth()
                 ) {
                     TextView.Bold(text = dialogTitle)
                     Spacer(modifier = Modifier.height(16.dp))
                     if (customContent == null) {
                         if (desc != null) {
-                            TextView.Regular(text = desc)
+                            TextView.Regular(
+                                text = desc,
+                                modifier = Modifier.padding(bottom = 10.dp)
+                            )
                         }
                     } else {
                         customContent()
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    RoundedButton(text = buttonText, onClick = {
-                        onConfirmButtonClick?.invoke()
-                    }, modifier = Modifier.fillMaxWidth())
+                    if (secondaryButtonText.isNotEmpty() && onSecondaryButtonClick != null) {
+                        RoundedButton(
+                            text = secondaryButtonText,
+                            onClick = {
+                                onSecondaryButtonClick.invoke()
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 10.dp),
+                            buttonStyle = secondaryButtonStyle,
+                        )
+                    }
+                    RoundedButton(
+                        text = primaryButtonText,
+                        onClick = {
+                            onPrimaryButtonClick?.invoke()
+                        },
+                        modifier = Modifier.fillMaxWidth(), buttonStyle = primaryButtonStyle,
+                    )
+
                 }
             }
         }

@@ -50,4 +50,8 @@
     <string name="remove_parcel_dialog_title">Remove parcel not in waypoint</string>
     <string name="remove_parcel_dialog_decs">This parcel is not in the selected waypoint. Please set aside.</string>
     <string name="dialog_tid">TID %s</string>
+    <string name="leave_with_existing_scans">Leave with existing scans?</string>
+    <string name="you_have_registered_parcels_in_this_waypoint">You have scans registered in this waypoint. If you exit, you need to scan the parcels again before attempt.</string>
+    <string name="back_to_waypoint">Back to waypoint</string>
+    <string name="exit_to_route_list">Exit to route list</string>
 </resources>
