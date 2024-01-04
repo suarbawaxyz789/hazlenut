@@ -54,4 +54,7 @@
     <string name="you_have_registered_parcels_in_this_waypoint">You have scans registered in this waypoint. If you exit, you need to scan the parcels again before attempt.</string>
     <string name="back_to_waypoint">Back to waypoint</string>
     <string name="exit_to_route_list">Exit to route list</string>
+    <string name="use_past_sequence_dialog_title">How do you want to sequence</string>
+    <string name="use_past_sequence">Use past sequence</string>
+    <string name="create_new_sequence">Create new sequence</string>
 </resources>

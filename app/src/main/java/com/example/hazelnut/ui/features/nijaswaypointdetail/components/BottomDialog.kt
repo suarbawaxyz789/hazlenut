@@ -22,6 +22,26 @@ import androidx.compose.ui.unit.dp
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.theme.ninjas.TextView
 
+//@VisibleForTesting
+//@Composable
+//@Preview
+//fun DialogConfirmSequenceSuggestionPreview() {
+//    BottomSheet(
+//        dialogTitle = stringResource(id = R.string.use_past_sequence_dialog_title),
+//        primaryButtonStyle = ButtonStyle.SECONDARY,
+//        primaryButtonText = stringResource(id = R.string.create_new_sequence),
+//        onPrimaryButtonClick = {
+//
+//        },
+//        secondaryButtonText = stringResource(id = R.string.use_past_sequence),
+//        secondaryButtonStyle = ButtonStyle.PRIMARY,
+//        onSecondaryButtonClick = {
+//
+//        },
+//        isVisible = true,
+//    )
+//}
+
 @VisibleForTesting
 @Composable
 @Preview
@@ -128,11 +148,13 @@ fun BottomSheet(
                                 text = desc,
                                 modifier = Modifier.padding(bottom = 10.dp)
                             )
+                            Spacer(modifier = Modifier.height(16.dp))
                         }
                     } else {
                         customContent()
+
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
                     if (secondaryButtonText.isNotEmpty() && onSecondaryButtonClick != null) {
                         RoundedButton(
                             text = secondaryButtonText,
