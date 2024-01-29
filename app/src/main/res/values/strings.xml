@@ -57,4 +57,7 @@
     <string name="use_past_sequence_dialog_title">How do you want to sequence</string>
     <string name="use_past_sequence">Use past sequence</string>
     <string name="create_new_sequence">Create new sequence</string>
+    <string name="tag_delivery">Delivery</string>
+    <string name="tag_rpu">RPU</string>
+    <string name="tag_prior">PRIOR</string>
 </resources>

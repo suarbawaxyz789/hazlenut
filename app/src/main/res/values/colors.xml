@@ -284,4 +284,7 @@
     <color name="banner_info_divider_color">#2aa1db</color>
     <color name="danger_card_background">#fff0f2</color>
     <color name="danger_card_text_color">#9a191f</color>
+    <color name="rpu_tag_border">#5d0ccf</color>
+    <color name="rpu_tag_background">#f6f0ff</color>
+    <color name="prior_tag_background">#a34dd2</color>
 </resources>
