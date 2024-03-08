@@ -58,7 +58,11 @@ fun testPreview() {
                     ),
                     BarValue(
                         colors.gray3,
-                        progress = 0.2f, "2 failed waypoint",
+                        progress = 0.2f, "short 1",
+                    ),
+                    BarValue(
+                        colors.blue3,
+                        progress = 0.3f, "short",
                     ),
                 )
             )
