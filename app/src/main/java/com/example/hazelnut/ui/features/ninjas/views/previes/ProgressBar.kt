@@ -1,12 +1,14 @@
 package com.example.hazelnut.ui.features.ninjas.views.previes
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.progressSemantics
@@ -25,7 +27,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 
@@ -39,31 +40,30 @@ fun testPreview() {
         Spacer(modifier = Modifier.height(10.dp))
         ProgressBar(progress = 1F)
         Spacer(modifier = Modifier.height(10.dp))
-        MultiColorProgressBar(
-            progresses = arrayListOf(
-                BarValue(
-                    colors.red3,
-                    progress = 0.1f,
-                    "Label 1",
-                ),
-                BarValue(
-                    colors.green3,
-                    progress = 0.1f, "Label 2",
-                ),
-                BarValue(
-                    colors.orange3,
-                    progress = 0.1f, "Label 3",
-                ),
-                BarValue(
-                    colors.gray3,
-                    progress = 0.2f, "Label 4",
-                ),
-                BarValue(
-                    colors.blue3,
-                    progress = 0.3f, "Label 5",
+        Column(modifier = Modifier.width(300.dp).padding(horizontal = 10.dp)) {
+            MultiColorProgressBar(
+                progresses = arrayListOf(
+                    BarValue(
+                        colors.red3,
+                        progress = 0.1f,
+                        "15 successful waypoints",
+                    ),
+                    BarValue(
+                        colors.green3,
+                        progress = 0.1f, "54 pending waypoints",
+                    ),
+                    BarValue(
+                        colors.orange3,
+                        progress = 0.1f, "1 partial waypoints",
+                    ),
+                    BarValue(
+                        colors.gray3,
+                        progress = 0.2f, "2 failed waypoint",
+                    ),
                 )
             )
-        )
+        }
+
     }
 }
 
@@ -107,6 +107,7 @@ fun Legend(barValue: BarValue) {
 private val LinearIndicatorWidth = 240.dp
 private val LinearIndicatorHeight = ProgressIndicatorDefaults.StrokeWidth
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modifier) {
     Column {
@@ -121,7 +122,7 @@ fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modif
             progresses = progresses,
             backgroundColor = colors.gray7,
         )
-        Row {
+        FlowRow {
             progresses.map { Legend(barValue = it) }
         }
     }
