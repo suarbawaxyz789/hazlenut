@@ -45,11 +45,47 @@ fun MyApp() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it),
+                    .padding(it)
+                    .background(color = colors.gray9),
                 horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
                 verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
             ) {
-                Text(text = "Hello, Jetpack Compose!")
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+                Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+                Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+                Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+                Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+                Spacer (modifier = Modifier.height(spacings.spacingXxs))
+                WaypointCard(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    numOfDeliveryParcel = 11,
+                    numOfWaypoints = 2, numOfPickupParcel = 10,
+                )
+
             }
         }
     )

@@ -123,7 +123,6 @@ fun WpCard(
                     if (isShowDelivery) {
                         Box(modifier = Modifier.padding(end = 10.dp)) {
                             JobLabel(
-                                text = stringResource(id = R.string.tag_delivery),
                                 tagStyle = JobLabelStyle.DELIVERY
                             )
                         }
@@ -131,7 +130,6 @@ fun WpCard(
                     if (isShowRpu) {
                         Box(modifier = Modifier.padding(end = 10.dp)) {
                             JobLabel(
-                                text = stringResource(id = R.string.tag_rpu),
                                 tagStyle = JobLabelStyle.RPU
                             )
                         }
@@ -139,7 +137,6 @@ fun WpCard(
                     if (isShowPrior) {
                         Box(modifier = Modifier.padding(end = 10.dp)) {
                             JobLabel(
-                                text = stringResource(id = R.string.tag_prior),
                                 tagStyle = JobLabelStyle.PRIOR
                             )
                         }

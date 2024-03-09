@@ -32,47 +32,38 @@ import com.example.hazelnut.R
 fun JobLabel() {
     Column {
         JobLabel(
-            text = stringResource(id = R.string.tag_delivery),
             tagStyle = JobLabelStyle.DELIVERY,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_rpu),
             tagStyle = JobLabelStyle.RPU,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_prior),
             tagStyle = JobLabelStyle.PRIOR,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_cod),
             tagStyle = JobLabelStyle.COD,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_confirmed),
             tagStyle = JobLabelStyle.CONFIRMED,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_doorstep),
             tagStyle = JobLabelStyle.DOOR_STEP,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_id_check),
             tagStyle = JobLabelStyle.ID_CHECK,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_open_box),
             tagStyle = JobLabelStyle.OPEN_BOX,
         )
         Spacer(modifier = Modifier.height(8.dp))
         JobLabel(
-            text = stringResource(id = R.string.tag_open_box),
             tagStyle = JobLabelStyle.OPEN_BOX,
             enable = false,
         )
@@ -82,11 +73,21 @@ fun JobLabel() {
 @Composable
 fun JobLabel(
     modifier: Modifier = Modifier,
-    text: String,
     cornerRadius: Dp = AkiraTheme.spacings.spacingXxxs,
     tagStyle: JobLabelStyle = JobLabelStyle.DELIVERY,
     enable: Boolean = true,
 ) {
+    val tagName = when (tagStyle) {
+        JobLabelStyle.DELIVERY -> stringResource(id = R.string.tag_delivery)
+        JobLabelStyle.RPU -> stringResource(id = R.string.tag_rpu)
+        JobLabelStyle.PRIOR -> stringResource(id = R.string.tag_prior)
+        JobLabelStyle.COD -> stringResource(id = R.string.tag_cod)
+        JobLabelStyle.CONFIRMED -> stringResource(id = R.string.tag_confirmed)
+        JobLabelStyle.DOOR_STEP -> stringResource(id = R.string.tag_doorstep)
+        JobLabelStyle.ID_CHECK -> stringResource(id = R.string.tag_id_check)
+        JobLabelStyle.OPEN_BOX ->stringResource(id = R.string.tag_open_box)
+    }
+
     val backgroundColor: Color =
         when (tagStyle) {
             JobLabelStyle.COD -> AkiraTheme.colors.red3
@@ -179,7 +180,7 @@ fun JobLabel(
                     horizontal = AkiraTheme.spacings.spacingXxs,
                 )
                 .align(Alignment.Center),
-            text = text,
+            text = tagName,
             style = textStyle
         )
     }
