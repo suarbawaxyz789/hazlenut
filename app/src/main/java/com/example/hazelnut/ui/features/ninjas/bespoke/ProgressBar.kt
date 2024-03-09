@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,8 +28,9 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 
 @Preview
 @Composable
@@ -40,7 +42,9 @@ fun testPreview() {
         Spacer(modifier = Modifier.height(10.dp))
         ProgressBar(progress = 1F)
         Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier.width(300.dp).padding(horizontal = 10.dp)) {
+        Column(modifier = Modifier
+            .width(300.dp)
+            .padding(horizontal = 10.dp)) {
             MultiColorProgressBar(
                 progresses = arrayListOf(
                     BarValue(
@@ -77,10 +81,10 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
         modifier = modifier
             .background(
                 colors.blue1,
-                shape = RoundedCornerShape(AkiraTheme.spacings.spacingXxs)
+                shape = RoundedCornerShape(spacings.spacingXxs)
             )
             .clip(CircleShape)
-            .height(AkiraTheme.spacings.spacingXxxs),
+            .height(spacings.spacingXxxs),
         color = colors.red3,
         progress = progress,
         backgroundColor = colors.gray7
@@ -93,18 +97,18 @@ fun Legend(barValue: BarValue) {
         Box(
             modifier = Modifier
                 .background(color = barValue.color, shape = CircleShape)
-                .width(AkiraTheme.spacings.spacingXxs)
-                .height(AkiraTheme.spacings.spacingXxs)
+                .width(spacings.spacingXxs)
+                .height(spacings.spacingXxs)
         )
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
+        Spacer(modifier = Modifier.width(spacings.spacingXxxs))
         Text(
             text = barValue.legend,
-            style = AkiraTheme.typography.body2.copy(
+            style = typography.body2.copy(
                 color = colors.gray2
             ),
             maxLines = 1,
         )
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingS))
+        Spacer(modifier = Modifier.width(spacings.spacingS))
     }
 }
 
@@ -119,13 +123,15 @@ fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modif
             modifier = modifier
                 .background(
                     colors.gray7,
-                    shape = RoundedCornerShape(AkiraTheme.spacings.spacingXxs)
+                    shape = RoundedCornerShape(spacings.spacingXxs)
                 )
                 .clip(CircleShape)
-                .height(AkiraTheme.spacings.spacingXxxs),
+                .height(spacings.spacingXxxs)
+                .fillMaxWidth(),
             progresses = progresses,
             backgroundColor = colors.gray7,
         )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
         FlowRow {
             progresses.map { Legend(barValue = it) }
         }
