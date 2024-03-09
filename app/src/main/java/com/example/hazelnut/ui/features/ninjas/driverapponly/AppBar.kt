@@ -10,9 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,6 +28,9 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.BarValue
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
+import me.onebone.toolbar.CollapsingToolbarScaffold
+import me.onebone.toolbar.ScrollStrategy
+import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
 
 @Preview(showBackground = true)
@@ -37,62 +41,103 @@ fun DefaultPreview() {
 
 @Composable
 fun MyApp() {
-    Scaffold(
-        topBar = {
-            AppBar2()
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .background(color = colors.gray9),
-                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
-                verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
-            ) {
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-                Spacer (modifier = Modifier.height(spacings.spacingXxs))
-                WaypointCard(
-                    address = "3 Changi South street 2, Singapore 837484",
-                    numOfDeliveryParcel = 11,
-                    numOfWaypoints = 2, numOfPickupParcel = 10,
-                )
-
-            }
+    CollapsingToolbarScaffold(
+        state = rememberCollapsingToolbarScaffoldState(),
+        scrollStrategy = ScrollStrategy.EnterAlways,
+        modifier = Modifier
+            .fillMaxSize(),
+        toolbar = {
+            RouteAppBar()
         }
-    )
+    ) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+        ) {
+            Content()
+        }
+    }
 }
 
 @Composable
-fun AppBar2() {
+private fun Content() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = colors.gray9),
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+    ) {
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+        )
+    }
+}
+
+@Composable
+fun RouteAppBar() {
     Box(modifier = Modifier.background(color = colors.gray9)) {
         Column(
             modifier = Modifier
