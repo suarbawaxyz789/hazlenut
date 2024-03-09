@@ -60,4 +60,9 @@
     <string name="tag_delivery">Delivery</string>
     <string name="tag_rpu">RPU</string>
     <string name="tag_prior">PRIOR</string>
+    <string name="tag_cod">COD</string>
+    <string name="tag_doorstep">DoorStep</string>
+    <string name="tag_id_check">ID check</string>
+    <string name="tag_open_box">Open Box</string>
+    <string name="tag_confirmed">Confirmed</string>
 </resources>

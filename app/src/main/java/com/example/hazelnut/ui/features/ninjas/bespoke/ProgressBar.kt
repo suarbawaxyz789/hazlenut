@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.views.previes
+package com.example.hazelnut.ui.features.ninjas.bespoke
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
