@@ -26,40 +26,39 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelS
 
 @Preview
 @Composable
-fun WaypointCardPreview() {
+fun PostCardPreview() {
     Column {
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
-            trackingId = "NVSGCTTDR000000928",
-            name = "Butterfly shop"
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingM))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
-            trackingId = "NVSGCTTDR000000928",
-            name = "Long name sfs fsf dsfa fas fdsafda sfdasfd asfdas sl;afjd asdfsfsdf sdfs dfsfdsdfs fsfsd "
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+            enable = false
         )
         Spacer(modifier = Modifier.height(spacings.spacingM))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
             enable = false,
-            name = "Buttefly shop",
-            trackingId = "NVSGCTTDR000000928",
+            name = "Buttefly shop"
         )
     }
 }
 
 @Composable
-fun WaypointCard(
+fun PostCard(
     address: String,
     numOfDeliveryParcel: Int? = null,
     numOfPickupParcel: Int? = null,
+    numOfWaypoints: Int? = null,
     enable: Boolean = true,
-    trackingId: String,
-    name: String,
+    name: String? = null,
 ) {
     Box(
         modifier = Modifier
@@ -78,41 +77,30 @@ fun WaypointCard(
 
             Spacer(modifier = Modifier.height(spacings.spacingXs))
 
-            Column {
-                Text(
-                    text = name,
-                    style = AkiraTheme.typography.body2Bold.copy(
-                        color = if (enable) colors.gray1 else colors.gray6
-                    ),
-                )
-                Spacer(modifier = Modifier.height(spacings.spacingXxxs))
-                Row {
-                    Row(modifier = Modifier.weight(1f)) {
-                        if (numOfDeliveryParcel != null) {
-                            ItemWithCount(
-                                numOfItem = 1,
-                                iconRes = R.drawable.icon_l_ph_flag,
-                                enable = enable
-                            )
-                        }
-                        if (numOfPickupParcel != null) {
-                            ItemWithCount(
-                                numOfItem = 1,
-                                iconRes = R.drawable.icon_l_vn_flag,
-                                enable = enable
-                            )
-                        }
+            Row {
+                Row(modifier = Modifier.weight(1f)) {
+                    if (numOfWaypoints != null) {
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_th_flag,
+                            enable = enable
+                        )
                     }
-                    Text(
-                        text = trackingId,
-                        style = AkiraTheme.typography.body2.copy(
-                            color = if (enable) colors.gray1 else colors.gray7
-                        ),
-                        maxLines = 1,
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
+                    if (numOfDeliveryParcel != null) {
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_ph_flag,
+                            enable = enable
+                        )
+                    }
+                    if (numOfPickupParcel != null) {
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_vn_flag,
+                            enable = enable
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
 
                 Row {
                     /// TODO better way to pass label from param.

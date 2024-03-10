@@ -68,7 +68,7 @@ private fun Content() {
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
         verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
     ) {
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
@@ -76,59 +76,60 @@ private fun Content() {
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
         WaypointCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11,
-            numOfWaypoints = 2, numOfPickupParcel = 10,
+            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
+            name = "Butterfly shop",
+            trackingId = "NVSGTCTTDR000000284"
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        WaypointCard(
+        PostCard(
             address = "3 Changi South street 2, Singapore 837484",
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
