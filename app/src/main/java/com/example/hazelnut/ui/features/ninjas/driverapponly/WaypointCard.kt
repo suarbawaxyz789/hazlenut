@@ -1,6 +1,5 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly
 
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,6 +33,13 @@ fun WaypointCardPreview() {
             numOfDeliveryParcel = 11,
             numOfWaypoints = 2, numOfPickupParcel = 10,
         )
+        Spacer(modifier = Modifier.height(spacings.spacingM))
+        WaypointCard(
+            address = "3 Changi South street 2, Singapore 837484",
+            numOfDeliveryParcel = 11,
+            numOfWaypoints = 2, numOfPickupParcel = 10,
+            enable = false
+        )
     }
 }
 
@@ -43,6 +49,7 @@ fun WaypointCard(
     numOfDeliveryParcel: Int? = null,
     numOfPickupParcel: Int? = null,
     numOfWaypoints: Int? = null,
+    enable: Boolean = true,
 ) {
     Box(
         modifier = Modifier
@@ -55,7 +62,7 @@ fun WaypointCard(
             Text(
                 text = address,
                 style = AkiraTheme.typography.heading5.copy(
-                    color = colors.gray1
+                    color = if (enable) colors.gray1 else colors.gray6
                 ),
             )
 
@@ -64,13 +71,25 @@ fun WaypointCard(
             Row {
                 Row(modifier = Modifier.weight(1f)) {
                     if (numOfWaypoints != null) {
-                        ItemWithCount(numOfItem = 1, iconRes = R.drawable.icon_l_th_flag)
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_th_flag,
+                            enable = enable
+                        )
                     }
                     if (numOfDeliveryParcel != null) {
-                        ItemWithCount(numOfItem = 1, iconRes = R.drawable.icon_l_ph_flag)
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_ph_flag,
+                            enable = enable
+                        )
                     }
                     if (numOfPickupParcel != null) {
-                        ItemWithCount(numOfItem = 1, iconRes = R.drawable.icon_l_vn_flag)
+                        ItemWithCount(
+                            numOfItem = 1,
+                            iconRes = R.drawable.icon_l_vn_flag,
+                            enable = enable
+                        )
                     }
                 }
 
@@ -78,24 +97,25 @@ fun WaypointCard(
                     /// TODO better way to pass label from param.
                     JobLabel(
                         tagStyle = JobLabelStyle.PRIOR,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs)
+                        modifier = Modifier.padding(end = spacings.spacingXxxs),
+                        enable = enable,
                     )
                     JobLabel(
                         tagStyle = JobLabelStyle.COD,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs)
+                        modifier = Modifier.padding(end = spacings.spacingXxxs),
+                        enable = enable,
                     )
                 }
             }
-
         }
     }
-
 }
 
 @Composable
-private fun ItemWithCount(numOfItem: Int, iconRes: Int) {
+private fun ItemWithCount(numOfItem: Int, iconRes: Int, enable: Boolean = true) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
+            /// TODO change icon based on enablement status.
             painter = painterResource(id = iconRes),
             contentDescription = null,
             tint = Color.Unspecified,
@@ -105,7 +125,7 @@ private fun ItemWithCount(numOfItem: Int, iconRes: Int) {
         Text(
             text = numOfItem.toString(),
             style = AkiraTheme.typography.body2.copy(
-                color = colors.gray1
+                color = if (enable) colors.gray1 else colors.gray7
             ),
             maxLines = 1,
         )
