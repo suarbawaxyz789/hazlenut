@@ -47,7 +47,7 @@ fun MyApp() {
         modifier = Modifier
             .fillMaxSize(),
         toolbar = {
-            RouteAppBar()
+            AppBarForRoute()
         }
     ) {
         Column(
@@ -138,22 +138,22 @@ private fun Content() {
 }
 
 @Composable
-fun RouteAppBar() {
+fun AppBarForRoute() {
     Box(modifier = Modifier.background(color = colors.gray9)) {
         Column(
             modifier = Modifier
                 .padding(horizontal = spacings.spacingXxxs)
         ) {
-            UpperAppBar()
+            AppBarHeader()
             Spacer(modifier = Modifier.height(spacings.spacingS))
-            LowerAppBar()
+            AppBarProgressBar()
             Spacer(modifier = Modifier.height(spacings.spacingXxs))
         }
     }
 }
 
 @Composable
-fun LowerAppBar() {
+fun AppBarProgressBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -188,7 +188,7 @@ fun LowerAppBar() {
 }
 
 @Composable
-fun UpperAppBar() {
+fun AppBarHeader() {
     val context = LocalContext.current
     Column {
         Row {
