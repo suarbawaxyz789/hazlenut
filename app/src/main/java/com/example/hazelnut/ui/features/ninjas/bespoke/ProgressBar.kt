@@ -1,6 +1,8 @@
 package com.example.hazelnut.ui.features.ninjas.bespoke
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -15,26 +17,35 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
+import com.example.hazelnut.R
 
 @Preview
 @Composable
-fun testPreview() {
+fun ProgressBarPreview() {
     Column {
         ProgressBar(progress = 0F)
         Spacer(modifier = Modifier.height(10.dp))
@@ -42,9 +53,20 @@ fun testPreview() {
         Spacer(modifier = Modifier.height(10.dp))
         ProgressBar(progress = 1F)
         Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier
-            .width(300.dp)
-            .padding(horizontal = 10.dp)) {
+    }
+}
+
+
+@Preview
+@Composable
+fun ProgressBarMultiColorPreview() {
+    Column {
+        Spacer(modifier = Modifier.height(10.dp))
+        Column(
+            modifier = Modifier
+                .width(300.dp)
+                .padding(horizontal = 10.dp)
+        ) {
             MultiColorProgressBar(
                 progresses = arrayListOf(
                     BarValue(
@@ -118,6 +140,8 @@ private val LinearIndicatorHeight = ProgressIndicatorDefaults.StrokeWidth
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modifier) {
+    var expandValue by remember { mutableStateOf(false) }
+
     Column {
         MultiColorLinearProgressIndicatorBase(
             modifier = modifier
@@ -132,9 +156,19 @@ fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modif
             backgroundColor = colors.gray7,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        FlowRow {
-            progresses.map { Legend(barValue = it) }
-        }
+        Accordion(isExpanded = expandValue,
+            onExpandChanged = { expandValue = it },
+            header = {
+                Row {
+                    Legend(barValue = progresses.first())
+                }
+            }, content = {
+                FlowRow {
+                    progresses.map { Legend(barValue = it) }
+                }
+            }, onClick = {
+
+            })
     }
 }
 
@@ -193,4 +227,67 @@ private fun DrawScope.drawLinearIndicator(
 
     // Progress line
     drawLine(color, Offset(barStart, yOffset), Offset(barEnd, yOffset), strokeWidth)
+}
+
+@Composable
+private fun Accordion(
+    modifier: Modifier = Modifier,
+    header: @Composable() () -> Unit,
+    isExpanded: Boolean = false,
+    onExpandChanged: (Boolean) -> Unit = {},
+    shouldShowDivider: Boolean = false,
+    content: @Composable() () -> Unit,
+    onClick: () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    val rotationState = if (isExpanded) 270f else 90f
+
+    Column(
+        modifier = modifier.then(
+            Modifier
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = {
+                        onExpandChanged(!isExpanded)
+                        onClick()
+                    }
+                )
+                .fillMaxWidth()
+        )
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(modifier = Modifier.weight(1f).padding(bottom = spacings.spacingXxs)) {
+                if (isExpanded) {
+                    content()
+                } else{
+                    header()
+                }
+            }
+            Icon(
+                modifier = Modifier
+                    .padding(
+                        start = spacings.spacingXxs,
+                        top = spacings.spacingXxs,
+                        bottom = spacings.spacingXxs
+                    )
+                    .size(spacings.spacingXs)
+                    .rotate(rotationState),
+                painter = painterResource(id = R.drawable.angle_right),
+                contentDescription = null
+            )
+        }
+
+        if (shouldShowDivider) {
+            Divider(
+                color = colors.gray7,
+                modifier = Modifier
+                    .padding(
+                        top = spacings.spacingXxs,
+                        bottom = spacings.spacingXxs
+                    )
+            )
+        }
+    }
 }
