@@ -1,6 +1,5 @@
 package com.example.hazelnut.ui.features.ninjas.akira.card
 
-import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,10 +9,13 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,48 +36,94 @@ import com.example.hazelnut.ui.features.ninjas.akira.button.ButtonTextLink
 @Preview
 @Composable
 fun CardPreview() {
-    Column {
-        Card(
-            header = "Header", text = "Helper text here, max line to 2 lines.",
-            onClick = {
+    LazyColumn {
+        item { Column {
+            PreviewListTile(title = "Card - No media No button") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
 
-            },
-            modifier = Modifier.width(180.dp)
-        )
-        Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        Card(
-            header = "Header", text = "Helper text here, max line to 2 lines.",
-            onClick = {
+                    },
+                    modifier = Modifier.width(180.dp)
+                )
+            }
+            PreviewListTile(title = "Card - No media With button") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
 
-            },
-            textLink = "Text Link",
-            modifier = Modifier.width(180.dp)
-        )
-        Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        Card(
-            header = "Header", text = "Helper text here, max line to 2 lines.",
-            onClick = {
+                    },
+                    textLink = "Text Link",
+                    modifier = Modifier.width(180.dp)
+                )
+            }
+            PreviewListTile(title = "Card - With Avatar No button - horizontal") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
 
-            },
-            textLink = "Text Link",
-            avatarRes = R.drawable.icon_l_th_flag,
-            modifier = Modifier.width(250.dp)
-        )
-        Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        Card(
-            header = "Header", text = "Helper text here, max line to 2 lines.",
-            onClick = {
+                    },
+                    avatarRes = R.drawable.driver_avatar,
+                    modifier = Modifier.width(250.dp)
+                )
+            }
+            PreviewListTile(title = "Card - With Avatar No button - vertical") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
 
-            },
-            textLink = "Text Link",
-            avatarRes = R.drawable.icon_l_th_flag,
-            modifier = Modifier.width(250.dp),
-            stackVertically = true,
-        )
-        Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                    },
+                    avatarRes = R.drawable.driver_avatar,
+                    modifier = Modifier.width(250.dp),
+                    stackVertically = true
+                )
+            }
+            PreviewListTile(title = "Card - With Avatar With button - horizontal") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
+
+                    },
+                    textLink = "Text Link",
+                    avatarRes = R.drawable.driver_avatar,
+                    modifier = Modifier.width(250.dp),
+                )
+            }
+            PreviewListTile(title = "Card - With Avatar With button - vertical") {
+                Card(
+                    header = "Header", text = "Helper text here, max line to 2 lines.",
+                    onClick = {
+
+                    },
+                    textLink = "Text Link",
+                    avatarRes = R.drawable.driver_avatar,
+                    modifier = Modifier.width(250.dp),
+                    stackVertically = true,
+                )
+            }
+        } }
     }
 }
 
+@Composable
+fun PreviewListTile(title: String, child: @Composable () -> Unit) {
+    Column {
+        Text(
+            modifier = Modifier.padding(end = spacings.spacingXxxs),
+            text = title,
+            style = typography.body2,
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Column(modifier = Modifier.padding(vertical = 3.dp)) {
+            child()
+        }
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 7.dp)
+        )
+    }
+}
 
 @Composable
 fun Card(
