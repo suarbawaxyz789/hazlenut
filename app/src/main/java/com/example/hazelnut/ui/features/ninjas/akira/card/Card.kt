@@ -38,7 +38,7 @@ import com.example.hazelnut.ui.features.ninjas.akira.button.ButtonTextLink
 fun CardPreview() {
     LazyColumn {
         item { Column {
-            PreviewListTile(title = "Card - No media No button") {
+            CardPreviewListTile(title = "Card - No media No button") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -47,7 +47,7 @@ fun CardPreview() {
                     modifier = Modifier.width(180.dp)
                 )
             }
-            PreviewListTile(title = "Card - No media With button") {
+            CardPreviewListTile(title = "Card - No media With button") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -57,7 +57,7 @@ fun CardPreview() {
                     modifier = Modifier.width(180.dp)
                 )
             }
-            PreviewListTile(title = "Card - With Avatar No button - horizontal") {
+            CardPreviewListTile(title = "Card - With Avatar No button - horizontal") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -67,7 +67,7 @@ fun CardPreview() {
                     modifier = Modifier.width(250.dp)
                 )
             }
-            PreviewListTile(title = "Card - With Avatar No button - vertical") {
+            CardPreviewListTile(title = "Card - With Avatar No button - vertical") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -78,7 +78,7 @@ fun CardPreview() {
                     stackVertically = true
                 )
             }
-            PreviewListTile(title = "Card - With Avatar With button - horizontal") {
+            CardPreviewListTile(title = "Card - With Avatar With button - horizontal") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -89,7 +89,7 @@ fun CardPreview() {
                     modifier = Modifier.width(250.dp),
                 )
             }
-            PreviewListTile(title = "Card - With Avatar With button - vertical") {
+            CardPreviewListTile(title = "Card - With Avatar With button - vertical") {
                 Card(
                     header = "Header", text = "Helper text here, max line to 2 lines.",
                     onClick = {
@@ -106,7 +106,7 @@ fun CardPreview() {
 }
 
 @Composable
-fun PreviewListTile(title: String, child: @Composable () -> Unit) {
+fun CardPreviewListTile(title: String, child: @Composable () -> Unit) {
     Column {
         Text(
             modifier = Modifier.padding(end = spacings.spacingXxxs),
