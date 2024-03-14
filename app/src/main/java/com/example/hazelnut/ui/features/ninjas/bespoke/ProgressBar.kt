@@ -1,12 +1,11 @@
 package com.example.hazelnut.ui.features.ninjas.bespoke
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,10 +22,9 @@ import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +41,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun ProgressBarPreview() {
     Column {
@@ -56,10 +54,37 @@ fun ProgressBarPreview() {
     }
 }
 
-
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun ProgressBarMultiColorPreview() {
+    var progresses = arrayListOf(
+        BarValue(
+            colors.red3,
+            progress = 0.1f,
+            "15 successful waypoints",
+        ),
+        BarValue(
+            colors.green3,
+            progress = 0.1f, "54 pending waypoints",
+        ),
+        BarValue(
+            colors.orange3,
+            progress = 0.1f, "1 partial waypoints",
+        ),
+        BarValue(
+            colors.gray3,
+            progress = 0.2f, "short 1",
+        ),
+        BarValue(
+            colors.blue3,
+            progress = 0.3f, "short",
+        ),
+    )
+
+    var expandedState = remember {
+        mutableStateOf(false)
+    }
+
     Column {
         Spacer(modifier = Modifier.height(10.dp))
         Column(
@@ -67,30 +92,39 @@ fun ProgressBarMultiColorPreview() {
                 .width(300.dp)
                 .padding(horizontal = 10.dp)
         ) {
+            Text(
+                text = "Without expandable",
+                style = typography.body2.copy(
+                    color = colors.gray2
+                ),
+                maxLines = 1,
+            )
+            Spacer(modifier = Modifier.height(spacings.spacingL))
             MultiColorProgressBar(
-                progresses = arrayListOf(
-                    BarValue(
-                        colors.red3,
-                        progress = 0.1f,
-                        "15 successful waypoints",
-                    ),
-                    BarValue(
-                        colors.green3,
-                        progress = 0.1f, "54 pending waypoints",
-                    ),
-                    BarValue(
-                        colors.orange3,
-                        progress = 0.1f, "1 partial waypoints",
-                    ),
-                    BarValue(
-                        colors.gray3,
-                        progress = 0.2f, "short 1",
-                    ),
-                    BarValue(
-                        colors.blue3,
-                        progress = 0.3f, "short",
-                    ),
-                )
+                progresses = progresses
+            )
+            Divider()
+            Text(
+                text = "With expandable content and header${expandedState.value}",
+                style = typography.body2.copy(
+                    color = colors.gray2
+                ),
+                maxLines = 1,
+            )
+            Spacer(modifier = Modifier.height(spacings.spacingL))
+            MultiColorProgressBar(
+                progresses = progresses,
+                state = expandedState,
+                expandHeader = {
+                    Row {
+                        Legend(barValue = progresses.first())
+                    }
+                },
+                expandContent = {
+                    Column {
+                        progresses.map { Legend(barValue = it) }
+                    }
+                }
             )
         }
 
@@ -137,11 +171,14 @@ fun Legend(barValue: BarValue) {
 private val LinearIndicatorWidth = 240.dp
 private val LinearIndicatorHeight = ProgressIndicatorDefaults.StrokeWidth
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modifier) {
-    var expandValue by remember { mutableStateOf(false) }
-
+fun MultiColorProgressBar(
+    progresses: List<BarValue>,
+    modifier: Modifier = Modifier,
+    state: MutableState<Boolean>? = null,
+    expandHeader: (@Composable() () -> Unit)? = null,
+    expandContent: (@Composable() () -> Unit)? = null
+) {
     Column {
         MultiColorLinearProgressIndicatorBase(
             modifier = modifier
@@ -156,19 +193,19 @@ fun MultiColorProgressBar(progresses: List<BarValue>, modifier: Modifier = Modif
             backgroundColor = colors.gray7,
         )
         Spacer(modifier = Modifier.height(spacings.spacingXxs))
-        Accordion(isExpanded = expandValue,
-            onExpandChanged = { expandValue = it },
-            header = {
-                Row {
-                    Legend(barValue = progresses.first())
-                }
-            }, content = {
-                FlowRow {
-                    progresses.map { Legend(barValue = it) }
-                }
-            }, onClick = {
+        if (expandHeader != null && expandContent != null && state != null) {
+            Accordion(isExpanded = state.value,
+                onExpandChanged = {
+                    state.value = it
+                },
+                header = {
+                    expandHeader()
+                }, content = {
+                    expandContent()
+                }, onClick = {
 
-            })
+                })
+        }
     }
 }
 
@@ -261,7 +298,7 @@ private fun Accordion(
             Column(modifier = Modifier.weight(1f).padding(bottom = spacings.spacingXxs)) {
                 if (isExpanded) {
                     content()
-                } else{
+                } else {
                     header()
                 }
             }

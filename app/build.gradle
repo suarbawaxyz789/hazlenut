@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.hazelnut"
-        minSdk 24
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+        freeCompilerArgs += "-opt-in=androidx.compose.material.ExperimentalMaterialApi"
     }
     buildFeatures {
         compose true
@@ -73,4 +75,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
     /// 2.6.0 have issue with duplicate class
     implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation("com.maxkeppeler.sheets-compose-dialogs:core:1.2.0")
+    implementation("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
+    implementation "com.google.android.material:material:1.4.0"
 }
