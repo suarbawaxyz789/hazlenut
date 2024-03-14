@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.akira
+package com.example.hazelnut.ui.features.ninjas.akira.datepicker
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -82,7 +82,7 @@ fun CustomDatePickerPreview2() {
 
 var showBottomSheetState1 = mutableStateOf(ModalBottomSheetValue.Hidden)
 var selectValue1 = mutableStateOf("Text")
-var filledState = mutableStateOf(false)
+var filledState1 = mutableStateOf(false)
 
 @Preview
 @Composable
@@ -95,11 +95,11 @@ fun CustomDatePickerPreview3() {
                 onClick = {
                     toggleDrawer(showBottomSheetState1)
                 },
-                filled = filledState.value
+                filled = filledState1.value
             )
         }
 
-        SelectDrawer(selectValue1, showBottomSheetState1, filledState)
+        CalendarPickerDrawer(selectValue1, showBottomSheetState1, filledState1)
     }
 }
 
@@ -111,9 +111,8 @@ private fun toggleDrawer(state: MutableState<ModalBottomSheetValue>) {
     }
 }
 
-
 @Composable
-private fun SelectDrawer(
+private fun CalendarPickerDrawer(
     selectValue: MutableState<String>,
     state: MutableState<ModalBottomSheetValue>,
     filledState: MutableState<Boolean>
