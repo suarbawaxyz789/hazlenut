@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.akira.datepicker
+package com.example.hazelnut.ui.features.ninjas.akira.calendarpicker
 
 import android.content.res.Configuration
 import android.os.Build
@@ -48,7 +48,6 @@ import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
-import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.core.nextMonth
 import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.sample.compose.rememberFirstVisibleMonthAfterScroll

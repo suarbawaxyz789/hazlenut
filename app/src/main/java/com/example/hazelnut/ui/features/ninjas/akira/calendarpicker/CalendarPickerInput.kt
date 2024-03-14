@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.akira.datepicker
+package com.example.hazelnut.ui.features.ninjas.akira.calendarpicker
 
 import android.os.Build
 import androidx.annotation.RequiresApi
