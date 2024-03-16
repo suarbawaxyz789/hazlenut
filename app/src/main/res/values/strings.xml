@@ -65,4 +65,5 @@
     <string name="tag_id_check">ID check</string>
     <string name="tag_open_box">Open Box</string>
     <string name="tag_confirmed">Confirmed</string>
+    <string name="select_date">Select Date</string>
 </resources>

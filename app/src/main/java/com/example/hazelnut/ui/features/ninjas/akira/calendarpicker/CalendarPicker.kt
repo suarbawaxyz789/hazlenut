@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
@@ -88,6 +89,9 @@ fun testPreview() {
         /// TODO
     })
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+val calendarPickerHeaderDateFormat = DateTimeFormatter.ofPattern("MMM yyyy")
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -165,34 +169,30 @@ fun SimpleCalendarTitle(
     goToPrevious: () -> Unit,
     goToNext: () -> Unit,
 ) {
-    // Define a custom DateTimeFormatter to format the YearMonth
-    val formatter = DateTimeFormatter.ofPattern("MMM yyyy")
-
     Column {
         Row(
             modifier = modifier.height(40.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CalendarNavigationIcon(
-                icon = painterResource(id = R.drawable.expanable_arrow_up),
+                icon = painterResource(id = R.drawable.angle_right),
                 contentDescription = "Previous",
                 onClick = goToPrevious,
-                modifier = Modifier.rotate(270F)
+                modifier = Modifier.rotate(180F)
             )
             Text(
                 modifier = Modifier
                     .weight(1f)
                     .testTag("MonthTitle"),
-                text = currentMonth.format(formatter),
+                text = currentMonth.format(calendarPickerHeaderDateFormat),
                 fontSize = 22.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Medium,
             )
             CalendarNavigationIcon(
-                icon = painterResource(id = R.drawable.expanable_arrow_up),
+                icon = painterResource(id = R.drawable.angle_right),
                 contentDescription = "Next",
                 onClick = goToNext,
-                modifier = Modifier.rotate(90F)
             )
         }
         Divider()
@@ -221,7 +221,6 @@ private fun CalendarNavigationIcon(
         contentDescription = contentDescription,
     )
 }
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -281,7 +280,9 @@ fun DayComponent(
         ) {
             Text(
                 text = day.date.dayOfMonth.toString(),
-                color = if (isSelected) colors.white else if (clickable) colors.gray2 else colors.gray4
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (isSelected) colors.white else if (clickable) colors.gray2 else colors.gray4
+                )
             )
         }
     }

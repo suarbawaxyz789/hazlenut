@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -43,11 +44,11 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.kizitonwose.calendar.compose.rememberCalendarState
-import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
@@ -75,13 +76,17 @@ fun CustomDatePickerPreview() {
             showBottomSheetState,
             selectedDateState = selectedDateState,
             onClick = {
-                selectValue.value = it.date.toString()
+                selectValue.value = it
             })
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+val calendarPickerInputDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 var showBottomSheetState = mutableStateOf(ModalBottomSheetValue.Hidden)
-var selectValue = mutableStateOf("")
+
+@RequiresApi(Build.VERSION_CODES.O)
+var selectValue = mutableStateOf(LocalDate.now())
 var filledState = mutableStateOf(false)
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -89,9 +94,12 @@ var selectedDateState = mutableStateOf(LocalDate.now())
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun CalendarPickerInput(selectedValue: MutableState<String>, filledState: MutableState<Boolean>) {
+fun CalendarPickerInput(
+    selectedValue: MutableState<LocalDate>,
+    filledState: MutableState<Boolean>
+) {
     Select(
-        text = selectedValue.value,
+        text = selectedValue.value.format(calendarPickerInputDateFormat),
         onClick = {
             toggleDrawer(showBottomSheetState)
         },
@@ -109,10 +117,10 @@ private fun toggleDrawer(state: MutableState<ModalBottomSheetValue>) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun CalendarPickerDrawer(
+fun CalendarPickerDrawer(
     state: MutableState<ModalBottomSheetValue>,
     selectedDateState: MutableState<LocalDate>,
-    onClick: (CalendarDay) -> Unit
+    onClick: (LocalDate) -> Unit
 ) {
     val currentMonth = remember { YearMonth.now() }
     val startMonth = remember { currentMonth.minusMonths(100) }
@@ -127,7 +135,7 @@ private fun CalendarPickerDrawer(
     )
 
     Drawer(
-        headerText = "Select Date",
+        headerText = stringResource(id = R.string.select_date),
         onStateChanged = { state.value = it },
         showState = state.value,
         forceFullScreen = false,
@@ -137,12 +145,13 @@ private fun CalendarPickerDrawer(
             CalendarPicker(
                 state = monthState,
                 selectedDate = selectedDateState,
-                onClick = onClick
+                onClick = {
+                    onClick.invoke(it.date)
+                }
             )
         }
     )
 }
-
 
 @Composable
 private fun Select(
@@ -169,7 +178,7 @@ private fun Select(
     Column(
         modifier = clickModifier
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically,modifier = Modifier.height(spacings.spacingXl)) {
             Icon(
                 modifier = Modifier
                     .padding(start = spacings.spacingXxs)
@@ -197,10 +206,9 @@ private fun Select(
     }
 }
 
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun Drawer(
+private fun Drawer(
     headerText: String,
     showState: ModalBottomSheetValue = ModalBottomSheetValue.Hidden,
     onStateChanged: (ModalBottomSheetValue) -> Unit,
@@ -211,7 +219,6 @@ fun Drawer(
     content: @Composable() () -> Unit,
     customHeight: Dp? = null,
 ) {
-
     val sheetState = remember {
         ModalBottomSheetState(
             initialValue = showState,
@@ -239,7 +246,12 @@ fun Drawer(
 
     ModalBottomSheetLayout(
         sheetElevation = 0.dp,
-        sheetShape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp, bottomStart = 0.dp, bottomEnd = 0.dp),
+        sheetShape = RoundedCornerShape(
+            topStart = 10.dp,
+            topEnd = 10.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 0.dp
+        ),
         sheetContent = {
             Column {
                 Column(
@@ -273,7 +285,7 @@ fun Drawer(
                                         }
                                     }
                                     .size(20.dp),
-                                painter = painterResource(id = R.drawable.icon_m_times),
+                                painter = painterResource(id = R.drawable.icon_l_times),
                                 contentDescription = null
                             )
                             Spacer(
