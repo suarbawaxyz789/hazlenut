@@ -263,7 +263,6 @@ fun DayComponent(
         modifier = Modifier
             .aspectRatio(1f)
             .clip(CircleShape)
-            .background(color = if (isSelected) colors.red3 else Color.Transparent)
             .clickable(
                 enabled = clickable,
                 onClick = {
@@ -273,9 +272,17 @@ fun DayComponent(
             ),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = day.date.dayOfMonth.toString(),
-            color =  if(isSelected) colors.white else if (clickable) colors.gray2 else colors.gray4
-        )
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(spacings.spacingL)
+                .background(color = if (isSelected) colors.red3 else Color.Transparent),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = day.date.dayOfMonth.toString(),
+                color = if (isSelected) colors.white else if (clickable) colors.gray2 else colors.gray4
+            )
+        }
     }
 }
