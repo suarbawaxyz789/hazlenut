@@ -12,10 +12,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
+import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 
@@ -35,7 +37,7 @@ fun WaypointCardPreview() {
 
     /// 2 job 2 parcel
     var sample3: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
+        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
         Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
     )
 
@@ -97,7 +99,7 @@ fun WaypointCard(
                         if (jobLabelsData != null) {
                             Row(modifier = Modifier.weight(1f)) {
                                 jobLabelsData.forEach { pair ->
-                                    RenderJobTypeLabel(
+                                    JobTypeLabel(
                                         type = pair.first,
                                         parcels = pair.second
                                     )
@@ -126,8 +128,28 @@ fun WaypointCard(
     }
 }
 
+@Preview
 @Composable
-private fun RenderJobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {
+private fun JobTypeLabelPreview() {
+    Column {
+        JobTypeLabel(JobType.PICKUP, parcels = listOf("NVSGCTTDR000000294"))
+        JobTypeLabel(
+            JobType.PICKUP,
+            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
+        )
+        JobTypeLabel(
+            JobType.RPU,
+            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
+        )
+        JobTypeLabel(
+            JobType.RTS,
+            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
+        )
+    }
+}
+
+@Composable
+private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {
     if (parcels.isEmpty()) return Row {}
     if (parcels.size == 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
@@ -140,6 +162,25 @@ private fun RenderJobTypeLabel(type: JobType, parcels: List<String>, enable: Boo
                 ),
                 maxLines = 1,
             )
+            Spacer(modifier = Modifier.width(spacings.spacingXxs))
+            if (type == JobType.RTS) {
+                Text(
+                    text = stringResource(id = R.string.parcel_rts),
+                    style = AkiraTheme.typography.body2.copy(
+                        color = if (enable) colors.gray1 else colors.gray7
+                    ),
+                    maxLines = 1,
+                )
+            }
+            if (type == JobType.RPU) {
+                Text(
+                    text = stringResource(id = R.string.tag_rpu),
+                    style = AkiraTheme.typography.body2.copy(
+                        color = if (enable) colors.gray1 else colors.gray7
+                    ),
+                    maxLines = 1,
+                )
+            }
             Spacer(modifier = Modifier.width(spacings.spacingXxs))
         }
     }
@@ -154,6 +195,25 @@ private fun RenderJobTypeLabel(type: JobType, parcels: List<String>, enable: Boo
             ),
             maxLines = 1,
         )
+        Spacer(modifier = Modifier.width(spacings.spacingXxs))
+        if (type == JobType.RTS) {
+            Text(
+                text = stringResource(id = R.string.parcel_rts),
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (enable) colors.gray1 else colors.gray7
+                ),
+                maxLines = 1,
+            )
+        }
+        if (type == JobType.RPU) {
+            Text(
+                text = stringResource(id = R.string.tag_rpu),
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (enable) colors.gray1 else colors.gray7
+                ),
+                maxLines = 1,
+            )
+        }
         Spacer(modifier = Modifier.width(spacings.spacingXxs))
     }
 }
