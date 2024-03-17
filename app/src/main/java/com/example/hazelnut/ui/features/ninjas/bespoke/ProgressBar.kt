@@ -294,7 +294,7 @@ private fun Accordion(
                 .fillMaxWidth()
         )
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.Top) {
             Column(modifier = Modifier.weight(1f).padding(bottom = spacings.spacingXxs)) {
                 if (isExpanded) {
                     content()
