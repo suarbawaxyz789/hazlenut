@@ -7,47 +7,54 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
-import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 
 @Preview
 @Composable
 fun WaypointCardPreview() {
+
+    /// 1 job 1 parcel
+    var sample1: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
+    )
+
+    /// 1 job 2 parcel
+    var sample2: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
+
+    /// 2 job 2 parcel
+    var sample3: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
+        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
+
     Column {
         WaypointCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
-            trackingId = "NVSGCTTDR000000928",
+            jobLabelsData = sample1,
             name = "Butterfly shop"
         )
-        Spacer(modifier = Modifier.height(spacings.spacingM))
         WaypointCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
-            trackingId = "NVSGCTTDR000000928",
+            jobLabelsData = sample2,
             name = "Long name sfs fsf dsfa fas fdsafda sfdasfd asfdas sl;afjd asdfsfsdf sdfs dfsfdsdfs fsfsd "
         )
-        Spacer(modifier = Modifier.height(spacings.spacingM))
         WaypointCard(
             address = "3 Changi South street 2, Singapore 837484",
-            numOfDeliveryParcel = 11, numOfPickupParcel = 10,
+            jobLabelsData = sample3,
             enable = false,
             name = "Buttefly shop",
-            trackingId = "NVSGCTTDR000000928",
         )
     }
 }
@@ -55,77 +62,64 @@ fun WaypointCardPreview() {
 @Composable
 fun WaypointCard(
     address: String,
-    numOfDeliveryParcel: Int? = null,
-    numOfPickupParcel: Int? = null,
     enable: Boolean = true,
-    trackingId: String,
     name: String,
+    jobLabelsData: List<Pair<JobType, List<String>>>? = null
 ) {
-    Box(
-        modifier = Modifier
-            .background(color = colors.white)
-    ) {
-        Column(
+    Column {
+        Spacer(modifier = Modifier.height(spacings.spacingM))
+        Box(
             modifier = Modifier
-                .padding(all = spacings.spacingS)
+                .background(color = colors.white)
         ) {
-            Text(
-                text = address,
-                style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray1 else colors.gray6
-                ),
-            )
-
-            Spacer(modifier = Modifier.height(spacings.spacingXs))
-
-            Column {
+            Column(
+                modifier = Modifier
+                    .padding(all = spacings.spacingS)
+            ) {
                 Text(
-                    text = name,
-                    style = AkiraTheme.typography.body2Bold.copy(
+                    text = address,
+                    style = AkiraTheme.typography.body2.copy(
                         color = if (enable) colors.gray1 else colors.gray6
                     ),
                 )
-                Spacer(modifier = Modifier.height(spacings.spacingXxxs))
-                Row {
-                    Row(modifier = Modifier.weight(1f)) {
-                        if (numOfDeliveryParcel != null) {
-                            ItemWithCount(
-                                numOfItem = 1,
-                                iconRes = R.drawable.icon_l_ph_flag,
-                                enable = enable
-                            )
-                        }
-                        if (numOfPickupParcel != null) {
-                            ItemWithCount(
-                                numOfItem = 1,
-                                iconRes = R.drawable.icon_l_vn_flag,
-                                enable = enable
-                            )
+
+                Spacer(modifier = Modifier.height(spacings.spacingXs))
+
+                Column {
+                    Text(
+                        text = name,
+                        style = AkiraTheme.typography.body2Bold.copy(
+                            color = if (enable) colors.gray1 else colors.gray6
+                        ),
+                    )
+                    Spacer(modifier = Modifier.height(spacings.spacingXxxs))
+                    Row {
+                        if (jobLabelsData != null) {
+                            Row(modifier = Modifier.weight(1f)) {
+                                jobLabelsData.forEach { pair ->
+                                    RenderJobTypeLabel(
+                                        type = pair.first,
+                                        parcels = pair.second
+                                    )
+                                }
+                            }
                         }
                     }
-                    Text(
-                        text = trackingId,
-                        style = AkiraTheme.typography.body2.copy(
-                            color = if (enable) colors.gray1 else colors.gray7
-                        ),
-                        maxLines = 1,
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-                Spacer(modifier = Modifier.height(spacings.spacingXxs))
+                    Spacer(modifier = Modifier.height(spacings.spacingXxs))
 
-                Row {
-                    /// TODO better way to pass label from param.
-                    JobLabel(
-                        tagStyle = JobLabelStyle.PRIOR,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs),
-                        enable = enable,
-                    )
-                    JobLabel(
-                        tagStyle = JobLabelStyle.COD,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs),
-                        enable = enable,
-                    )
+                    Row {
+                        /// TODO better way to pass label from param.
+                        JobLabel(
+                            tagStyle = JobLabelStyle.PRIOR,
+                            modifier = Modifier.padding(end = spacings.spacingXxxs),
+                            enable = enable,
+                        )
+                        JobLabel(
+                            tagStyle = JobLabelStyle.COD,
+                            modifier = Modifier.padding(end = spacings.spacingXxxs),
+                            enable = enable,
+                        )
+                    }
                 }
             }
         }
@@ -133,23 +127,33 @@ fun WaypointCard(
 }
 
 @Composable
-private fun ItemWithCount(numOfItem: Int, iconRes: Int, enable: Boolean = true) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            /// TODO change icon based on enablement status.
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            tint = Color.Unspecified,
-            modifier = Modifier.size(spacings.spacingS, spacings.spacingS)
-        )
-        Spacer(modifier = Modifier.width(spacings.spacingXxxs))
+private fun RenderJobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {
+    if (parcels.isEmpty()) return Row {}
+    if (parcels.size == 1) {
+        return Row(verticalAlignment = Alignment.CenterVertically) {
+            IconByJobType(type = type, enable = enable)
+            Spacer(modifier = Modifier.width(spacings.spacingXxs))
+            Text(
+                text = parcels.first(),
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (enable) colors.gray1 else colors.gray7
+                ),
+                maxLines = 1,
+            )
+            Spacer(modifier = Modifier.width(spacings.spacingXxs))
+        }
+    }
+
+    return Row(verticalAlignment = Alignment.CenterVertically) {
+        IconByJobType(type = type, enable = enable)
+        Spacer(modifier = Modifier.width(spacings.spacingXxs))
         Text(
-            text = numOfItem.toString(),
+            text = parcels.size.toString(),
             style = AkiraTheme.typography.body2.copy(
                 color = if (enable) colors.gray1 else colors.gray7
             ),
             maxLines = 1,
         )
-        Spacer(modifier = Modifier.width(spacings.spacingXs))
+        Spacer(modifier = Modifier.width(spacings.spacingXxs))
     }
 }

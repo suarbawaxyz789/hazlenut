@@ -60,84 +60,65 @@ fun PostCard(
     enable: Boolean = true,
     name: String? = null,
 ) {
-    Box(
-        modifier = Modifier
-            .background(color = colors.white)
-    ) {
-        Column(
+    Column {
+        Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
+        Box(
             modifier = Modifier
-                .padding(all = spacings.spacingS)
+                .background(color = colors.white)
         ) {
-            Text(
-                text = address,
-                style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray1 else colors.gray6
-                ),
-            )
+            Column(
+                modifier = Modifier
+                    .padding(all = spacings.spacingS)
+            ) {
+                Text(
+                    text = address,
+                    style = AkiraTheme.typography.body2.copy(
+                        color = if (enable) colors.gray1 else colors.gray6
+                    ),
+                )
 
-            Spacer(modifier = Modifier.height(spacings.spacingXs))
-
-            Row {
-                Row(modifier = Modifier.weight(1f)) {
-                    if (numOfWaypoints != null) {
-                        ItemWithCount(
-                            numOfItem = 1,
-                            iconRes = R.drawable.icon_l_th_flag,
-                            enable = enable
-                        )
-                    }
-                    if (numOfDeliveryParcel != null) {
-                        ItemWithCount(
-                            numOfItem = 1,
-                            iconRes = R.drawable.icon_l_ph_flag,
-                            enable = enable
-                        )
-                    }
-                    if (numOfPickupParcel != null) {
-                        ItemWithCount(
-                            numOfItem = 1,
-                            iconRes = R.drawable.icon_l_vn_flag,
-                            enable = enable
-                        )
-                    }
-                }
+                Spacer(modifier = Modifier.height(spacings.spacingXs))
 
                 Row {
-                    /// TODO better way to pass label from param.
-                    JobLabel(
-                        tagStyle = JobLabelStyle.PRIOR,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs),
-                        enable = enable,
-                    )
-                    JobLabel(
-                        tagStyle = JobLabelStyle.COD,
-                        modifier = Modifier.padding(end = spacings.spacingXxxs),
-                        enable = enable,
-                    )
+                    Row(modifier = Modifier.weight(1f)) {
+                        if (numOfWaypoints != null) {
+                            ItemWithCount(
+                                numOfItem = 1,
+                                iconRes = R.drawable.icon_l_th_flag,
+                                enable = enable
+                            )
+                        }
+                        if (numOfDeliveryParcel != null) {
+                            ItemWithCount(
+                                numOfItem = 1,
+                                iconRes = R.drawable.icon_l_ph_flag,
+                                enable = enable
+                            )
+                        }
+                        if (numOfPickupParcel != null) {
+                            ItemWithCount(
+                                numOfItem = 1,
+                                iconRes = R.drawable.icon_l_vn_flag,
+                                enable = enable
+                            )
+                        }
+                    }
+
+                    Row {
+                        /// TODO better way to pass label from param.
+                        JobLabel(
+                            tagStyle = JobLabelStyle.PRIOR,
+                            modifier = Modifier.padding(end = spacings.spacingXxxs),
+                            enable = enable,
+                        )
+                        JobLabel(
+                            tagStyle = JobLabelStyle.COD,
+                            modifier = Modifier.padding(end = spacings.spacingXxxs),
+                            enable = enable,
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun ItemWithCount(numOfItem: Int, iconRes: Int, enable: Boolean = true) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            /// TODO change icon based on enablement status.
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            tint = Color.Unspecified,
-            modifier = Modifier.size(spacings.spacingS, spacings.spacingS)
-        )
-        Spacer(modifier = Modifier.width(spacings.spacingXxxs))
-        Text(
-            text = numOfItem.toString(),
-            style = AkiraTheme.typography.body2.copy(
-                color = if (enable) colors.gray1 else colors.gray7
-            ),
-            maxLines = 1,
-        )
-        Spacer(modifier = Modifier.width(spacings.spacingXs))
     }
 }
