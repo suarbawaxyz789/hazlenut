@@ -24,8 +24,8 @@ import com.kizitonwose.calendar.data.checkDateRange
 import com.kizitonwose.calendar.data.getCalendarMonthData
 import com.kizitonwose.calendar.data.getMonthIndex
 import com.kizitonwose.calendar.data.getMonthIndicesCount
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.YearMonth
+import java.time.DayOfWeek
+import java.time.YearMonth
 
 /**
  * Creates a [CalendarState] that is remembered across compositions.

@@ -1,7 +1,7 @@
 package com.kizitonwose.calendar.compose
 
 import com.kizitonwose.calendar.core.OutDateStyle
-import org.threeten.bp.DayOfWeek
+import java.time.DayOfWeek
 
 internal data class CalendarInfo(
     val indexCount: Int,

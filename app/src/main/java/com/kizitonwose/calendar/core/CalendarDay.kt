@@ -2,7 +2,7 @@ package com.kizitonwose.calendar.core
 
 import androidx.compose.runtime.Immutable
 import java.io.Serializable
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /**
  * Represents a day on the calendar.
