@@ -1,7 +1,5 @@
 package com.example.hazelnut.ui.features.ninjas.akira.calendarpicker
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -33,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,17 +42,27 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.YearMonth
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
+import org.threeten.bp.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun CustomDatePickerPreview() {
+    AndroidThreeTen.init(LocalContext.current)
+
+    var selectValue = remember {
+        mutableStateOf(LocalDate.now())
+    }
+
+    var selectedDateState = remember {
+        mutableStateOf(LocalDate.now())
+    }
+
     Surface {
         Box(modifier = Modifier.padding(all = spacings.spacingXs)) {
             Column {
@@ -81,18 +90,12 @@ fun CustomDatePickerPreview() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 val calendarPickerInputDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 var showBottomSheetState = mutableStateOf(ModalBottomSheetValue.Hidden)
 
-@RequiresApi(Build.VERSION_CODES.O)
-var selectValue = mutableStateOf(LocalDate.now())
 var filledState = mutableStateOf(false)
 
-@RequiresApi(Build.VERSION_CODES.O)
-var selectedDateState = mutableStateOf(LocalDate.now())
-
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CalendarPickerInput(
     selectedValue: MutableState<LocalDate>,
@@ -115,7 +118,7 @@ private fun toggleDrawer(state: MutableState<ModalBottomSheetValue>) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun CalendarPickerDrawer(
     state: MutableState<ModalBottomSheetValue>,
@@ -178,7 +181,10 @@ private fun Select(
     Column(
         modifier = clickModifier
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically,modifier = Modifier.height(spacings.spacingXl)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.height(spacings.spacingXl)
+        ) {
             Icon(
                 modifier = Modifier
                     .padding(start = spacings.spacingXxs)

@@ -1,8 +1,6 @@
 package com.example.hazelnut.ui.features.ninjas.akira.calendarpicker
 
 import android.content.res.Configuration
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
@@ -42,6 +41,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kizitonwose.calendar.compose.CalendarState
 import com.kizitonwose.calendar.compose.HorizontalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
@@ -53,11 +53,11 @@ import com.kizitonwose.calendar.core.nextMonth
 import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.sample.compose.rememberFirstVisibleMonthAfterScroll
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.YearMonth
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
+import org.threeten.bp.DayOfWeek
+import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.TextStyle
 import java.util.Locale
 
 /**
@@ -65,10 +65,10 @@ import java.util.Locale
  * https://github.com/kizitonwose/Calendar
  */
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun testPreview() {
+    AndroidThreeTen.init(LocalContext.current)
     val daysOfWeek = daysOfWeek()
 
     var selectedDateState = remember {
@@ -90,10 +90,8 @@ fun testPreview() {
     })
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 val calendarPickerHeaderDateFormat = DateTimeFormatter.ofPattern("MMM yyyy")
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CalendarPicker(
     state: CalendarState = rememberCalendarState(),
@@ -122,7 +120,6 @@ fun CalendarPicker(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun CalendarTitle(
     monthState: CalendarState,
@@ -136,7 +133,6 @@ private fun CalendarTitle(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MonthAndWeekCalendarTitle(
     currentMonth: YearMonth,
@@ -161,7 +157,7 @@ fun MonthAndWeekCalendarTitle(
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun SimpleCalendarTitle(
     modifier: Modifier,
@@ -222,7 +218,7 @@ private fun CalendarNavigationIcon(
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun DaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -236,7 +232,7 @@ fun DaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 private fun MonthHeader(month: CalendarMonth) {
     val daysOfWeek = month.weekDays.first().map { it.date.dayOfWeek }
@@ -246,7 +242,7 @@ private fun MonthHeader(month: CalendarMonth) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun DayComponent(
     day: CalendarDay,
