@@ -24,6 +24,7 @@ import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 
+//// POSTCARD IS NOT USED ANYMORE
 @Preview
 @Composable
 fun PostCardPreview() {
@@ -81,24 +82,24 @@ fun PostCard(
 
                 Row {
                     Row(modifier = Modifier.weight(1f)) {
-                        if (numOfWaypoints != null) {
-                            ItemWithCount(
-                                numOfItem = 1,
-                                iconRes = R.drawable.icon_l_th_flag,
-                                enable = enable
-                            )
-                        }
+//                        if (numOfWaypoints != null) {
+//                            ItemWithCount(
+//                                numOfItem = 1,
+//                                iconRes = R.drawable.icon_l_th_flag,
+//                                enable = enable
+//                            )
+//                        }
                         if (numOfDeliveryParcel != null) {
                             ItemWithCount(
                                 numOfItem = 1,
-                                iconRes = R.drawable.icon_l_ph_flag,
+                                jobType = JobType.DELIVERY,
                                 enable = enable
                             )
                         }
                         if (numOfPickupParcel != null) {
                             ItemWithCount(
                                 numOfItem = 1,
-                                iconRes = R.drawable.icon_l_vn_flag,
+                                jobType = JobType.PICKUP,
                                 enable = enable
                             )
                         }

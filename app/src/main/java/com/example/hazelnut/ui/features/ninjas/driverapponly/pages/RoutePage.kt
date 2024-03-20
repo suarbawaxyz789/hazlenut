@@ -30,7 +30,7 @@ import com.example.hazelnut.ui.features.ninjas.bespoke.BarValue
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.AppBarHeader
-import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.PostCodeContentSample
+import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -60,7 +60,7 @@ fun RoutePage() {
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
         ) {
-            PostCodeContentSample()
+            WaypointCardContentSample()
         }
     }
 }
@@ -77,7 +77,7 @@ fun AppBarForRoute() {
         }
     )
 
-    Box(modifier = Modifier.background(color = AkiraTheme.colors.gray9)) {
+    Box(modifier = Modifier.background(color = AkiraTheme.colors.gray8)) {
         Column(
             modifier = Modifier
                 .padding(horizontal = AkiraTheme.spacings.spacingXxxs)

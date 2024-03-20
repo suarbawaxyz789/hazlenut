@@ -27,11 +27,13 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.driverapponly.AppBarHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.ItemWithCount
+import com.example.hazelnut.ui.features.ninjas.driverapponly.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
+/// POSTCODE PAGE IS NOT USED ANYMORE
 
 /**
  * for postcode page
@@ -129,22 +131,22 @@ fun AppBarParcelsCount(
     numOfWaypoints: Int? = null,
 ) {
     Row(modifier = Modifier.wrapContentWidth()) {
-        if (numOfWaypoints != null) {
-            ItemWithCount(
-                numOfItem = 1,
-                iconRes = R.drawable.icon_l_th_flag,
-            )
-        }
+//        if (numOfWaypoints != null) {
+//            ItemWithCount(
+//                numOfItem = 1,
+//                iconRes = R.drawable.icon_l_th_flag,
+//            )
+//        }
         if (numOfDeliveryParcel != null) {
             ItemWithCount(
                 numOfItem = 1,
-                iconRes = R.drawable.icon_l_ph_flag,
+                jobType = JobType.DELIVERY
             )
         }
         if (numOfPickupParcel != null) {
             ItemWithCount(
                 numOfItem = 1,
-                iconRes = R.drawable.icon_l_vn_flag,
+                jobType = JobType.PICKUP
             )
         }
     }
