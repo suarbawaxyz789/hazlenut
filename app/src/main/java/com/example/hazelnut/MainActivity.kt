@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.hazelnut.ui.features.authentication.AuthenticationViewModel
-import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.RoutePage
 
 class MainActivity : ComponentActivity() {
 
@@ -14,7 +13,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RoutePage()
+
         }
     }
 }

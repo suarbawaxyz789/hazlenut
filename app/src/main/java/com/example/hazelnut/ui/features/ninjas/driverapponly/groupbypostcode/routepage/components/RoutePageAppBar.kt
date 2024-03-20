@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly.pages
+package com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.routepage.components
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -6,12 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -22,51 +19,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
-import com.example.hazelnut.ui.features.ninjas.bespoke.BarValue
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
-import com.example.hazelnut.ui.features.ninjas.driverapponly.AppBarHeader
-import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
-import me.onebone.toolbar.CollapsingToolbarScaffold
-import me.onebone.toolbar.ScrollStrategy
-import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
-
-
-/**
- * for route page
- */
-@Preview(showBackground = true)
-@Composable
-fun RoutePagePreview() {
-    RoutePage()
-}
+import com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.components.AppBarHeader
+import ninjavan.swiftninja.mvvm.ui.groupbypostcode.routepage.RouteViewModel
 
 @Composable
-fun RoutePage() {
-    CollapsingToolbarScaffold(
-        state = rememberCollapsingToolbarScaffoldState(),
-        scrollStrategy = ScrollStrategy.EnterAlways,
-        modifier = Modifier
-            .fillMaxSize(),
-        toolbar = {
-            AppBarForRoute()
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-        ) {
-            WaypointCardContentSample()
-        }
-    }
-}
-
-@Composable
-fun AppBarForRoute() {
+fun RoutePageAppBar(viewModel: RouteViewModel) {
     val context = LocalContext.current
     val actions = listOf(
         R.drawable.icon_l_map_marker_alt to {
@@ -91,15 +53,15 @@ fun AppBarForRoute() {
                             .show()
                     }) {
                         Icon(
-                            painter = painterResource(id = R.drawable.expanable_arrow_up),
+                            painter = painterResource(id = R.drawable.angle_right),
                             contentDescription = null,
-                            modifier = Modifier.rotate(270f)
+                            modifier = Modifier.rotate(180f)
                         )
                     }
                 },
                 subtitleContent = {
                     Text(
-                        text = "Route ID 132434",
+                        text = "Route ID ${viewModel.routeId.value}",
                         style = AkiraTheme.typography.body2.copy(
                             color = AkiraTheme.colors.gray3
                         ),
@@ -109,39 +71,14 @@ fun AppBarForRoute() {
                 actions = actions,
             )
             Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingS))
-            AppBarProgressBar()
+            AppBarProgressBar(viewModel = viewModel)
             Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
         }
     }
 }
 
 @Composable
-fun AppBarProgressBar() {
-    // this should come from view model.
-    var progresses = arrayListOf(
-        BarValue(
-            AkiraTheme.colors.red3,
-            progress = 0.1f,
-            "15 successful waypoints",
-        ),
-        BarValue(
-            AkiraTheme.colors.green3,
-            progress = 0.1f, "54 pending waypoints",
-        ),
-        BarValue(
-            AkiraTheme.colors.orange3,
-            progress = 0.1f, "1 partial waypoints",
-        ),
-        BarValue(
-            AkiraTheme.colors.gray3,
-            progress = 0.2f, "short 1",
-        ),
-        BarValue(
-            AkiraTheme.colors.blue3,
-            progress = 0.3f, "short",
-        ),
-    )
-
+fun AppBarProgressBar(viewModel: RouteViewModel) {
     var expandedState = remember {
         mutableStateOf(false)
     }
@@ -152,38 +89,16 @@ fun AppBarProgressBar() {
             .padding(horizontal = 10.dp)
     ) {
         MultiColorProgressBar(
-            progresses = arrayListOf(
-                BarValue(
-                    AkiraTheme.colors.red3,
-                    progress = 0.1f,
-                    "15 successful waypoints",
-                ),
-                BarValue(
-                    AkiraTheme.colors.green3,
-                    progress = 0.1f, "54 pending waypoints",
-                ),
-                BarValue(
-                    AkiraTheme.colors.orange3,
-                    progress = 0.1f, "1 partial waypoints",
-                ),
-                BarValue(
-                    AkiraTheme.colors.gray3,
-                    progress = 0.2f, "short 1",
-                ),
-                BarValue(
-                    AkiraTheme.colors.blue3,
-                    progress = 0.3f, "short",
-                ),
-            ),
+            progresses = viewModel.barValues.value,
             state = expandedState,
             expandHeader = {
                 Row {
-                    Legend(barValue = progresses.first())
+                    Legend(barValue = viewModel.barValues.value.first())
                 }
             },
             expandContent = {
                 Column {
-                    progresses.map { Legend(barValue = it) }
+                    viewModel.barValues.value.map { Legend(barValue = it) }
                 }
             }
         )

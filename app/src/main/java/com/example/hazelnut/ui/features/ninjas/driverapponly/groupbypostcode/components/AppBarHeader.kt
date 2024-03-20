@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly
+package com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

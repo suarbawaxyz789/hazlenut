@@ -59,25 +59,25 @@ fun ProgressBarPreview() {
 fun ProgressBarMultiColorPreview() {
     var progresses = arrayListOf(
         BarValue(
-            colors.red3,
+            ProgressType.SUCCESS,
             progress = 0.1f,
             "15 successful waypoints",
         ),
         BarValue(
-            colors.green3,
+            ProgressType.PENDING,
             progress = 0.1f, "54 pending waypoints",
         ),
         BarValue(
-            colors.orange3,
+            ProgressType.PARTIAL,
             progress = 0.1f, "1 partial waypoints",
         ),
         BarValue(
-            colors.gray3,
-            progress = 0.2f, "short 1",
+            ProgressType.FAILED,
+            progress = 0.2f, "1 partial waypoints",
         ),
         BarValue(
-            colors.blue3,
-            progress = 0.3f, "short",
+            ProgressType.NONE,
+            progress = 0.3f, "62 waypoints total",
         ),
     )
 
@@ -105,7 +105,7 @@ fun ProgressBarMultiColorPreview() {
             )
             Divider()
             Text(
-                text = "With expandable content and header${expandedState.value}",
+                text = "With expandable content and header = ${expandedState.value}",
                 style = typography.body2.copy(
                     color = colors.gray2
                 ),
@@ -149,10 +149,18 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
 
 @Composable
 fun Legend(barValue: BarValue) {
+    val barColor = when (barValue.type) {
+        ProgressType.SUCCESS -> colors.green3
+        ProgressType.PENDING -> colors.gray3
+        ProgressType.PARTIAL -> colors.orange3
+        ProgressType.FAILED -> colors.red3
+        ProgressType.NONE -> Color.Unspecified
+    }
+
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
-                .background(color = barValue.color, shape = CircleShape)
+                .background(color = barColor, shape = CircleShape)
                 .width(spacings.spacingXxs)
                 .height(spacings.spacingXxs)
         )
@@ -209,10 +217,18 @@ fun MultiColorProgressBar(
     }
 }
 
-class BarValue(color: Color, progress: Float, legend: String) {
-    var color: Color = color
+class BarValue(color: ProgressType, progress: Float, legend: String) {
+    var type: ProgressType = color
     var progress: Float = progress
     var legend: String = legend
+}
+
+enum class ProgressType {
+    SUCCESS,
+    PENDING,
+    PARTIAL,
+    FAILED,
+    NONE,
 }
 
 @Composable
@@ -221,6 +237,13 @@ fun MultiColorLinearProgressIndicatorBase(
     modifier: Modifier = Modifier,
     backgroundColor: Color
 ) {
+
+    /// workaround for @Composable invocations can only happen from the context of a @Composable
+    val red3 = colors.red3
+    val green3 = colors.green3
+    val orange3 = colors.orange3
+    val gray3 = colors.gray3
+
     androidx.compose.foundation.Canvas(
         modifier
             .progressSemantics(
@@ -236,7 +259,14 @@ fun MultiColorLinearProgressIndicatorBase(
         var nextStart = 0f
 
         progresses.map {
-            drawLinearIndicator(nextStart, nextStart + it.progress, it.color, strokeWidth)
+            val barColor = when (it.type) {
+                ProgressType.SUCCESS -> green3
+                ProgressType.PENDING -> gray3
+                ProgressType.PARTIAL -> orange3
+                ProgressType.FAILED -> red3
+                ProgressType.NONE -> Color.Unspecified
+            }
+            drawLinearIndicator(nextStart, nextStart + it.progress, barColor, strokeWidth)
             nextStart += it.progress
         }
     }
@@ -294,8 +324,12 @@ private fun Accordion(
                 .fillMaxWidth()
         )
     ) {
-        Row(verticalAlignment = Alignment.Top) {
-            Column(modifier = Modifier.weight(1f).padding(bottom = spacings.spacingXxs)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = spacings.spacingXxs)
+            ) {
                 if (isExpanded) {
                     content()
                 } else {
