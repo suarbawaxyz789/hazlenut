@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon

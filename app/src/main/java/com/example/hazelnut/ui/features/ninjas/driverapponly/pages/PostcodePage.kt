@@ -25,8 +25,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
-import com.example.hazelnut.ui.features.ninjas.driverapponly.ItemWithCount
-import com.example.hazelnut.ui.features.ninjas.driverapponly.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.ItemWithCount
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
 

@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,17 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import co.ninjavan.akira.designsystem.component.divider.DividerMedium
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
 
 @Preview
 @Composable
-fun WaypointCardPreview() {
+private fun WaypointCardPreview() {
 
     /// 1 job 1 parcel
     var sample1: List<Pair<JobType, List<String>>> = listOf(
@@ -45,30 +45,36 @@ fun WaypointCardPreview() {
 
     Column {
         WaypointCard(
-            address = "3 Changi South street 2, Singapore 837484",
-            jobLabelsData = sample1,
-            name = "Butterfly shop"
+            waypointModel = WaypointModel(
+                address = "3 Changi South street 2, Singapore 837484",
+                jobListData = sample1,
+                name = "Butterfly shop",
+                enabled = true,
+            ),
         )
         WaypointCard(
-            address = "3 Changi South street 2, Singapore 837484",
-            jobLabelsData = sample2,
-            name = "Long name sfs fsf dsfa fas fdsafda sfdasfd asfdas sl;afjd asdfsfsdf sdfs dfsfdsdfs fsfsd "
+            waypointModel = WaypointModel(
+                address = "3 Changi South street 2, Singapore 837484",
+                jobListData = sample2,
+                name = "Long name sfs fsf dsfa fas fdsafda sfdasfd asfdas sl;afjd asdfsfsdf sdfs dfsfdsdfs fsfsd ",
+                enabled = true,
+            )
+
         )
         WaypointCard(
-            address = "3 Changi South street 2, Singapore 837484",
-            jobLabelsData = sample3,
-            enable = false,
-            name = "Buttefly shop",
+            waypointModel = WaypointModel(
+                address = "3 Changi South street 2, Singapore 837484",
+                jobListData = sample3,
+                name = "Buttefly shop",
+                enabled = true,
+            ),
         )
     }
 }
 
 @Composable
 fun WaypointCard(
-    address: String,
-    enable: Boolean = true,
-    name: String,
-    jobLabelsData: List<Pair<JobType, List<String>>>? = null
+    waypointModel: WaypointModel,
 ) {
     Column {
         Box(
@@ -80,9 +86,9 @@ fun WaypointCard(
                     .padding(all = spacings.spacingS)
             ) {
                 Text(
-                    text = address,
+                    text = waypointModel.address,
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) colors.gray1 else colors.gray6
+                        color = if (waypointModel.enabled) colors.gray1 else colors.gray6
                     ),
                 )
 
@@ -90,16 +96,16 @@ fun WaypointCard(
 
                 Column {
                     Text(
-                        text = name,
+                        text = waypointModel.name,
                         style = AkiraTheme.typography.body2Bold.copy(
-                            color = if (enable) colors.gray1 else colors.gray6
+                            color = if (waypointModel.enabled) colors.gray1 else colors.gray6
                         ),
                     )
                     Spacer(modifier = Modifier.height(spacings.spacingXxxs))
                     Row {
-                        if (jobLabelsData != null) {
+                        if (waypointModel.jobListData != null) {
                             Row(modifier = Modifier.weight(1f)) {
-                                jobLabelsData.forEach { pair ->
+                                waypointModel.jobListData.forEach { pair ->
                                     JobTypeLabel(
                                         type = pair.first,
                                         parcels = pair.second
@@ -115,12 +121,12 @@ fun WaypointCard(
                         JobLabel(
                             tagStyle = JobLabelStyle.PRIOR,
                             modifier = Modifier.padding(end = spacings.spacingXxxs),
-                            enable = enable,
+                            enable = waypointModel.enabled,
                         )
                         JobLabel(
                             tagStyle = JobLabelStyle.COD,
                             modifier = Modifier.padding(end = spacings.spacingXxxs),
-                            enable = enable,
+                            enable = waypointModel.enabled,
                         )
                     }
                 }

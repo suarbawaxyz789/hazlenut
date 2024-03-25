@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
+import com.example.hazelnut.ui.features.ninjas.driverapponly.WaypointsGroupByPostcode
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteViewModel
-import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
 
 @Preview
 @Composable
@@ -40,10 +40,21 @@ private fun RoutePageComponent(viewModel: RouteViewModel) {
                             .verticalScroll(rememberScrollState())
                             .padding(innerPadding)
                     ) {
-                        WaypointCardContentSample()
+                        Content(viewModel = viewModel)
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun Content(viewModel: RouteViewModel) {
+    Column {
+        viewModel.sequencedWaypointsGroupedByPostCode.value.map { waypointsGroup ->
+            WaypointsGroupByPostcode(
+                waypointsGroupModel = waypointsGroup,
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.IconByJobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 
 @Composable
 fun ItemWithCount(numOfItem: Int, jobType: JobType, enable: Boolean = true) {

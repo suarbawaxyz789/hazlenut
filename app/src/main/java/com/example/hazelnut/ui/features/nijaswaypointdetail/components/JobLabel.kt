@@ -29,7 +29,7 @@ import com.example.hazelnut.R
 @VisibleForTesting
 @Preview
 @Composable
-fun JobLabel() {
+private fun JobLabelPreview() {
     Column {
         JobLabel(
             tagStyle = JobLabelStyle.DELIVERY,
