@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,11 +27,8 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.driverapponly.ItemWithCount
 import com.example.hazelnut.ui.features.ninjas.driverapponly.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.components.AppBarHeader
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.pages.samples.WaypointCardContentSample
-import me.onebone.toolbar.CollapsingToolbarScaffold
-import me.onebone.toolbar.ScrollStrategy
-import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
 /// POSTCODE PAGE IS NOT USED ANYMORE
 
@@ -46,18 +43,13 @@ fun Postcode3PagePreview() {
 
 @Composable
 fun PostcodePage() {
-    CollapsingToolbarScaffold(
-        state = rememberCollapsingToolbarScaffoldState(),
-        scrollStrategy = ScrollStrategy.EnterAlways,
-        modifier = Modifier
-            .fillMaxSize(),
-        toolbar = {
-            AppBarForPostcode()
-        }
-    ) {
+    Scaffold(topBar = {
+        AppBarForPostcode()
+    }) { innerPadding ->
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
         ) {
             WaypointCardContentSample()
         }

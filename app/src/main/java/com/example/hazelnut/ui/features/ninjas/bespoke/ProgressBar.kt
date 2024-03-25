@@ -40,6 +40,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueModel
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
@@ -58,24 +59,24 @@ fun ProgressBarPreview() {
 @Composable
 fun ProgressBarMultiColorPreview() {
     var progresses = arrayListOf(
-        BarValue(
+        BarValueModel(
             ProgressType.SUCCESS,
             progress = 0.1f,
             "15 successful waypoints",
         ),
-        BarValue(
+        BarValueModel(
             ProgressType.PENDING,
             progress = 0.1f, "54 pending waypoints",
         ),
-        BarValue(
+        BarValueModel(
             ProgressType.PARTIAL,
             progress = 0.1f, "1 partial waypoints",
         ),
-        BarValue(
+        BarValueModel(
             ProgressType.FAILED,
             progress = 0.2f, "1 partial waypoints",
         ),
-        BarValue(
+        BarValueModel(
             ProgressType.NONE,
             progress = 0.3f, "62 waypoints total",
         ),
@@ -148,7 +149,7 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Legend(barValue: BarValue) {
+fun Legend(barValue: BarValueModel) {
     val barColor = when (barValue.type) {
         ProgressType.SUCCESS -> colors.green3
         ProgressType.PENDING -> colors.gray3
@@ -181,7 +182,7 @@ private val LinearIndicatorHeight = ProgressIndicatorDefaults.StrokeWidth
 
 @Composable
 fun MultiColorProgressBar(
-    progresses: List<BarValue>,
+    progresses: List<BarValueModel>,
     modifier: Modifier = Modifier,
     state: MutableState<Boolean>? = null,
     expandHeader: (@Composable() () -> Unit)? = null,
@@ -217,11 +218,6 @@ fun MultiColorProgressBar(
     }
 }
 
-class BarValue(color: ProgressType, progress: Float, legend: String) {
-    var type: ProgressType = color
-    var progress: Float = progress
-    var legend: String = legend
-}
 
 enum class ProgressType {
     SUCCESS,
@@ -233,7 +229,7 @@ enum class ProgressType {
 
 @Composable
 fun MultiColorLinearProgressIndicatorBase(
-    progresses: List<BarValue>,
+    progresses: List<BarValueModel>,
     modifier: Modifier = Modifier,
     backgroundColor: Color
 ) {

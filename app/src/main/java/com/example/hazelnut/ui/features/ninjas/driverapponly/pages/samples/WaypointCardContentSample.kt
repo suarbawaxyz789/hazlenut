@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.ninjas.driverapponly.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.PostcodeCard
+import com.example.hazelnut.ui.features.ninjas.driverapponly.PostcodeHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.WaypointCard
 
 @Composable
@@ -36,7 +36,7 @@ fun WaypointCardContentSample() {
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
         verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
     ) {
-        PostcodeCard(numOfDelivery = 1, numOfPickup = 3, postcode = "19832") {
+        PostcodeHeader(numOfDelivery = 1, numOfPickup = 3, postcode = "19832") {
             Column {
                 WaypointCard(
                     address = "1 Changi South street 2, Singapore 837484",
@@ -78,7 +78,7 @@ fun WaypointCardContentSample() {
             }
         }
 
-        PostcodeCard(numOfDelivery = 1, numOfPickup = 3, postcode = "2903789") {
+        PostcodeHeader(numOfDelivery = 1, numOfPickup = 3, postcode = "2903789") {
             WaypointCard(
                 address = "3 Changi South street 2, Singapore 837484",
                 jobLabelsData = sample1,

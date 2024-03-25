@@ -20,7 +20,7 @@ private fun PostcodeCardPreview() {
         Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
     )
 
-    PostcodeCard(numOfPickup = 2, numOfDelivery = 4, postcode = "29832") {
+    PostcodeHeader(numOfPickup = 2, numOfDelivery = 4, postcode = "29832") {
         Column {
             Column {
                 WaypointCard(
@@ -39,7 +39,7 @@ private fun PostcodeCardPreview() {
 }
 
 @Composable
-fun PostcodeCard(
+fun PostcodeHeader(
     numOfDelivery: Int,
     numOfPickup: Int,
     postcode: String,

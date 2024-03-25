@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.routepage.components
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -24,8 +24,8 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
-import com.example.hazelnut.ui.features.ninjas.driverapponly.groupbypostcode.components.AppBarHeader
-import ninjavan.swiftninja.mvvm.ui.groupbypostcode.routepage.RouteViewModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteViewModel
 
 @Composable
 fun RoutePageAppBar(viewModel: RouteViewModel) {
