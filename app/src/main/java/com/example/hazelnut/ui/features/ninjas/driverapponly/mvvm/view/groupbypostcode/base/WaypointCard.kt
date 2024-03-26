@@ -49,17 +49,22 @@ private fun WaypointCardSinglePreview() {
             sample1RTS,
         )
 
+    var tags = arrayListOf(
+        JobLabelStyle.COD,
+        JobLabelStyle.PRIOR,
+        JobLabelStyle.DOOR_STEP,
+        JobLabelStyle.ID_CHECK
+    )
+
     Column {
-        listOfSample.map {
+        listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
                 waypointModel = WaypointModel(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = it,
+                    jobListData = pairs,
                     name = "Butterfly shop",
                     enabled = true,
-                    jobTags = arrayListOf(
-                        JobLabelStyle.COD,
-                    ),
+                    jobTags = tags.take(index + 1),
                     numOfUnscannedParcels = 2,
                 ),
             )
@@ -91,19 +96,22 @@ private fun WaypointCardMultiPreview() {
             sampleMultiRTS,
         )
 
+    var tags = arrayListOf(
+        JobLabelStyle.COD,
+        JobLabelStyle.PRIOR,
+        JobLabelStyle.DOOR_STEP,
+        JobLabelStyle.ID_CHECK
+    )
+
     Column {
-        listOfSample.map {
+        listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
                 waypointModel = WaypointModel(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = it,
+                    jobListData = pairs,
                     name = "Butterfly shop",
                     enabled = true,
-                    jobTags = arrayListOf(
-                        JobLabelStyle.COD,
-                        JobLabelStyle.PRIOR,
-                        JobLabelStyle.DOOR_STEP,
-                    ),
+                    jobTags = tags.take(index + 1),
                 ),
             )
         }
@@ -129,12 +137,19 @@ private fun WaypointCardMixPreview() {
             sampleRtsPickup,
         )
 
+    var tags = arrayListOf(
+        JobLabelStyle.COD,
+        JobLabelStyle.PRIOR,
+        JobLabelStyle.DOOR_STEP,
+        JobLabelStyle.ID_CHECK
+    )
+
     Column {
-        listOfSample.map {
+        listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
                 waypointModel = WaypointModel(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = it,
+                    jobListData = pairs,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = arrayListOf(
