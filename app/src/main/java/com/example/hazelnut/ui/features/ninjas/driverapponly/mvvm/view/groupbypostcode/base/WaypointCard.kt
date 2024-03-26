@@ -1,11 +1,8 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -62,9 +59,6 @@ private fun WaypointCardSinglePreview() {
                     enabled = true,
                     jobTags = arrayListOf(
                         JobLabelStyle.COD,
-                        JobLabelStyle.PRIOR,
-                        JobLabelStyle.DOOR_STEP,
-                        JobLabelStyle.ID_CHECK
                     ),
                     numOfUnscannedParcels = 2,
                 ),
@@ -109,7 +103,6 @@ private fun WaypointCardMultiPreview() {
                         JobLabelStyle.COD,
                         JobLabelStyle.PRIOR,
                         JobLabelStyle.DOOR_STEP,
-                        JobLabelStyle.ID_CHECK
                     ),
                 ),
             )
@@ -157,7 +150,6 @@ private fun WaypointCardMixPreview() {
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WaypointCard(
     waypointModel: WaypointModel,
@@ -221,19 +213,33 @@ fun WaypointCard(
                             }
                         }
                         waypointModel.jobTags?.let { jobTagList ->
-                            FlowRow(
-                                maxItemsInEachRow = 2,
-                                horizontalArrangement = Arrangement.End
-                            ) {
-                                jobTagList.map { jobTag ->
-                                    JobLabel(
-                                        tagStyle = jobTag,
-                                        modifier = Modifier.padding(
-                                            end = spacings.spacingXxxs,
-                                            bottom = spacings.spacingXxxs
-                                        ),
-                                        enable = waypointModel.enabled,
-                                    )
+                            /// this can be simplified later using FlowRow but need to add foundation:1.4.3
+                            Column(horizontalAlignment = Alignment.End) {
+                                Row {
+                                    jobTagList.take(2).map { jobTag ->
+                                        JobLabel(
+                                            tagStyle = jobTag,
+                                            modifier = Modifier.padding(
+                                                end = spacings.spacingXxxs,
+                                                bottom = spacings.spacingXxxs
+                                            ),
+                                            enable = waypointModel.enabled,
+                                        )
+                                    }
+                                }
+                                if (waypointModel.jobTags.size > 2) {
+                                    Row {
+                                        jobTagList.slice(2 until jobTagList.size).map { jobTag ->
+                                            JobLabel(
+                                                tagStyle = jobTag,
+                                                modifier = Modifier.padding(
+                                                    end = spacings.spacingXxxs,
+                                                    bottom = spacings.spacingXxxs
+                                                ),
+                                                enable = waypointModel.enabled,
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
