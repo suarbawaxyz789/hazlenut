@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
+import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.ItemWithCount
@@ -32,6 +33,12 @@ private fun PostcodeCardPreview() {
                 ),
                 name = "Butterfly shop",
                 enabled = true,
+                jobTags = arrayListOf(
+                    JobLabelStyle.PRIOR,
+                    JobLabelStyle.COD,
+                    JobLabelStyle.DOOR_STEP,
+                    JobLabelStyle.ID_CHECK
+                ),
             )
         )
     )

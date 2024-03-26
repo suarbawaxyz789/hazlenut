@@ -3,6 +3,7 @@ package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueModel
@@ -63,6 +64,13 @@ class RouteViewModel @Inject constructor() : ViewModel() {
                             Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
                         ),
                         enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK,
+                        ),
+                        numOfUnscannedParcels = 0,
                     ),
                     WaypointModel(
                         address = "3 Changi South street 2, Singapore 837484",
@@ -71,6 +79,12 @@ class RouteViewModel @Inject constructor() : ViewModel() {
                             Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
                         ),
                         enabled = false,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        ),
                     ),
                 ),
             ),
@@ -86,6 +100,12 @@ class RouteViewModel @Inject constructor() : ViewModel() {
                             Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
                         ),
                         enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        ),
                     ),
                     WaypointModel(
                         address = "3 Changi South street 2, Singapore 837484",
@@ -94,6 +114,12 @@ class RouteViewModel @Inject constructor() : ViewModel() {
                             Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
                         ),
                         enabled = false,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        ),
                     ),
                 ),
             )

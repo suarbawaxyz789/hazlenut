@@ -1,13 +1,19 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Chip
+import androidx.compose.material.ChipDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,53 +31,133 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.Waypoin
 
 @Preview
 @Composable
-private fun WaypointCardPreview() {
-
-    /// 1 job 1 parcel
-    var sample1: List<Pair<JobType, List<String>>> = listOf(
+private fun WaypointCardSinglePreview() {
+    var sample1Delivery: List<Pair<JobType, List<String>>> = listOf(
         Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
     )
+    var sample1Pickup: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
+    )
+    var sample1RPU: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RPU, listOf("NVSGCTTDR000000111"))
+    )
+    var sample1RTS: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RTS, listOf("NVSGCTTDR000000111"))
+    )
+    var listOfSample =
+        arrayListOf(
+            sample1Delivery,
+            sample1Pickup,
+            sample1RPU,
+            sample1RTS,
+        )
 
-    /// 1 job 2 parcel
-    var sample2: List<Pair<JobType, List<String>>> = listOf(
+    Column {
+        listOfSample.map {
+            WaypointCard(
+                waypointModel = WaypointModel(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    jobListData = it,
+                    name = "Butterfly shop",
+                    enabled = true,
+                    jobTags = arrayListOf(
+                        JobLabelStyle.COD,
+                        JobLabelStyle.PRIOR,
+                        JobLabelStyle.DOOR_STEP,
+                        JobLabelStyle.ID_CHECK
+                    ),
+                    numOfUnscannedParcels = 2,
+                ),
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun WaypointCardMultiPreview() {
+    var sampleMultiDelivery: List<Pair<JobType, List<String>>> = listOf(
         Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
     )
+    var sampleMultiPickup: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
+    var sampleMultiRPU: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RPU, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
+    var sampleMultiRTS: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
 
-    /// 2 job 2 parcel
-    var sample3: List<Pair<JobType, List<String>>> = listOf(
+    var listOfSample =
+        arrayListOf(
+            sampleMultiDelivery,
+            sampleMultiPickup,
+            sampleMultiRPU,
+            sampleMultiRTS,
+        )
+
+    Column {
+        listOfSample.map {
+            WaypointCard(
+                waypointModel = WaypointModel(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    jobListData = it,
+                    name = "Butterfly shop",
+                    enabled = true,
+                    jobTags = arrayListOf(
+                        JobLabelStyle.COD,
+                        JobLabelStyle.PRIOR,
+                        JobLabelStyle.DOOR_STEP,
+                        JobLabelStyle.ID_CHECK
+                    ),
+                ),
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+private fun WaypointCardMixPreview() {
+    var sampleDeliveryRpu: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
+        Pair(JobType.RPU, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    )
+    var sampleRtsPickup: List<Pair<JobType, List<String>>> = listOf(
         Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
         Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
     )
 
-    Column {
-        WaypointCard(
-            waypointModel = WaypointModel(
-                address = "3 Changi South street 2, Singapore 837484",
-                jobListData = sample1,
-                name = "Butterfly shop",
-                enabled = true,
-            ),
+    var listOfSample =
+        arrayListOf(
+            sampleDeliveryRpu,
+            sampleRtsPickup,
         )
-        WaypointCard(
-            waypointModel = WaypointModel(
-                address = "3 Changi South street 2, Singapore 837484",
-                jobListData = sample2,
-                name = "Long name sfs fsf dsfa fas fdsafda sfdasfd asfdas sl;afjd asdfsfsdf sdfs dfsfdsdfs fsfsd ",
-                enabled = true,
-            )
 
-        )
-        WaypointCard(
-            waypointModel = WaypointModel(
-                address = "3 Changi South street 2, Singapore 837484",
-                jobListData = sample3,
-                name = "Buttefly shop",
-                enabled = true,
-            ),
-        )
+    Column {
+        listOfSample.map {
+            WaypointCard(
+                waypointModel = WaypointModel(
+                    address = "3 Changi South street 2, Singapore 837484",
+                    jobListData = it,
+                    name = "Butterfly shop",
+                    enabled = true,
+                    jobTags = arrayListOf(
+                        JobLabelStyle.COD,
+                        JobLabelStyle.PRIOR,
+                        JobLabelStyle.DOOR_STEP,
+                        JobLabelStyle.ID_CHECK
+                    ),
+                    numOfUnscannedParcels = 12,
+                ),
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WaypointCard(
     waypointModel: WaypointModel,
@@ -103,57 +189,61 @@ fun WaypointCard(
                     )
                     Spacer(modifier = Modifier.height(spacings.spacingXxxs))
                     Row {
-                        if (waypointModel.jobListData != null) {
-                            Row(modifier = Modifier.weight(1f)) {
-                                waypointModel.jobListData.forEach { pair ->
-                                    JobTypeLabel(
-                                        type = pair.first,
-                                        parcels = pair.second
+                        Row(modifier = Modifier.weight(1f)) {
+                            Column {
+                                if (waypointModel.jobListData != null) {
+                                    Row {
+                                        waypointModel.jobListData.forEach { pair ->
+                                            JobTypeLabel(
+                                                type = pair.first,
+                                                parcels = pair.second
+                                            )
+                                        }
+                                    }
+                                }
+                                waypointModel.numOfUnscannedParcels?.let {
+                                    Chip(
+                                        shape = RoundedCornerShape(spacings.spacingXxxs),
+                                        onClick = { /*TODO*/ },
+                                        colors = ChipDefaults.chipColors(
+                                            backgroundColor = colors.red5,
+                                            contentColor = colors.red3
+                                        ),
+                                    ) {
+                                        Text(
+                                            text = "${waypointModel.numOfUnscannedParcels} parcel to scan",
+                                            style = AkiraTheme.typography.body2.copy(
+                                                color = colors.red3
+                                            ),
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        waypointModel.jobTags?.let { jobTagList ->
+                            FlowRow(
+                                maxItemsInEachRow = 2,
+                                horizontalArrangement = Arrangement.End
+                            ) {
+                                jobTagList.map { jobTag ->
+                                    JobLabel(
+                                        tagStyle = jobTag,
+                                        modifier = Modifier.padding(
+                                            end = spacings.spacingXxxs,
+                                            bottom = spacings.spacingXxxs
+                                        ),
+                                        enable = waypointModel.enabled,
                                     )
                                 }
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(spacings.spacingXxs))
 
-                    Row {
-                        /// TODO better way to pass label from param.
-                        JobLabel(
-                            tagStyle = JobLabelStyle.PRIOR,
-                            modifier = Modifier.padding(end = spacings.spacingXxxs),
-                            enable = waypointModel.enabled,
-                        )
-                        JobLabel(
-                            tagStyle = JobLabelStyle.COD,
-                            modifier = Modifier.padding(end = spacings.spacingXxxs),
-                            enable = waypointModel.enabled,
-                        )
-                    }
                 }
             }
         }
         Divider(
             color = colors.gray7,
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun JobTypeLabelPreview() {
-    Column {
-        JobTypeLabel(JobType.PICKUP, parcels = listOf("NVSGCTTDR000000294"))
-        JobTypeLabel(
-            JobType.PICKUP,
-            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
-        )
-        JobTypeLabel(
-            JobType.RPU,
-            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
-        )
-        JobTypeLabel(
-            JobType.RTS,
-            parcels = listOf("NVSGCTTDR000000294", "NVSGCTTDR000000294")
         )
     }
 }
@@ -165,19 +255,11 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
             Spacer(modifier = Modifier.width(spacings.spacingXxs))
-            Text(
-                text = parcels.first(),
-                style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray1 else colors.gray7
-                ),
-                maxLines = 1,
-            )
-            Spacer(modifier = Modifier.width(spacings.spacingXxs))
             if (type == JobType.RTS) {
                 Text(
                     text = stringResource(id = R.string.parcel_rts),
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) colors.gray1 else colors.gray7
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
@@ -186,12 +268,19 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
                 Text(
                     text = stringResource(id = R.string.tag_rpu),
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) colors.gray1 else colors.gray7
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
             }
             Spacer(modifier = Modifier.width(spacings.spacingXxs))
+            Text(
+                text = parcels.first(),
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (enable) colors.gray3 else colors.gray5
+                ),
+                maxLines = 1,
+            )
         }
     }
 
@@ -201,7 +290,7 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
         Text(
             text = parcels.size.toString(),
             style = AkiraTheme.typography.body2.copy(
-                color = if (enable) colors.gray1 else colors.gray7
+                color = if (enable) colors.gray1 else colors.gray5
             ),
             maxLines = 1,
         )
@@ -210,7 +299,7 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
             Text(
                 text = stringResource(id = R.string.parcel_rts),
                 style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray1 else colors.gray7
+                    color = if (enable) colors.gray2 else colors.gray5
                 ),
                 maxLines = 1,
             )
@@ -219,7 +308,7 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
             Text(
                 text = stringResource(id = R.string.tag_rpu),
                 style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray1 else colors.gray7
+                    color = if (enable) colors.gray2 else colors.gray5
                 ),
                 maxLines = 1,
             )
