@@ -9,15 +9,18 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
-    private val _routeId = mutableStateOf("")
-    val routeId: State<String> = _routeId
 
-    private val _barValues = mutableStateOf(arrayListOf<BarValueModel>())
+    private val _routeId = MutableStateFlow(0L)
+    val routeId = _routeId.asStateFlow()
 
-    val barValues: State<List<BarValueModel>> = _barValues
+    private val _barValues = MutableStateFlow(arrayListOf<BarValueModel>())
+
+    val barValues = _barValues.asStateFlow()
 
     private val _sequencedWaypointsGroupedByPostCode =
         mutableStateOf(arrayListOf<WaypointsGroupByPostcodeModel>())
@@ -25,8 +28,12 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     val sequencedWaypointsGroupedByPostCode: State<List<WaypointsGroupByPostcodeModel>> =
         _sequencedWaypointsGroupedByPostCode
 
+    fun setRouteId(routeId: Long) {
+        _routeId.value = routeId
+    }
+
     fun testData() {
-        _routeId.value = "12346"
+        _routeId.value = 23982
         _barValues.value = arrayListOf(
             BarValueModel(
                 ProgressType.SUCCESS,
@@ -34,20 +41,20 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                 "15 successful waypoints",
             ),
             BarValueModel(
-                ProgressType.PENDING,
-                progress = 0.1f, "54 pending waypoints",
-            ),
-            BarValueModel(
                 ProgressType.PARTIAL,
-                progress = 0.1f, "1 partial waypoints",
+                progress = 0.1f, "3 partial waypoints",
             ),
             BarValueModel(
                 ProgressType.FAILED,
-                progress = 0.2f, "1 partial waypoints",
+                progress = 0.1f, "3 failed waypoints",
+            ),
+            BarValueModel(
+                ProgressType.PENDING,
+                progress = 0.7f, "1 pending waypoints",
             ),
             BarValueModel(
                 ProgressType.NONE,
-                progress = 0.3f, "62 waypoints total",
+                progress = 0.7f, "7 waypoints total",
             ),
         )
 
@@ -70,7 +77,19 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.DOOR_STEP,
                             JobLabelStyle.ID_CHECK,
                         ),
-                        numOfUnscannedParcels = 0,
+                        numOfUnscannedParcels = 4
+                    ),
+                    WaypointModel(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        jobListData = listOf(
+                            Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                        ),
                     ),
                     WaypointModel(
                         address = "3 Changi South street 2, Singapore 837484",
@@ -84,7 +103,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.COD,
                             JobLabelStyle.DOOR_STEP,
                             JobLabelStyle.ID_CHECK
-                        ),
+                        )
                     ),
                 ),
             ),
@@ -97,7 +116,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
-                            Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
+                            Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111")),
+                            Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111")),
                         ),
                         enabled = true,
                         jobTags = arrayListOf(
@@ -105,13 +125,20 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.COD,
                             JobLabelStyle.DOOR_STEP,
                             JobLabelStyle.ID_CHECK
-                        ),
+                        )
                     ),
                     WaypointModel(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
-                            Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
+                            Pair(
+                                JobType.PICKUP,
+                                listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                            ),
+                            Pair(
+                                JobType.DELIVERY,
+                                listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                            ),
                         ),
                         enabled = false,
                         jobTags = arrayListOf(
@@ -119,11 +146,29 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.COD,
                             JobLabelStyle.DOOR_STEP,
                             JobLabelStyle.ID_CHECK
-                        ),
+                        )
                     ),
                 ),
             )
         )
+    }
+
+    fun test2() {
+        _barValues.value = ArrayList(_barValues.value).apply {
+            addAll(
+                arrayListOf(
+                    BarValueModel(
+                        ProgressType.FAILED,
+                        progress = 0.2f, "1 partial waypoints",
+                    ),
+                    BarValueModel(
+                        ProgressType.NONE,
+                        progress = 0.3f, "62 waypoints total",
+                    ),
+                )
+            )
+        }
+        _routeId.value = 23982
     }
 
 }

@@ -66,4 +66,8 @@
     <string name="tag_open_box">Open Box</string>
     <string name="tag_confirmed">Confirmed</string>
     <string name="select_date">Select Date</string>
+    <string name="route_id_number">ID %d</string>
+    <string name="route_title">Route</string>
+    <string name="text_rpu_tag">RPU</string>
+    <string name="unscanned_parcles_count">%s parcel to scan</string>
 </resources>

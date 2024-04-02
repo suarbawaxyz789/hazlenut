@@ -1,6 +1,8 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
+import android.app.Activity
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,29 +15,42 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import androidx.core.view.WindowCompat
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
+import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
 
 @Composable
 fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
+    /// system status bar should follow appbar color
     val context = LocalContext.current
+    if (context is ComponentActivity) {
+        context.window.statusBarColor = AkiraTheme.colors.gray8.toArgb()
+        WindowCompat.getInsetsController(context.window, context.window.decorView).apply {
+            isAppearanceLightStatusBars = true
+        }
+    }
+
     val actions = listOf(
         R.drawable.icon_l_map_marker_alt to {
             Toast.makeText(context, "Map marker icon clicked", Toast.LENGTH_SHORT).show()
         },
         R.drawable.icon_l_envelope to {
             Toast.makeText(context, "Envelope icon clicked", Toast.LENGTH_SHORT).show()
+            viewModel.test2()
         }
     )
 
@@ -46,11 +61,12 @@ fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
         ) {
             Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
             AppBarHeader(
-                title = "Route",
+                title = stringResource(id = R.string.route_title),
                 backButtonContent = {
                     IconButton(onClick = {
-                        Toast.makeText(context, "Navigation icon clicked", Toast.LENGTH_SHORT)
-                            .show()
+                        if (context is Activity) {
+                            context.finish()
+                        }
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.angle_right),
@@ -61,7 +77,10 @@ fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
                 },
                 subtitleContent = {
                     Text(
-                        text = "Route ID ${viewModel.routeId.value}",
+                        text = stringResource(
+                            id = R.string.route_id_number,
+                            viewModel.routeId.collectAsState().value
+                        ),
                         style = AkiraTheme.typography.body2.copy(
                             color = AkiraTheme.colors.gray3
                         ),
@@ -86,19 +105,19 @@ fun AppBarProgressBar(viewModel: RouteWaypointsPostalcodeViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = AkiraTheme.spacings.spacingXxs)
     ) {
         MultiColorProgressBar(
-            progresses = viewModel.barValues.value,
+            progresses = viewModel.barValues.collectAsState().value.filter { it.type != ProgressType.NONE },
             state = expandedState,
             expandHeader = {
                 Row {
-                    Legend(barValue = viewModel.barValues.value.first())
+                    Legend(barValue = viewModel.barValues.collectAsState().value.first())
                 }
             },
             expandContent = {
                 Column {
-                    viewModel.barValues.value.map { Legend(barValue = it) }
+                    viewModel.barValues.collectAsState().value.map { Legend(barValue = it) }
                 }
             }
         )

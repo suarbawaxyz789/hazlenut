@@ -63,7 +63,7 @@ private fun WaypointCardSinglePreview() {
                     address = "3 Changi South street 2, Singapore 837484",
                     jobListData = pairs,
                     name = "Butterfly shop",
-                    enabled = true,
+                    enabled = false,
                     jobTags = tags.take(index + 1),
                     numOfUnscannedParcels = 2,
                 ),
@@ -172,29 +172,29 @@ fun WaypointCard(
     Column {
         Box(
             modifier = Modifier
-                .background(color = colors.white)
+                .background(color = AkiraTheme.colors.white)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(all = spacings.spacingS)
+                    .padding(all = AkiraTheme.spacings.spacingS)
             ) {
                 Text(
                     text = waypointModel.address,
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (waypointModel.enabled) colors.gray1 else colors.gray6
+                        color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
                     ),
                 )
 
-                Spacer(modifier = Modifier.height(spacings.spacingXs))
+                Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXs))
 
                 Column {
                     Text(
                         text = waypointModel.name,
                         style = AkiraTheme.typography.body2Bold.copy(
-                            color = if (waypointModel.enabled) colors.gray1 else colors.gray6
+                            color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
                         ),
                     )
-                    Spacer(modifier = Modifier.height(spacings.spacingXxxs))
+                    Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxxs))
                     Row {
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
@@ -203,24 +203,28 @@ fun WaypointCard(
                                         waypointModel.jobListData.forEach { pair ->
                                             JobTypeLabel(
                                                 type = pair.first,
-                                                parcels = pair.second
+                                                parcels = pair.second,
+                                                enable = waypointModel.enabled
                                             )
                                         }
                                     }
                                 }
                                 waypointModel.numOfUnscannedParcels?.let {
                                     Chip(
-                                        shape = RoundedCornerShape(spacings.spacingXxxs),
-                                        onClick = { /*TODO*/ },
+                                        shape = RoundedCornerShape(AkiraTheme.spacings.spacingXxxs),
+                                        onClick = {},
                                         colors = ChipDefaults.chipColors(
-                                            backgroundColor = colors.red5,
-                                            contentColor = colors.red3
+                                            backgroundColor = AkiraTheme.colors.red5,
+                                            contentColor = AkiraTheme.colors.red3
                                         ),
                                     ) {
                                         Text(
-                                            text = "${waypointModel.numOfUnscannedParcels} parcel to scan",
+                                            text = stringResource(
+                                                id = R.string.unscanned_parcles_count,
+                                                waypointModel.numOfUnscannedParcels
+                                            ),
                                             style = AkiraTheme.typography.body2.copy(
-                                                color = colors.red3
+                                                color = AkiraTheme.colors.red3
                                             ),
                                         )
                                     }
@@ -235,8 +239,8 @@ fun WaypointCard(
                                         JobLabel(
                                             tagStyle = jobTag,
                                             modifier = Modifier.padding(
-                                                end = spacings.spacingXxxs,
-                                                bottom = spacings.spacingXxxs
+                                                end = AkiraTheme.spacings.spacingXxxs,
+                                                bottom = AkiraTheme.spacings.spacingXxxs
                                             ),
                                             enable = waypointModel.enabled,
                                         )
@@ -248,8 +252,8 @@ fun WaypointCard(
                                             JobLabel(
                                                 tagStyle = jobTag,
                                                 modifier = Modifier.padding(
-                                                    end = spacings.spacingXxxs,
-                                                    bottom = spacings.spacingXxxs
+                                                    end = AkiraTheme.spacings.spacingXxxs,
+                                                    bottom = AkiraTheme.spacings.spacingXxxs
                                                 ),
                                                 enable = waypointModel.enabled,
                                             )
@@ -264,7 +268,7 @@ fun WaypointCard(
             }
         }
         Divider(
-            color = colors.gray7,
+            color = AkiraTheme.colors.gray7,
         )
     }
 }
@@ -275,30 +279,30 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
     if (parcels.size == 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
-            Spacer(modifier = Modifier.width(spacings.spacingXxs))
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             if (type == JobType.RTS) {
                 Text(
                     text = stringResource(id = R.string.parcel_rts),
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
+                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                     ),
                     maxLines = 1,
                 )
             }
             if (type == JobType.RPU) {
                 Text(
-                    text = stringResource(id = R.string.tag_rpu),
+                    text = stringResource(id = R.string.parcel_rts),
                     style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
+                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                     ),
                     maxLines = 1,
                 )
             }
-            Spacer(modifier = Modifier.width(spacings.spacingXxs))
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             Text(
                 text = parcels.first(),
                 style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray3 else colors.gray5
+                    color = if (enable) AkiraTheme.colors.gray3 else AkiraTheme.colors.gray5
                 ),
                 maxLines = 1,
             )
@@ -307,33 +311,33 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
 
     return Row(verticalAlignment = Alignment.CenterVertically) {
         IconByJobType(type = type, enable = enable)
-        Spacer(modifier = Modifier.width(spacings.spacingXxs))
+        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
         Text(
             text = parcels.size.toString(),
             style = AkiraTheme.typography.body2.copy(
-                color = if (enable) colors.gray1 else colors.gray5
+                color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
             ),
             maxLines = 1,
         )
-        Spacer(modifier = Modifier.width(spacings.spacingXxs))
+        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
         if (type == JobType.RTS) {
             Text(
                 text = stringResource(id = R.string.parcel_rts),
                 style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray2 else colors.gray5
+                    color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),
                 maxLines = 1,
             )
         }
         if (type == JobType.RPU) {
             Text(
-                text = stringResource(id = R.string.tag_rpu),
+                text = stringResource(id = R.string.text_rpu_tag),
                 style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) colors.gray2 else colors.gray5
+                    color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),
                 maxLines = 1,
             )
         }
-        Spacer(modifier = Modifier.width(spacings.spacingXxs))
+        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
     }
 }

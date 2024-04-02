@@ -19,7 +19,6 @@ fun AppBarHeader(
     subtitleContent: (@Composable() () -> Unit)? = null,
     actions: List<Pair<Int, () -> Unit>> = emptyList()
 ) {
-    val context = LocalContext.current
     Column {
         Row {
             if (backButtonContent != null) {
