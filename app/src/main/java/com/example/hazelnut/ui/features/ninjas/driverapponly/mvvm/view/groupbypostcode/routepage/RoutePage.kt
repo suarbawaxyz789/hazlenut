@@ -13,18 +13,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.ninjas.driverapponly.WaypointsGroupByPostcode
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteViewModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
 
 @Preview
 @Composable
 private fun TestPreview() {
-    var viewModel = RouteViewModel();
+    var viewModel = RouteWaypointsPostalcodeViewModel();
     viewModel.testData()
     RoutePageComponent(viewModel = viewModel)
 }
 
 @Composable
-private fun RoutePageComponent(viewModel: RouteViewModel) {
+private fun RoutePageComponent(viewModel: RouteWaypointsPostalcodeViewModel) {
     AkiraTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
@@ -49,7 +49,7 @@ private fun RoutePageComponent(viewModel: RouteViewModel) {
 }
 
 @Composable
-private fun Content(viewModel: RouteViewModel) {
+private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
     Column {
         viewModel.sequencedWaypointsGroupedByPostCode.value.map { waypointsGroup ->
             WaypointsGroupByPostcode(

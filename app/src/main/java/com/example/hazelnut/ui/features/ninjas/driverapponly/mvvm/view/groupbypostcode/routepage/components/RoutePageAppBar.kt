@@ -25,10 +25,10 @@ import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteViewModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
 
 @Composable
-fun RoutePageAppBar(viewModel: RouteViewModel) {
+fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
     val context = LocalContext.current
     val actions = listOf(
         R.drawable.icon_l_map_marker_alt to {
@@ -78,7 +78,7 @@ fun RoutePageAppBar(viewModel: RouteViewModel) {
 }
 
 @Composable
-fun AppBarProgressBar(viewModel: RouteViewModel) {
+fun AppBarProgressBar(viewModel: RouteWaypointsPostalcodeViewModel) {
     var expandedState = remember {
         mutableStateOf(false)
     }

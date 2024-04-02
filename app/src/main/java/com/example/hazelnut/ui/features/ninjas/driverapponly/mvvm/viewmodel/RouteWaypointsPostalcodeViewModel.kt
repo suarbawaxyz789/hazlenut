@@ -11,7 +11,7 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.Waypoin
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
 import javax.inject.Inject
 
-class RouteViewModel @Inject constructor() : ViewModel() {
+class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     private val _routeId = mutableStateOf("")
     val routeId: State<String> = _routeId
 
