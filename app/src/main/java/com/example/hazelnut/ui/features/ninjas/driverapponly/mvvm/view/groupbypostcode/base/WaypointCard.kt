@@ -15,18 +15,16 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
 
 @Preview
 @Composable
@@ -61,7 +59,7 @@ private fun WaypointCardSinglePreview() {
     Column {
         listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
-                waypointModel = WaypointModel(
+                waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
                     jobListData = pairs,
                     name = "Butterfly shop",
@@ -108,7 +106,7 @@ private fun WaypointCardMultiPreview() {
     Column {
         listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
-                waypointModel = WaypointModel(
+                waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
                     jobListData = pairs,
                     name = "Butterfly shop",
@@ -149,7 +147,7 @@ private fun WaypointCardMixPreview() {
     Column {
         listOfSample.mapIndexed { index, pairs ->
             WaypointCard(
-                waypointModel = WaypointModel(
+                waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
                     jobListData = pairs,
                     name = "Butterfly shop",
@@ -169,7 +167,7 @@ private fun WaypointCardMixPreview() {
 
 @Composable
 fun WaypointCard(
-    waypointModel: WaypointModel,
+    waypointModel: WaypointCardUiState,
 ) {
     val resources = LocalContext.current.resources
     Column {

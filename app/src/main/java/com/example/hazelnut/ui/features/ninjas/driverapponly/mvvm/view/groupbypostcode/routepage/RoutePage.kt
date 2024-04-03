@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
@@ -32,7 +33,10 @@ private fun RoutePageComponent(viewModel: RouteWaypointsPostalcodeViewModel) {
             Column {
                 Scaffold(
                     topBar = {
-                        RoutePageAppBar(viewModel = viewModel)
+                        RoutePageAppBar(
+                            viewModel = viewModel,
+                            progressBarUiState = viewModel.progressBarUiState.collectAsState().value
+                        )
                     },
                 ) { innerPadding ->
                     Column(

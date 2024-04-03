@@ -1,9 +1,8 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models
 
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 
-data class WaypointModel(
+data class WaypointCardUiState(
     val address: String,
     val name: String,
     val jobListData: List<Pair<JobType, List<String>>>,
@@ -12,9 +11,9 @@ data class WaypointModel(
     val numOfUnscannedParcels : Int? = null,
 )
 
-data class WaypointsGroupByPostcodeModel(
+data class WaypointsGroupByPostcodeUiState(
     val postcode: String,
     val numOfDelivery: Int,
     val numOfPickup: Int,
-    val jobListData: List<WaypointModel>
+    val jobListData: List<WaypointCardUiState>
 )

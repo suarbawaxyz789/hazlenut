@@ -2,69 +2,130 @@ package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueModel
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.MultiColorProgressBarUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.RouteWaypointsPostalCodeActivityUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterOptionsUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
 
+    private val _uiState = MutableStateFlow<RouteWaypointsPostalCodeActivityUiState>(RouteWaypointsPostalCodeActivityUiState.Nothing)
+    val uiState = _uiState.asStateFlow()
+
+    private val _progressBarUiState = MutableStateFlow(
+        MultiColorProgressBarUiState(
+            barValues = arrayListOf()
+        )
+    )
+
+    val progressBarUiState: StateFlow<MultiColorProgressBarUiState> =
+        _progressBarUiState.asStateFlow()
+
     private val _routeId = MutableStateFlow(0L)
     val routeId = _routeId.asStateFlow()
 
-    private val _barValues = MutableStateFlow(arrayListOf<BarValueModel>())
 
-    val barValues = _barValues.asStateFlow()
+    private val _waypointsFilter = MutableStateFlow(
+        WaypointFilterOptionsUiState(
+            selectedJobs = arrayListOf(),
+            selectedTags = arrayListOf(),
+        )
+    )
+
+    val waypointsFilter = _waypointsFilter.asStateFlow()
 
     private val _sequencedWaypointsGroupedByPostCode =
-        mutableStateOf(arrayListOf<WaypointsGroupByPostcodeModel>())
+        mutableStateOf(arrayListOf<WaypointsGroupByPostcodeUiState>())
 
-    val sequencedWaypointsGroupedByPostCode: State<List<WaypointsGroupByPostcodeModel>> =
+    val sequencedWaypointsGroupedByPostCode: State<List<WaypointsGroupByPostcodeUiState>> =
         _sequencedWaypointsGroupedByPostCode
 
     fun setRouteId(routeId: Long) {
         _routeId.value = routeId
     }
 
+    fun getWaypoints() {
+//         waypointsRepository.getWaypoints.map {
+//             // add transformer
+//             RouteWaypointsPostalCodeActivityUiState.Success(it)
+//        }.stateIn(
+//            scope = viewModelScope,
+//            initialValue = RouteWaypointsPostalCodeActivityUiState.Progress,
+//            started = SharingStarted.WhileSubscribed(5_000),
+//        )
+    }
+
+
+    fun toggleJobTypeFilter(state: ToggleableState, type: JobType) {
+        _waypointsFilter.value
+        val updatedJobsList =
+            if (state == ToggleableState.On) _waypointsFilter.value.selectedJobs + type else _waypointsFilter.value.selectedJobs - type
+
+        _waypointsFilter.value = _waypointsFilter.value.copy(
+            selectedJobs = updatedJobsList
+        )
+    }
+
+    fun toggleJobTagFilter(state: ToggleableState, type: JobTag) {
+        val updatedTagsList =
+            if (state == ToggleableState.On) _waypointsFilter.value.selectedTags + type else _waypointsFilter.value.selectedTags - type
+
+        _waypointsFilter.value = _waypointsFilter.value.copy(
+            selectedTags = updatedTagsList
+        )
+    }
+
     fun testData() {
         _routeId.value = 23982
-        _barValues.value = arrayListOf(
-            BarValueModel(
-                ProgressType.SUCCESS,
-                progress = 0.1f,
-                "15 successful waypoints",
-            ),
-            BarValueModel(
-                ProgressType.PARTIAL,
-                progress = 0.1f, "3 partial waypoints",
-            ),
-            BarValueModel(
-                ProgressType.FAILED,
-                progress = 0.1f, "3 failed waypoints",
-            ),
-            BarValueModel(
-                ProgressType.PENDING,
-                progress = 0.7f, "1 pending waypoints",
-            ),
-            BarValueModel(
-                ProgressType.NONE,
-                progress = 0.7f, "7 waypoints total",
-            ),
-        )
+
+        _progressBarUiState.update { currentState ->
+            currentState.copy(
+                barValues = arrayListOf(
+                    BarValueUiState(
+                        ProgressType.SUCCESS,
+                        progress = 0.1f,
+                        "15 successful waypoints",
+                    ),
+                    BarValueUiState(
+                        ProgressType.PARTIAL,
+                        progress = 0.1f, "3 partial waypoints",
+                    ),
+                    BarValueUiState(
+                        ProgressType.FAILED,
+                        progress = 0.1f, "3 failed waypoints",
+                    ),
+                    BarValueUiState(
+                        ProgressType.PENDING,
+                        progress = 0.7f, "1 pending waypoints",
+                    ),
+                    BarValueUiState(
+                        ProgressType.NONE,
+                        progress = 0.7f, "7 waypoints total",
+                    ),
+                )
+            )
+        }
 
         _sequencedWaypointsGroupedByPostCode.value = arrayListOf(
-            WaypointsGroupByPostcodeModel(
+            WaypointsGroupByPostcodeUiState(
                 numOfPickup = 1,
                 numOfDelivery = 3,
                 postcode = "123456",
                 jobListData = listOf(
-                    WaypointModel(
+                    WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
@@ -79,7 +140,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         ),
                         numOfUnscannedParcels = 4
                     ),
-                    WaypointModel(
+                    WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
@@ -91,7 +152,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.COD,
                         ),
                     ),
-                    WaypointModel(
+                    WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
@@ -106,13 +167,12 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                 ),
-            ),
-            WaypointsGroupByPostcodeModel(
+            ), WaypointsGroupByPostcodeUiState(
                 numOfPickup = 1,
                 numOfDelivery = 3,
                 postcode = "123456",
                 jobListData = listOf(
-                    WaypointModel(
+                    WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
@@ -127,17 +187,15 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                             JobLabelStyle.ID_CHECK
                         )
                     ),
-                    WaypointModel(
+                    WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         jobListData = listOf(
                             Pair(
-                                JobType.PICKUP,
-                                listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                                JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
                             ),
                             Pair(
-                                JobType.DELIVERY,
-                                listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                                JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
                             ),
                         ),
                         enabled = false,
@@ -154,18 +212,22 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     }
 
     fun test2() {
-        _barValues.value = ArrayList(_barValues.value).apply {
-            addAll(
-                arrayListOf(
-                    BarValueModel(
-                        ProgressType.FAILED,
-                        progress = 0.2f, "1 partial waypoints",
-                    ),
-                    BarValueModel(
-                        ProgressType.NONE,
-                        progress = 0.3f, "62 waypoints total",
-                    ),
-                )
+        _progressBarUiState.update { currentState ->
+            currentState.copy(
+                ArrayList(_progressBarUiState.value.barValues).apply {
+                    addAll(
+                        arrayListOf(
+                            BarValueUiState(
+                                ProgressType.FAILED,
+                                progress = 0.2f, "1 partial waypoints",
+                            ),
+                            BarValueUiState(
+                                ProgressType.NONE,
+                                progress = 0.3f, "62 waypoints total",
+                            ),
+                        )
+                    )
+                }
             )
         }
         _routeId.value = 23982

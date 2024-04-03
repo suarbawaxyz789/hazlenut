@@ -30,11 +30,15 @@ import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.MultiColorProgressBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
 
 @Composable
-fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
+fun RoutePageAppBar(
+    viewModel: RouteWaypointsPostalcodeViewModel,
+    progressBarUiState: MultiColorProgressBarUiState
+) {
     /// system status bar should follow appbar color
     val context = LocalContext.current
     if (context is ComponentActivity) {
@@ -90,14 +94,14 @@ fun RoutePageAppBar(viewModel: RouteWaypointsPostalcodeViewModel) {
                 actions = actions,
             )
             Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingS))
-            AppBarProgressBar(viewModel = viewModel)
+            AppBarProgressBar(uiState = progressBarUiState)
             Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
         }
     }
 }
 
 @Composable
-fun AppBarProgressBar(viewModel: RouteWaypointsPostalcodeViewModel) {
+fun AppBarProgressBar(uiState: MultiColorProgressBarUiState) {
     var expandedState = remember {
         mutableStateOf(false)
     }
@@ -108,16 +112,16 @@ fun AppBarProgressBar(viewModel: RouteWaypointsPostalcodeViewModel) {
             .padding(horizontal = AkiraTheme.spacings.spacingXxs)
     ) {
         MultiColorProgressBar(
-            progresses = viewModel.barValues.collectAsState().value.filter { it.type != ProgressType.NONE },
+            progresses = uiState.barValues.filter { it.type != ProgressType.NONE },
             state = expandedState,
             expandHeader = {
                 Row {
-                    Legend(barValue = viewModel.barValues.collectAsState().value.first())
+                    Legend(barValue = uiState.barValues.first())
                 }
             },
             expandContent = {
                 Column {
-                    viewModel.barValues.collectAsState().value.map { Legend(barValue = it) }
+                    uiState.barValues.map { Legend(barValue = it) }
                 }
             }
         )

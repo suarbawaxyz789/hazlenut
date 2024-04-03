@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.ItemWithCount
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.WaypointCard
 
 @Preview
@@ -31,7 +31,7 @@ private fun WaypointsGroupByPostcodePreview() {
         JobLabelStyle.ID_CHECK
     )
 
-    var wpModel = WaypointModel(
+    var wpModel = WaypointCardUiState(
         address = "3 Changi South street 2, Singapore 837484",
         jobListData = sampleMultiRTS,
         name = "Butterfly shop",
@@ -40,7 +40,7 @@ private fun WaypointsGroupByPostcodePreview() {
     )
 
     WaypointsGroupByPostcode(
-        WaypointsGroupByPostcodeModel(
+        WaypointsGroupByPostcodeUiState(
             "123456",
             3,
             1,
@@ -51,7 +51,7 @@ private fun WaypointsGroupByPostcodePreview() {
 
 @Composable
 fun WaypointsGroupByPostcode(
-    waypointsGroupModel: WaypointsGroupByPostcodeModel
+    waypointsGroupModel: WaypointsGroupByPostcodeUiState
 ) {
     Column(modifier = Modifier.background(color = AkiraTheme.colors.gray9)) {
         Row(

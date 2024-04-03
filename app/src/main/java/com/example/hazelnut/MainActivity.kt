@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
@@ -42,7 +43,10 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
             Column {
                 Scaffold(
                     topBar = {
-                        RoutePageAppBar(viewModel = viewModel)
+                        RoutePageAppBar(
+                            viewModel = viewModel,
+                            progressBarUiState = viewModel.progressBarUiState.collectAsState().value
+                        )
                     },
                 ) { innerPadding ->
                     Column(

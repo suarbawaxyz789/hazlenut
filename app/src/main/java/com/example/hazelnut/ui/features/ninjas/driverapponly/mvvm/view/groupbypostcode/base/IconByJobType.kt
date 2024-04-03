@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
 
 @Composable
 fun IconByJobType(type: JobType, enable: Boolean = true) {
@@ -27,12 +28,4 @@ fun IconByJobType(type: JobType, enable: Boolean = true) {
             .size(AkiraTheme.spacings.spacingM, AkiraTheme.spacings.spacingM)
             .rotate(if (!enable && (type == JobType.RTS || type == JobType.PICKUP)) 180F else 0F)
     )
-
-}
-
-enum class JobType {
-    DELIVERY,
-    RTS,
-    RPU,
-    PICKUP
 }

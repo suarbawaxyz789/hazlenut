@@ -9,8 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.IconByJobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
 
 @Preview
 @Composable
