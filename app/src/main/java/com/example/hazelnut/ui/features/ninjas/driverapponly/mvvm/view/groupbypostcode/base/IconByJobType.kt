@@ -24,7 +24,7 @@ fun IconByJobType(type: JobType, enable: Boolean = true) {
         contentDescription = null,
         tint = Color.Unspecified,
         modifier = Modifier
-            .size(AkiraTheme.spacings.spacingS, AkiraTheme.spacings.spacingS)
+            .size(AkiraTheme.spacings.spacingM, AkiraTheme.spacings.spacingM)
             .rotate(if (!enable && (type == JobType.RTS || type == JobType.PICKUP)) 180F else 0F)
     )
 

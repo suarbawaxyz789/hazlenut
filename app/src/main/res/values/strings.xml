@@ -69,5 +69,8 @@
     <string name="route_id_number">ID %d</string>
     <string name="route_title">Route</string>
     <string name="text_rpu_tag">RPU</string>
-    <string name="unscanned_parcles_count">%s parcel to scan</string>
+    <plurals name="unscanned_parcels_count">
+        <item quantity="one">%d parcel to scan</item>
+        <item quantity="other">%d parcels to scan</item>
+    </plurals>
 </resources>

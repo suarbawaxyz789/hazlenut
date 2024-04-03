@@ -15,7 +15,9 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
@@ -169,6 +171,7 @@ private fun WaypointCardMixPreview() {
 fun WaypointCard(
     waypointModel: WaypointModel,
 ) {
+    val resources = LocalContext.current.resources
     Column {
         Box(
             modifier = Modifier
@@ -219,8 +222,10 @@ fun WaypointCard(
                                         ),
                                     ) {
                                         Text(
-                                            text = stringResource(
-                                                id = R.string.unscanned_parcles_count,
+                                            /// tried pluralStringResource before but not working
+                                            text = resources.getQuantityString(
+                                                R.plurals.unscanned_parcels_count,
+                                                waypointModel.numOfUnscannedParcels,
                                                 waypointModel.numOfUnscannedParcels
                                             ),
                                             style = AkiraTheme.typography.body2.copy(
@@ -272,6 +277,7 @@ fun WaypointCard(
         )
     }
 }
+
 
 @Composable
 private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {

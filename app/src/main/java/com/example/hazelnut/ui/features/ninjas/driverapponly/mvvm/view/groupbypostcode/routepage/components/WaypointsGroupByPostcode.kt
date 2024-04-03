@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -6,57 +6,63 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointModel
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeModel
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.ItemWithCount
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.WaypointCard
 
 @Preview
 @Composable
-private fun PostcodeCardPreview() {
-    var sample1 = WaypointsGroupByPostcodeModel(
-        numOfDelivery = 2,
-        numOfPickup = 3,
-        postcode = "12345",
-        jobListData = listOf(
-            WaypointModel(
-                address = "1 Changi South street 2, Singapore 837484",
-                jobListData = listOf(
-                    Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
-                ),
-                name = "Butterfly shop",
-                enabled = true,
-                jobTags = arrayListOf(
-                    JobLabelStyle.PRIOR,
-                    JobLabelStyle.COD,
-                    JobLabelStyle.DOOR_STEP,
-                    JobLabelStyle.ID_CHECK
-                ),
-            )
-        )
+private fun WaypointsGroupByPostcodePreview() {
+    var sampleMultiRTS: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
     )
 
-    WaypointsGroupByPostcode(sample1)
+    var tags = arrayListOf(
+        JobLabelStyle.COD,
+        JobLabelStyle.PRIOR,
+        JobLabelStyle.DOOR_STEP,
+        JobLabelStyle.ID_CHECK
+    )
+
+    var wpModel = WaypointModel(
+        address = "3 Changi South street 2, Singapore 837484",
+        jobListData = sampleMultiRTS,
+        name = "Butterfly shop",
+        enabled = true,
+        jobTags = tags,
+    )
+
+    WaypointsGroupByPostcode(
+        WaypointsGroupByPostcodeModel(
+            "123456",
+            3,
+            1,
+            jobListData = listOf(wpModel)
+        )
+    )
 }
 
 @Composable
 fun WaypointsGroupByPostcode(
     waypointsGroupModel: WaypointsGroupByPostcodeModel
 ) {
-    Column(modifier = Modifier.background(color = colors.gray9)) {
+    Column(modifier = Modifier.background(color = AkiraTheme.colors.gray9)) {
         Row(
             modifier = Modifier
                 .padding(
-                    horizontal = spacings.spacingS,
+                    horizontal = AkiraTheme.spacings.spacingS,
                 )
-                .padding(bottom = spacings.spacingXs, top = spacings.spacingM)
+                .padding(
+                    bottom = AkiraTheme.spacings.spacingXs,
+                    top = AkiraTheme.spacings.spacingM
+                ), verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = waypointsGroupModel.postcode,

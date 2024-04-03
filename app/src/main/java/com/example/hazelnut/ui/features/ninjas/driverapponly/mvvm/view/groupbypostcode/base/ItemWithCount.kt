@@ -7,9 +7,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.IconByJobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.JobType
+
+@Preview
+@Composable
+private fun ItemWithCountPreview() {
+    ItemWithCount(2, JobType.PICKUP, true)
+}
 
 @Composable
 fun ItemWithCount(numOfItem: Int, jobType: JobType, enable: Boolean = true) {
