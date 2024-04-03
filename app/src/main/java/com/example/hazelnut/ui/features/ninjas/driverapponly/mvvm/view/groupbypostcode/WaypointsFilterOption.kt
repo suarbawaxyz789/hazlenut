@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.component.checkbox.Checkbox
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
@@ -23,15 +24,27 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.akira.button.ButtonTextLink
 import com.example.hazelnut.ui.features.ninjas.akira.button.PrimaryLabelGrayButton
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterOptionsUiState
 
 @Preview
 @Composable
 private fun WaypointFilterOptionPreview() {
-    WaypointsFilterOption()
+    var uiState = WaypointFilterOptionsUiState(
+        selectedTags = arrayListOf(),
+        selectedJobTypes = arrayListOf(),
+    )
+    WaypointsFilterOption(uiState)
 }
 
 @Composable
-fun WaypointsFilterOption() {
+fun WaypointsFilterOption(
+    uiState: WaypointFilterOptionsUiState,
+    onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null,
+    onTagFilterChange: ((ToggleableState, JobTag) -> Unit)? = null,
+    onClose: (() -> Unit)? = null,
+) {
     Column(
         modifier = Modifier
             .background(
@@ -43,42 +56,129 @@ fun WaypointsFilterOption() {
                 top = spacings.spacingL
             )
     ) {
-        Header()
-        Content()
+        Header(onClose = onClose)
+        Content(
+            uiState = uiState,
+            onTagFilterChange = onTagFilterChange,
+            onJobTypeFilterChange = onJobTypeFilterChange,
+        )
     }
 }
 
 @Composable
-private fun Content() {
-//    Column {
-//        Text(
-//            text = stringResource(id = R.string.filter_by_job),
-//            style = typography.body1Bold.copy(
-//                color = colors.gray2
-//            ),
-//        )
-//        Checkbox(label = stringResource(id = R.string.filter_job_delivery))
-//        Checkbox(label = stringResource(id = R.string.filter_job_pickup))
-//        Checkbox(label = stringResource(id = R.string.filter_job_rpu))
-//        Checkbox(label = stringResource(id = R.string.filter_job_rts))
-//
-//        Spacer(modifier = Modifier.height(spacings.spacingS))
-//        Text(
-//            text = stringResource(id = R.string.filter_by_tag),
-//            style = typography.body1Bold.copy(
-//                color = colors.gray2
-//            ),
-//        )
-//
-//        Checkbox(label = stringResource(id = R.string.filter_tag_prior))
-//        Checkbox(label = stringResource(id = R.string.filter_tag_cod))
-//        Checkbox(label = stringResource(id = R.string.filter_tag_doorstep))
-//        Checkbox(label = stringResource(id = R.string.filter_tag_id_check))
-//
-//        Spacer(modifier = Modifier.weight(1f))
-//        Footer()
-//
-//    }
+private fun Content(
+    uiState: WaypointFilterOptionsUiState,
+    onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null,
+    onTagFilterChange: ((ToggleableState, JobTag) -> Unit)? = null,
+) {
+    Column {
+        Text(
+            text = stringResource(id = R.string.filter_by_job),
+            style = typography.body1Bold.copy(
+                color = colors.gray2
+            ),
+        )
+        JobTypeFilterCheckbox(
+            jobType = JobType.DELIVERY,
+            uiState = uiState,
+            onJobTypeFilterChange = onJobTypeFilterChange
+        )
+        JobTypeFilterCheckbox(
+            jobType = JobType.PICKUP,
+            uiState = uiState,
+            onJobTypeFilterChange = onJobTypeFilterChange
+        )
+        JobTypeFilterCheckbox(
+            jobType = JobType.RPU,
+            uiState = uiState,
+            onJobTypeFilterChange = onJobTypeFilterChange
+        )
+        JobTypeFilterCheckbox(
+            jobType = JobType.RTS,
+            uiState = uiState,
+            onJobTypeFilterChange = onJobTypeFilterChange
+        )
+
+        Spacer(modifier = Modifier.height(spacings.spacingS))
+        Text(
+            text = stringResource(id = R.string.filter_by_tag),
+            style = typography.body1Bold.copy(
+                color = colors.gray2
+            ),
+        )
+
+        TagFilterCheckbox(
+            jobTag = JobTag.PRIOR,
+            uiState = uiState,
+            onJobTypeFilterChange = onTagFilterChange
+        )
+        TagFilterCheckbox(
+            jobTag = JobTag.COD,
+            uiState = uiState,
+            onJobTypeFilterChange = onTagFilterChange
+        )
+        TagFilterCheckbox(
+            jobTag = JobTag.DOORSTEP,
+            uiState = uiState,
+            onJobTypeFilterChange = onTagFilterChange
+        )
+        TagFilterCheckbox(
+            jobTag = JobTag.ID_CHECK,
+            uiState = uiState,
+            onJobTypeFilterChange = onTagFilterChange
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+        Footer()
+
+    }
+}
+
+@Composable
+private fun JobTypeFilterCheckbox(
+    jobType: JobType,
+    uiState: WaypointFilterOptionsUiState,
+    onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null
+) {
+    val currentToggleState =
+        if (uiState.selectedJobTypes.contains(jobType)) ToggleableState.Off else ToggleableState.Off
+
+    val labelStringId = when (jobType) {
+        JobType.DELIVERY -> R.string.filter_job_delivery
+        JobType.RTS -> R.string.filter_job_pickup
+        JobType.RPU -> R.string.filter_job_rpu
+        JobType.PICKUP -> R.string.filter_job_rts
+    }
+    Checkbox(
+        label = stringResource(id = labelStringId),
+        defaultState = currentToggleState,
+        onCheckedChange = { toggleableState ->
+            onJobTypeFilterChange?.invoke(toggleableState, jobType)
+        })
+}
+
+@Composable
+private fun TagFilterCheckbox(
+    jobTag: JobTag,
+    uiState: WaypointFilterOptionsUiState,
+    onJobTypeFilterChange: ((ToggleableState, JobTag) -> Unit)? = null
+) {
+    val currentToggleState =
+        if (uiState.selectedTags.contains(jobTag)) ToggleableState.Off else ToggleableState.Off
+
+    val labelStringId = when (jobTag) {
+        JobTag.PRIOR -> R.string.filter_tag_prior
+        JobTag.COD -> R.string.filter_tag_cod
+        JobTag.DOORSTEP -> R.string.filter_tag_doorstep
+        JobTag.ID_CHECK -> R.string.filter_tag_id_check
+    }
+
+    Checkbox(
+        label = stringResource(id = labelStringId),
+        defaultState = currentToggleState,
+        onCheckedChange = { toggleableState ->
+            onJobTypeFilterChange?.invoke(toggleableState, jobTag)
+        })
 }
 
 @Composable
@@ -100,7 +200,9 @@ private fun Footer() {
 
 
 @Composable
-private fun Header() {
+private fun Header(
+    onClose: (() -> Unit)?,
+) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = stringResource(id = R.string.filter_by),
@@ -110,7 +212,7 @@ private fun Header() {
             modifier = Modifier.weight(1f)
         )
         IconButton(onClick = {
-            /// TODO close bottomsheet
+            onClose?.invoke()
         }) {
             Icon(
                 painter = painterResource(id = R.drawable.icon_l_times),

@@ -22,7 +22,9 @@ import javax.inject.Inject
 
 class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
 
-    private val _uiState = MutableStateFlow<RouteWaypointsPostalCodeActivityUiState>(RouteWaypointsPostalCodeActivityUiState.Nothing)
+    private val _uiState = MutableStateFlow<RouteWaypointsPostalCodeActivityUiState>(
+        RouteWaypointsPostalCodeActivityUiState.Nothing
+    )
     val uiState = _uiState.asStateFlow()
 
     private val _progressBarUiState = MutableStateFlow(
@@ -37,10 +39,17 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     private val _routeId = MutableStateFlow(0L)
     val routeId = _routeId.asStateFlow()
 
+    private val _waypointsFilterVisible = MutableStateFlow(false)
+    val waypointsFilterVisible = _waypointsFilterVisible.asStateFlow()
+
+    fun setFilterBottomSheetVisible(visible: Boolean) {
+        _waypointsFilterVisible.value = visible
+    }
+
 
     private val _waypointsFilter = MutableStateFlow(
         WaypointFilterOptionsUiState(
-            selectedJobs = arrayListOf(),
+            selectedJobTypes = arrayListOf(),
             selectedTags = arrayListOf(),
         )
     )
@@ -72,10 +81,10 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     fun toggleJobTypeFilter(state: ToggleableState, type: JobType) {
         _waypointsFilter.value
         val updatedJobsList =
-            if (state == ToggleableState.On) _waypointsFilter.value.selectedJobs + type else _waypointsFilter.value.selectedJobs - type
+            if (state == ToggleableState.On) _waypointsFilter.value.selectedJobTypes + type else _waypointsFilter.value.selectedJobTypes - type
 
         _waypointsFilter.value = _waypointsFilter.value.copy(
-            selectedJobs = updatedJobsList
+            selectedJobTypes = updatedJobsList
         )
     }
 
