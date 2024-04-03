@@ -11,12 +11,13 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.MultiColorProgressBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.RouteWaypointsPostalCodeActivityUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterOptionsUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -46,15 +47,16 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
         _waypointsFilterVisible.value = visible
     }
 
-
     private val _waypointsFilter = MutableStateFlow(
-        WaypointFilterOptionsUiState(
+        WaypointFilterUiState(
             selectedJobTypes = arrayListOf(),
             selectedTags = arrayListOf(),
         )
     )
 
     val waypointsFilter = _waypointsFilter.asStateFlow()
+    val isHasActiveFilter =
+        _waypointsFilter.map { it.selectedTags.isNotEmpty() || it.selectedJobTypes.isNotEmpty() }
 
     private val _sequencedWaypointsGroupedByPostCode =
         mutableStateOf(arrayListOf<WaypointsGroupByPostcodeUiState>())
@@ -77,24 +79,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
 //        )
     }
 
-
-    fun toggleJobTypeFilter(state: ToggleableState, type: JobType) {
-        _waypointsFilter.value
-        val updatedJobsList =
-            if (state == ToggleableState.On) _waypointsFilter.value.selectedJobTypes + type else _waypointsFilter.value.selectedJobTypes - type
-
-        _waypointsFilter.value = _waypointsFilter.value.copy(
-            selectedJobTypes = updatedJobsList
-        )
-    }
-
-    fun toggleJobTagFilter(state: ToggleableState, type: JobTag) {
-        val updatedTagsList =
-            if (state == ToggleableState.On) _waypointsFilter.value.selectedTags + type else _waypointsFilter.value.selectedTags - type
-
-        _waypointsFilter.value = _waypointsFilter.value.copy(
-            selectedTags = updatedTagsList
-        )
+    fun setFilter(state: WaypointFilterUiState) {
+        _waypointsFilter.value = state
     }
 
     fun testData() {

@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -26,21 +26,21 @@ import com.example.hazelnut.ui.features.ninjas.akira.button.ButtonTextLink
 import com.example.hazelnut.ui.features.ninjas.akira.button.PrimaryLabelGrayButton
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterOptionsUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterUiState
 
 @Preview
 @Composable
-private fun WaypointFilterOptionPreview() {
-    var uiState = WaypointFilterOptionsUiState(
+private fun WaypointFilterActionPreview() {
+    var uiState = WaypointFilterUiState(
         selectedTags = arrayListOf(),
         selectedJobTypes = arrayListOf(),
     )
-    WaypointsFilterOption(uiState)
+    WaypointsFilterAction(uiState)
 }
 
 @Composable
-fun WaypointsFilterOption(
-    uiState: WaypointFilterOptionsUiState,
+fun WaypointsFilterAction(
+    uiState: WaypointFilterUiState,
     onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null,
     onTagFilterChange: ((ToggleableState, JobTag) -> Unit)? = null,
     onClose: (() -> Unit)? = null,
@@ -57,6 +57,7 @@ fun WaypointsFilterOption(
             )
     ) {
         Header(onClose = onClose)
+        Spacer(modifier = Modifier.height(spacings.spacingL))
         Content(
             uiState = uiState,
             onTagFilterChange = onTagFilterChange,
@@ -67,7 +68,7 @@ fun WaypointsFilterOption(
 
 @Composable
 private fun Content(
-    uiState: WaypointFilterOptionsUiState,
+    uiState: WaypointFilterUiState,
     onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null,
     onTagFilterChange: ((ToggleableState, JobTag) -> Unit)? = null,
 ) {
@@ -137,7 +138,7 @@ private fun Content(
 @Composable
 private fun JobTypeFilterCheckbox(
     jobType: JobType,
-    uiState: WaypointFilterOptionsUiState,
+    uiState: WaypointFilterUiState,
     onJobTypeFilterChange: ((ToggleableState, JobType) -> Unit)? = null
 ) {
     val currentToggleState =
@@ -160,7 +161,7 @@ private fun JobTypeFilterCheckbox(
 @Composable
 private fun TagFilterCheckbox(
     jobTag: JobTag,
-    uiState: WaypointFilterOptionsUiState,
+    uiState: WaypointFilterUiState,
     onJobTypeFilterChange: ((ToggleableState, JobTag) -> Unit)? = null
 ) {
     val currentToggleState =

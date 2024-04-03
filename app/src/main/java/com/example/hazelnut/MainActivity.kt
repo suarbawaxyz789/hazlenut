@@ -21,15 +21,19 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.WaypointsFilterOption
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RouteFloatingActionButton
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsFilterOption
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsGroupByPostcode
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class MainActivity : ComponentActivity() {
 
@@ -62,19 +66,7 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
             Column {
                 Scaffold(
                     floatingActionButton = {
-                        FloatingActionButton(
-                            backgroundColor = colors.gray2,
-                            onClick = {
-                                viewModel.setFilterBottomSheetVisible(true)
-                            },
-                            shape = CircleShape,
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.icon_l_action),
-                                contentDescription = null,
-                                tint = colors.white
-                            )
-                        }
+                        RouteFloatingActionButton(viewModel = viewModel)
                     },
                     topBar = {
                         RoutePageAppBar(
@@ -114,17 +106,18 @@ fun WaypointFilterBottomSheet(viewModel: RouteWaypointsPostalcodeViewModel, onDi
             topEnd = spacings.spacingXxs,
         ),
     ) {
+        var filterState = remember {
+            mutableStateOf(viewModel.waypointsFilter.value)
+        }
         WaypointsFilterOption(
-            viewModel.waypointsFilter.collectAsState().value,
-            onJobTypeFilterChange = { toggleableState, jobType ->
-                viewModel.toggleJobTypeFilter(toggleableState, jobType)
-            },
-            onTagFilterChange = { toggleableState, jobTag ->
-                viewModel.toggleJobTagFilter(toggleableState, jobTag)
-            },
+            filterState,
             onClose = {
                 viewModel.setFilterBottomSheetVisible(false)
-            }
+            },
+            onApply = {
+                viewModel.setFilter(filterState.value)
+                viewModel.setFilterBottomSheetVisible(false)
+            },
         )
     }
 }
