@@ -1,12 +1,14 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Icon
@@ -22,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
@@ -59,23 +60,30 @@ fun WaypointsFilterOption(
                 color = colors.white
             )
             .padding(
-                start = spacings.spacingS,
                 end = spacings.spacingS,
                 top = spacings.spacingL
             )
     ) {
-        Header(onClose = onClose)
-        Spacer(modifier = Modifier.height(spacings.spacingL))
+        Column(modifier = Modifier.padding(start = spacings.spacingS)) {
+            Header(onClose = onClose)
+            Spacer(modifier = Modifier.height(spacings.spacingL))
+        }
         Content(
             uiState = uiState,
         )
         Spacer(modifier = Modifier.weight(1f))
-        Footer(onApply = onApply, onClearAll = {
-            uiState.value = uiState.value.copy(
-                selectedJobTypes = arrayListOf(),
-                selectedTags = arrayListOf()
+        Column(
+            modifier = Modifier.padding(
+                start = spacings.spacingS
             )
-        })
+        ) {
+            Footer(onApply = onApply, onClearAll = {
+                uiState.value = uiState.value.copy(
+                    selectedJobTypes = arrayListOf(),
+                    selectedTags = arrayListOf()
+                )
+            })
+        }
     }
 }
 
@@ -89,6 +97,7 @@ private fun Content(
             style = typography.body1Bold.copy(
                 color = colors.gray2
             ),
+            modifier = Modifier.padding(start = spacings.spacingS)
         )
         JobTypeFilterCheckbox(
             jobType = JobType.DELIVERY,
@@ -113,6 +122,7 @@ private fun Content(
             style = typography.body1Bold.copy(
                 color = colors.gray2
             ),
+            modifier = Modifier.padding(start = spacings.spacingS)
         )
 
         TagFilterCheckbox(
@@ -149,7 +159,10 @@ private fun JobTypeFilterCheckbox(
         JobType.PICKUP -> R.string.filter_job_rts
     }
     /// The checkbox provided by Akira has its own internal state management using a mutable state. This means that the checkbox component controls its state independently, and attempting to alter its state directly won't reflect any changes in the component's appearance or behavior.
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(start = spacings.spacingXxxs)
+    ) {
         Checkbox(
             colors = CheckboxDefaults.colors(
                 checkedColor = colors.red3,
@@ -192,7 +205,10 @@ private fun TagFilterCheckbox(
     }
 
     /// The checkbox provided by Akira has its own internal state management using a mutable state. This means that the checkbox component controls its state independently, and attempting to alter its state directly won't reflect any changes in the component's appearance or behavior.
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(start = spacings.spacingXxxs)
+    ) {
         Checkbox(
             colors = CheckboxDefaults.colors(
                 checkedColor = colors.red3,
