@@ -2,18 +2,16 @@ package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.MultiColorProgressBarUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.RouteWaypointsPostalCodeActivityUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointsGroupByPostcodeUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.BarValueUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.MultiColorProgressBarUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.RouteWaypointsPostalCodeActivityUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointFilterUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointsGroupByPostcodeUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

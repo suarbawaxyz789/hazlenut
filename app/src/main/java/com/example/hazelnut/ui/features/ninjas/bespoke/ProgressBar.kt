@@ -40,7 +40,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.BarValueUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.BarValueUiState
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable

@@ -23,8 +23,8 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
 
 @Preview
 @Composable
@@ -63,7 +63,7 @@ private fun WaypointCardSinglePreview() {
                     address = "3 Changi South street 2, Singapore 837484",
                     jobListData = pairs,
                     name = "Butterfly shop",
-                    enabled = false,
+                    enabled = true,
                     jobTags = tags.take(index + 1),
                     numOfUnscannedParcels = 2,
                 ),
@@ -276,14 +276,13 @@ fun WaypointCard(
     }
 }
 
-
 @Composable
 private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {
     if (parcels.isEmpty()) return Row {}
     if (parcels.size == 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
-            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
             if (type == JobType.RTS) {
                 Text(
                     text = stringResource(id = R.string.parcel_rts),
@@ -292,6 +291,7 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
                     ),
                     maxLines = 1,
                 )
+                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             }
             if (type == JobType.RPU) {
                 Text(
@@ -301,8 +301,8 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
                     ),
                     maxLines = 1,
                 )
+                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             }
-            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             Text(
                 text = parcels.first(),
                 style = AkiraTheme.typography.body2.copy(
@@ -315,18 +315,19 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
 
     return Row(verticalAlignment = Alignment.CenterVertically) {
         IconByJobType(type = type, enable = enable)
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
-        Text(
-            text = parcels.size.toString(),
-            style = AkiraTheme.typography.body2.copy(
-                color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
-            ),
-            maxLines = 1,
-        )
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
+        if (!(type == JobType.RTS || type == JobType.RPU)) {
+            Text(
+                text = parcels.size.toString(),
+                style = AkiraTheme.typography.body2.copy(
+                    color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
+                ),
+                maxLines = 1,
+            )
+        }
         if (type == JobType.RTS) {
             Text(
-                text = stringResource(id = R.string.parcel_rts),
+                text = stringResource(R.string.num_of_rts_parcels, parcels.size),
                 style = AkiraTheme.typography.body2.copy(
                     color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),
@@ -335,7 +336,7 @@ private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean =
         }
         if (type == JobType.RPU) {
             Text(
-                text = stringResource(id = R.string.text_rpu_tag),
+                text = stringResource(R.string.num_of_rpu_parcels, parcels.size),
                 style = AkiraTheme.typography.body2.copy(
                     color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),

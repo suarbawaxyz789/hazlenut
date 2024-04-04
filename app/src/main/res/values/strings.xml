@@ -82,8 +82,14 @@
     <string name="filter_tag_id_check">ID check</string>
     <string name="clear_all">Clear all</string>
     <string name="apply_filter">Apply filter</string>
+    <string name="actions">Actions</string>
+    <string name="delete">Delete</string>
+    <string name="filter">Filter</string>
+    <string name="parcel_status">Parcel status</string>
     <plurals name="unscanned_parcels_count">
         <item quantity="one">%d parcel to scan</item>
         <item quantity="other">%d parcels to scan</item>
     </plurals>
+    <string name="num_of_rts_parcels">%d RTS</string>
+    <string name="num_of_rpu_parcels">%d RPU</string>
 </resources>

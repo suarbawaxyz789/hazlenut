@@ -5,11 +5,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 
 @Preview
 @Composable
@@ -19,7 +18,7 @@ private fun ItemWithCountPreview() {
 
 @Composable
 fun ItemWithCount(numOfItem: Int, jobType: JobType, enable: Boolean = true) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row {
         IconByJobType(jobType, enable)
         Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
         Text(

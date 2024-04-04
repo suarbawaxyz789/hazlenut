@@ -1,14 +1,12 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Icon
@@ -30,9 +28,9 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.akira.button.ButtonTextLink
 import com.example.hazelnut.ui.features.ninjas.akira.button.PrimaryLabelGrayButton
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobTag
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.WaypointFilterUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobTag
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointFilterUiState
 
 @Preview
 @Composable

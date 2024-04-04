@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 
 @Composable
 fun WaypointCardContentSample() {

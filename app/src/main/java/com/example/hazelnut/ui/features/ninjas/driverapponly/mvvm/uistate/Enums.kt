@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.models
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate
 
 enum class JobType {
     DELIVERY,
