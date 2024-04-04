@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.BarValueUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobTag
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.MultiColorProgressBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.RouteWaypointsPostalCodeActivityUiState
@@ -15,7 +16,6 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.Waypoi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -51,10 +51,13 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
             selectedTags = arrayListOf(),
         )
     )
-
     val waypointsFilter = _waypointsFilter.asStateFlow()
-    val isHasActiveFilter =
-        _waypointsFilter.map { it.selectedTags.isNotEmpty() || it.selectedJobTypes.isNotEmpty() }
+
+    private fun updateActiveFilterStatus() {
+        _waypointsFilter.value = _waypointsFilter.value.copy(
+            isHasActiveFilter = _waypointsFilter.value.selectedTags.isNotEmpty() || _waypointsFilter.value.selectedJobTypes.isNotEmpty()
+        )
+    }
 
     private val _sequencedWaypointsGroupedByPostCode =
         mutableStateOf(arrayListOf<WaypointsGroupByPostcodeUiState>())
@@ -64,6 +67,17 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
 
     fun setRouteId(routeId: Long) {
         _routeId.value = routeId
+    }
+
+    fun updateFilter(
+        selectedJobTypes: List<JobType>? = null,
+        selectedTags: List<JobTag>? = null
+    ) {
+        _waypointsFilter.value = _waypointsFilter.value.copy(
+            selectedTags = selectedTags ?: _waypointsFilter.value.selectedTags,
+            selectedJobTypes = selectedJobTypes ?: _waypointsFilter.value.selectedJobTypes
+        )
+        updateActiveFilterStatus()
     }
 
     fun getWaypoints() {
@@ -77,9 +91,6 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
 //        )
     }
 
-    fun setFilter(state: WaypointFilterUiState) {
-        _waypointsFilter.value = state
-    }
 
     fun testData() {
         _routeId.value = 23982

@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,7 +15,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +27,7 @@ import com.example.hazelnut.ui.features.ninjas.akira.button.PrimaryLabelGrayButt
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobTag
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointFilterUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.BottomSheetHeader
 
 @Preview
 @Composable
@@ -63,7 +60,7 @@ fun WaypointsFilterOption(
             )
     ) {
         Column(modifier = Modifier.padding(start = spacings.spacingS)) {
-            Header(onClose = onClose)
+            BottomSheetHeader(title = stringResource(id = R.string.filter_by), onClose = onClose)
             Spacer(modifier = Modifier.height(spacings.spacingL))
         }
         Content(
@@ -252,30 +249,5 @@ private fun Footer(
             )
         }
         Spacer(modifier = Modifier.height(spacings.spacingS))
-    }
-}
-
-
-@Composable
-private fun Header(
-    onClose: (() -> Unit)?,
-) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(
-            text = stringResource(id = R.string.filter_by),
-            style = typography.heading6Bold.copy(
-                color = colors.gray2
-            ),
-            modifier = Modifier.weight(1f)
-        )
-        IconButton(onClick = {
-            onClose?.invoke()
-        }) {
-            Icon(
-                painter = painterResource(id = R.drawable.icon_l_times),
-                contentDescription = null,
-                modifier = Modifier.size(spacings.spacingS)
-            )
-        }
     }
 }

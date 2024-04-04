@@ -109,7 +109,10 @@ fun WaypointFilterBottomSheet(viewModel: RouteWaypointsPostalcodeViewModel, onDi
                 viewModel.setFilterBottomSheetVisible(false)
             },
             onApply = {
-                viewModel.setFilter(filterState.value)
+                viewModel.updateFilter(
+                    selectedJobTypes = filterState.value.selectedJobTypes,
+                    selectedTags = filterState.value.selectedTags,
+                )
                 viewModel.setFilterBottomSheetVisible(false)
             },
         )

@@ -62,7 +62,7 @@ fun RouteFloatingActionButton(
                     tint = colors.white
                 )
             }
-            if (viewModel.isHasActiveFilter.collectAsState(initial = false).value) {
+            if (viewModel.waypointsFilter.collectAsState().value.isHasActiveFilter) {
                 Box(
                     modifier = Modifier.padding(
                         top = 2.dp,
