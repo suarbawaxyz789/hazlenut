@@ -130,11 +130,16 @@ private fun WaypointCardMixPreview() {
         Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
         Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
     )
+    var sampleRtsSinglePickup: List<Pair<JobType, List<String>>> = listOf(
+        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
+        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
+    )
 
     var listOfSample =
         arrayListOf(
             sampleDeliveryRpu,
             sampleRtsPickup,
+            sampleRtsSinglePickup,
         )
 
     var tags = arrayListOf(
@@ -205,6 +210,7 @@ fun WaypointCard(
                                             JobTypeLabel(
                                                 type = pair.first,
                                                 parcels = pair.second,
+                                                isMix = waypointModel.jobListData.size > 1,
                                                 enable = waypointModel.enabled
                                             )
                                         }
@@ -277,72 +283,77 @@ fun WaypointCard(
 }
 
 @Composable
-private fun JobTypeLabel(type: JobType, parcels: List<String>, enable: Boolean = true) {
+private fun JobTypeLabel(
+    type: JobType,
+    parcels: List<String>,
+    isMix: Boolean,
+    enable: Boolean = true
+) {
     if (parcels.isEmpty()) return Row {}
-    if (parcels.size == 1) {
+    if (isMix || parcels.size > 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
             Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
+            if (!(type == JobType.RTS || type == JobType.RPU)) {
+                Text(
+                    text = parcels.size.toString(),
+                    style = AkiraTheme.typography.body2.copy(
+                        color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
+                    ),
+                    maxLines = 1,
+                )
+            }
             if (type == JobType.RTS) {
                 Text(
-                    text = stringResource(id = R.string.parcel_rts),
+                    text = stringResource(R.string.num_of_rts_parcels, parcels.size),
                     style = AkiraTheme.typography.body2.copy(
                         color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                     ),
                     maxLines = 1,
                 )
-                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             }
             if (type == JobType.RPU) {
                 Text(
-                    text = stringResource(id = R.string.parcel_rts),
+                    text = stringResource(R.string.num_of_rpu_parcels, parcels.size),
                     style = AkiraTheme.typography.body2.copy(
                         color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                     ),
                     maxLines = 1,
                 )
-                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
             }
-            Text(
-                text = parcels.first(),
-                style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) AkiraTheme.colors.gray3 else AkiraTheme.colors.gray5
-                ),
-                maxLines = 1,
-            )
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
         }
     }
 
     return Row(verticalAlignment = Alignment.CenterVertically) {
         IconByJobType(type = type, enable = enable)
         Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
-        if (!(type == JobType.RTS || type == JobType.RPU)) {
-            Text(
-                text = parcels.size.toString(),
-                style = AkiraTheme.typography.body2.copy(
-                    color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
-                ),
-                maxLines = 1,
-            )
-        }
         if (type == JobType.RTS) {
             Text(
-                text = stringResource(R.string.num_of_rts_parcels, parcels.size),
+                text = stringResource(id = R.string.parcel_rts),
                 style = AkiraTheme.typography.body2.copy(
                     color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),
                 maxLines = 1,
             )
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
         }
         if (type == JobType.RPU) {
             Text(
-                text = stringResource(R.string.num_of_rpu_parcels, parcels.size),
+                text = stringResource(id = R.string.tag_rpu),
                 style = AkiraTheme.typography.body2.copy(
                     color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
                 ),
                 maxLines = 1,
             )
+            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
         }
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+        Text(
+            text = parcels.first(),
+            style = AkiraTheme.typography.body2.copy(
+                color = if (enable) AkiraTheme.colors.gray3 else AkiraTheme.colors.gray5
+            ),
+            maxLines = 1,
+        )
     }
 }
