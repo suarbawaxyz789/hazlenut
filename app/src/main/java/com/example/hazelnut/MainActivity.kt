@@ -25,6 +25,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RouteFloatingActionButton
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsFilterAction
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsFilterOption
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsGroupByPostcode
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
@@ -47,9 +48,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
 
-    if (viewModel.waypointsFilterVisible.collectAsState().value) {
-        WaypointFilterBottomSheet(viewModel = viewModel) {
-            viewModel.setFilterBottomSheetVisible(false)
+    if (viewModel.waypointsFilterOptionVisible.collectAsState().value) {
+        WaypointFilterOptionBottomSheet(viewModel = viewModel) {
+            viewModel.setFilterOptionBottomSheetVisible(false)
+        }
+    }
+
+    if (viewModel.waypointsFilterActionVisible.collectAsState().value) {
+        WaypointFilterActionBottomSheet(viewModel = viewModel) {
+            viewModel.setFilterActionBottomSheetVisible(false)
         }
     }
 
@@ -88,7 +95,10 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WaypointFilterBottomSheet(viewModel: RouteWaypointsPostalcodeViewModel, onDismiss: () -> Unit) {
+fun WaypointFilterOptionBottomSheet(
+    viewModel: RouteWaypointsPostalcodeViewModel,
+    onDismiss: () -> Unit
+) {
     val modalBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     ModalBottomSheet(
@@ -106,14 +116,47 @@ fun WaypointFilterBottomSheet(viewModel: RouteWaypointsPostalcodeViewModel, onDi
         WaypointsFilterOption(
             filterState,
             onClose = {
-                viewModel.setFilterBottomSheetVisible(false)
+                viewModel.setFilterOptionBottomSheetVisible(false)
             },
             onApply = {
                 viewModel.updateFilter(
                     selectedJobTypes = filterState.value.selectedJobTypes,
                     selectedTags = filterState.value.selectedTags,
                 )
-                viewModel.setFilterBottomSheetVisible(false)
+                viewModel.setFilterOptionBottomSheetVisible(false)
+                viewModel.setFilterActionBottomSheetVisible(false)
+            },
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WaypointFilterActionBottomSheet(
+    viewModel: RouteWaypointsPostalcodeViewModel,
+    onDismiss: () -> Unit
+) {
+    val modalBottomSheetState = rememberModalBottomSheetState()
+
+    ModalBottomSheet(
+        onDismissRequest = { onDismiss() },
+        sheetState = modalBottomSheetState,
+        dragHandle = { BottomSheetDefaults.HiddenShape },
+        shape = RoundedCornerShape(
+            topStart = spacings.spacingXxs,
+            topEnd = spacings.spacingXxs,
+        ),
+    ) {
+        WaypointsFilterAction(
+            viewModel.waypointsFilter.collectAsState().value,
+            onFilterClick = {
+                viewModel.setFilterOptionBottomSheetVisible(true)
+            },
+            onParcelStatusClick = {
+                /// TODO
+            },
+            onClose = {
+                viewModel.setFilterActionBottomSheetVisible(false)
             },
         )
     }

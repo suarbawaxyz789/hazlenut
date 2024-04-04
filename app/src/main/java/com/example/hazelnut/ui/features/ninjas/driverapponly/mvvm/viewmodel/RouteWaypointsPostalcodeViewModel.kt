@@ -38,11 +38,18 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     private val _routeId = MutableStateFlow(0L)
     val routeId = _routeId.asStateFlow()
 
-    private val _waypointsFilterVisible = MutableStateFlow(false)
-    val waypointsFilterVisible = _waypointsFilterVisible.asStateFlow()
+    private val _waypointsFilterOptionVisible = MutableStateFlow(false)
+    val waypointsFilterOptionVisible = _waypointsFilterOptionVisible.asStateFlow()
 
-    fun setFilterBottomSheetVisible(visible: Boolean) {
-        _waypointsFilterVisible.value = visible
+    private val _waypointsFilterActionVisible = MutableStateFlow(false)
+    val waypointsFilterActionVisible = _waypointsFilterActionVisible.asStateFlow()
+
+    fun setFilterOptionBottomSheetVisible(visible: Boolean) {
+        _waypointsFilterOptionVisible.value = visible
+    }
+
+    fun setFilterActionBottomSheetVisible(visible: Boolean) {
+        _waypointsFilterActionVisible.value = visible
     }
 
     private val _waypointsFilter = MutableStateFlow(

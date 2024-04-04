@@ -52,6 +52,7 @@ fun WaypointsFilterAction(
             onFilterClick = onFilterClick,
             onParcelStatusClick = onParcelStatusClick,
         )
+        Spacer(modifier = Modifier.height(spacings.spacingL))
     }
 }
 

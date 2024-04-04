@@ -51,7 +51,7 @@ fun RouteFloatingActionButton(
             FloatingActionButton(
                 backgroundColor = colors.gray2,
                 onClick = {
-                    viewModel.setFilterBottomSheetVisible(true)
+                    viewModel.setFilterActionBottomSheetVisible(true)
                 },
                 shape = CircleShape,
                 modifier = Modifier.size(50.dp)
