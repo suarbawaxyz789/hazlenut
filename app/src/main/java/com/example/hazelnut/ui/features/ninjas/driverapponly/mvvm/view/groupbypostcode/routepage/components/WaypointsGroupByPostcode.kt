@@ -20,8 +20,8 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 @Preview
 @Composable
 private fun WaypointsGroupByPostcodePreview() {
-    var sampleMultiRTS: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    val sampleMultiRTS: Map<JobType, List<String>> = mapOf(
+        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
 
     var tags = arrayListOf(

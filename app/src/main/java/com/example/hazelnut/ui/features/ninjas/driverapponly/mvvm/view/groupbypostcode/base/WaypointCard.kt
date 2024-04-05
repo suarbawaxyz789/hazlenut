@@ -29,17 +29,18 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.Waypoi
 @Preview
 @Composable
 private fun WaypointCardSinglePreview() {
-    var sample1Delivery: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111"))
+    var sample1Delivery: Map<JobType, List<String>> =
+        mapOf(JobType.DELIVERY to listOf("NVSGCTTDR000000111"))
+    val sample1Pickup: Map<JobType, List<String>> = mapOf(
+        JobType.PICKUP to listOf("NVSGCTTDR000000111")
     )
-    var sample1Pickup: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
+
+    val sample1RPU: Map<JobType, List<String>> = mapOf(
+        JobType.RPU to listOf("NVSGCTTDR000000111")
     )
-    var sample1RPU: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RPU, listOf("NVSGCTTDR000000111"))
-    )
-    var sample1RTS: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RTS, listOf("NVSGCTTDR000000111"))
+
+    val sample1RTS: Map<JobType, List<String>> = mapOf(
+        JobType.RTS to listOf("NVSGCTTDR000000111")
     )
     var listOfSample =
         arrayListOf(
@@ -57,11 +58,11 @@ private fun WaypointCardSinglePreview() {
     )
 
     Column {
-        listOfSample.mapIndexed { index, pairs ->
+        listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    mapTIDByJobType = pairs,
+                    mapTIDByJobType = pair,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = tags.take(index + 1),
@@ -75,17 +76,20 @@ private fun WaypointCardSinglePreview() {
 @Preview
 @Composable
 private fun WaypointCardMultiPreview() {
-    var sampleMultiDelivery: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    val sampleMultiDelivery: Map<JobType, List<String>> = mapOf(
+        JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
-    var sampleMultiPickup: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+
+    val sampleMultiPickup: Map<JobType, List<String>> = mapOf(
+        JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
-    var sampleMultiRPU: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RPU, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+
+    val sampleMultiRPU: Map<JobType, List<String>> = mapOf(
+        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
-    var sampleMultiRTS: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+
+    val sampleMultiRTS: Map<JobType, List<String>> = mapOf(
+        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
 
     var listOfSample =
@@ -104,11 +108,11 @@ private fun WaypointCardMultiPreview() {
     )
 
     Column {
-        listOfSample.mapIndexed { index, pairs ->
+        listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    mapTIDByJobType = pairs,
+                    mapTIDByJobType = pair,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = tags.take(index + 1),
@@ -122,17 +126,21 @@ private fun WaypointCardMultiPreview() {
 @Preview
 @Composable
 private fun WaypointCardMixPreview() {
-    var sampleDeliveryRpu: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.DELIVERY, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
-        Pair(JobType.RPU, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    var sampleDeliveryRpu: Map<JobType, List<String>> = mapOf(
+        JobType.DELIVERY to listOf(
+            "NVSGCTTDR000000111",
+            "NVSGCTTDR000000112",
+        ),
+        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
-    var sampleRtsPickup: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
-        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"))
+    val sampleRtsPickup: Map<JobType, List<String>> = mapOf(
+        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+        JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
-    var sampleRtsSinglePickup: List<Pair<JobType, List<String>>> = listOf(
-        Pair(JobType.RTS, listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")),
-        Pair(JobType.PICKUP, listOf("NVSGCTTDR000000111"))
+
+    val sampleRtsSinglePickup: Map<JobType, List<String>> = mapOf(
+        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+        JobType.PICKUP to listOf("NVSGCTTDR000000111")
     )
 
     var listOfSample =
@@ -150,11 +158,11 @@ private fun WaypointCardMixPreview() {
     )
 
     Column {
-        listOfSample.mapIndexed { index, pairs ->
+        listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    mapTIDByJobType = pairs,
+                    mapTIDByJobType = pair,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = arrayListOf(
@@ -208,8 +216,8 @@ fun WaypointCard(
                                     Row {
                                         waypointModel.mapTIDByJobType.forEach { pair ->
                                             JobTypeLabel(
-                                                type = pair.first,
-                                                parcels = pair.second,
+                                                type = pair.key,
+                                                parcels = pair.value,
                                                 isMix = waypointModel.mapTIDByJobType.size > 1,
                                                 enable = waypointModel.enabled
                                             )

@@ -5,7 +5,7 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelS
 data class WaypointCardUiState(
     val address: String,
     val name: String,
-    val mapTIDByJobType: List<Pair<JobType, List<String>>>,
+    val mapTIDByJobType: Map<JobType, List<String>>,
     val jobTags: List<JobLabelStyle>?,
     val enabled: Boolean,
     val numOfUnscannedParcels : Int? = null,
