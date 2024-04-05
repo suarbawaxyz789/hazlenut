@@ -217,7 +217,7 @@ fun WaypointCard(
                                         JobTypeLabel(
                                             type = pair.key,
                                             parcels = pair.value,
-                                            isMix = waypointModel.mapTIDByJobType.size > 1,
+                                            isMultipleJobType = waypointModel.mapTIDByJobType.size > 1,
                                             enable = waypointModel.enabled
                                         )
                                     }
@@ -292,11 +292,11 @@ fun WaypointCard(
 private fun JobTypeLabel(
     type: JobType,
     parcels: List<String>,
-    isMix: Boolean,
+    isMultipleJobType: Boolean,
     enable: Boolean = true
 ) {
     if (parcels.isEmpty()) return Row {}
-    if (isMix || parcels.size > 1) {
+    if (isMultipleJobType || parcels.size > 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
             Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
