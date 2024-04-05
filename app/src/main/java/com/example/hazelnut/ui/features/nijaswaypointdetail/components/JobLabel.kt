@@ -79,7 +79,7 @@ fun JobLabel(
 ) {
     val tagName = when (tagStyle) {
         JobLabelStyle.DELIVERY -> stringResource(id = R.string.tag_delivery)
-        JobLabelStyle.RPU -> stringResource(id = R.string.tag_rpu)
+        JobLabelStyle.RPU -> stringResource(id = R.string.text_rpu_tag)
         JobLabelStyle.PRIOR -> stringResource(id = R.string.tag_prior)
         JobLabelStyle.COD -> stringResource(id = R.string.tag_cod)
         JobLabelStyle.CONFIRMED -> stringResource(id = R.string.tag_confirmed)

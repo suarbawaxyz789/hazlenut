@@ -58,7 +58,6 @@
     <string name="use_past_sequence">Use past sequence</string>
     <string name="create_new_sequence">Create new sequence</string>
     <string name="tag_delivery">Delivery</string>
-    <string name="tag_rpu">RPU</string>
     <string name="tag_prior">PRIOR</string>
     <string name="tag_cod">COD</string>
     <string name="tag_doorstep">DoorStep</string>
