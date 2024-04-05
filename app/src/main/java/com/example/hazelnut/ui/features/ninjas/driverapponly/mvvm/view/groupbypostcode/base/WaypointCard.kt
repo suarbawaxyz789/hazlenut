@@ -212,16 +212,14 @@ fun WaypointCard(
                     Row {
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
-                                if (waypointModel.mapTIDByJobType != null) {
-                                    Row {
-                                        waypointModel.mapTIDByJobType.forEach { pair ->
-                                            JobTypeLabel(
-                                                type = pair.key,
-                                                parcels = pair.value,
-                                                isMix = waypointModel.mapTIDByJobType.size > 1,
-                                                enable = waypointModel.enabled
-                                            )
-                                        }
+                                Row {
+                                    waypointModel.mapTIDByJobType.forEach { pair ->
+                                        JobTypeLabel(
+                                            type = pair.key,
+                                            parcels = pair.value,
+                                            isMix = waypointModel.mapTIDByJobType.size > 1,
+                                            enable = waypointModel.enabled
+                                        )
                                     }
                                 }
                                 waypointModel.numOfUnscannedParcels?.let {
