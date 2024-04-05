@@ -70,7 +70,8 @@ private fun Content(
             onClick = {
                 onFilterClick?.invoke()
             },
-            rightIconRes = R.drawable.icon_l_angle_right
+            rightIconRes = R.drawable.icon_l_angle_right,
+            hasBottomDivider = false
         )
         ListItem(
             text = stringResource(id = R.string.parcel_status),
