@@ -15,14 +15,13 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 
 @Composable
 fun Checkbox(
-    defaultState: ToggleableState,
+    toggleableState: ToggleableState,
     onCheckedChange: ((ToggleableState) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: String? = null,
     description: String? = null
-    ) {
-    var state by remember { mutableStateOf(defaultState) }
+) {
     val textColor = if (enabled) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray7
     val checkboxColors = CheckboxDefaults.colors(
         checkedColor = AkiraTheme.colors.red3,
@@ -35,14 +34,13 @@ fun Checkbox(
     ConstraintLayout {
         val (cb, lb, ds) = createRefs()
         TriStateCheckbox(
-            state = state,
+            state = toggleableState,
             onClick = {
-                state = if (state == ToggleableState.On) {
-                    ToggleableState.Off
+                if (toggleableState == ToggleableState.On) {
+                    onCheckedChange?.invoke(ToggleableState.Off)
                 } else {
-                    ToggleableState.On
+                    onCheckedChange?.invoke(ToggleableState.On)
                 }
-                onCheckedChange?.invoke(state)
             },
             modifier = modifier.constrainAs(cb) {
                 top.linkTo(parent.top)

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
+import co.ninjavan.akira.designsystem.component.checkbox.Checkbox
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
@@ -153,35 +152,21 @@ private fun JobTypeFilterCheckbox(
         JobType.RPU -> R.string.filter_job_rpu
         JobType.PICKUP -> R.string.filter_job_rts
     }
-    /// The checkbox provided by Akira has its own internal state management using a mutable state. This means that the checkbox component controls its state independently, and attempting to alter its state directly won't reflect any changes in the component's appearance or behavior.
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(start = spacings.spacingXxxs)
-    ) {
-        Checkbox(
-            colors = CheckboxDefaults.colors(
-                checkedColor = colors.red3,
-                uncheckedColor = colors.gray4,
-                disabledIndeterminateColor = colors.gray7,
-            ),
-            checked = currentToggleState == ToggleableState.On,
-            onCheckedChange = { toggleableState ->
-                if (toggleableState) {
-                    uiState.value = uiState.value.copy(
-                        selectedJobTypes = uiState.value.selectedJobTypes + jobType,
-                    )
-                } else {
-                    uiState.value = uiState.value.copy(
-                        selectedJobTypes = uiState.value.selectedJobTypes - jobType,
-                    )
-                }
-            })
-        Text(
-            text = stringResource(id = labelStringId),
-            color = colors.gray2,
-            style = typography.body1
-        )
-    }
+    Checkbox(
+        toggleableState = currentToggleState,
+        label = stringResource(id = labelStringId),
+        onCheckedChange = { toggleableState ->
+            if (toggleableState == ToggleableState.On) {
+                uiState.value = uiState.value.copy(
+                    selectedJobTypes = uiState.value.selectedJobTypes + jobType,
+                )
+            } else {
+                uiState.value = uiState.value.copy(
+                    selectedJobTypes = uiState.value.selectedJobTypes - jobType,
+                )
+            }
+        }
+    )
 }
 
 @Composable
@@ -199,35 +184,21 @@ private fun TagFilterCheckbox(
         JobTag.ID_CHECK -> R.string.filter_tag_id_check
     }
 
-    /// The checkbox provided by Akira has its own internal state management using a mutable state. This means that the checkbox component controls its state independently, and attempting to alter its state directly won't reflect any changes in the component's appearance or behavior.
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(start = spacings.spacingXxxs)
-    ) {
-        Checkbox(
-            colors = CheckboxDefaults.colors(
-                checkedColor = colors.red3,
-                uncheckedColor = colors.gray4,
-                disabledIndeterminateColor = colors.gray7,
-            ),
-            checked = currentToggleState == ToggleableState.On,
-            onCheckedChange = { toggleableState ->
-                if (toggleableState) {
-                    uiState.value = uiState.value.copy(
-                        selectedTags = uiState.value.selectedTags + jobTag,
-                    )
-                } else {
-                    uiState.value = uiState.value.copy(
-                        selectedTags = uiState.value.selectedTags - jobTag,
-                    )
-                }
-            })
-        Text(
-            text = stringResource(id = labelStringId),
-            color = colors.gray2,
-            style = typography.body1
-        )
-    }
+    Checkbox(
+        toggleableState = currentToggleState,
+        label = stringResource(id = labelStringId),
+        onCheckedChange = { toggleableState ->
+            if (toggleableState == ToggleableState.On) {
+                uiState.value = uiState.value.copy(
+                    selectedTags = uiState.value.selectedTags + jobTag,
+                )
+            } else {
+                uiState.value = uiState.value.copy(
+                    selectedTags = uiState.value.selectedTags - jobTag,
+                )
+            }
+        }
+    )
 }
 
 @Composable
