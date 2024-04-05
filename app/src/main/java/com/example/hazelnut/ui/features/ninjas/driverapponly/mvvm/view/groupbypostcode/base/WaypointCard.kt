@@ -61,7 +61,7 @@ private fun WaypointCardSinglePreview() {
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = pairs,
+                    mapTIDByJobType = pairs,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = tags.take(index + 1),
@@ -108,7 +108,7 @@ private fun WaypointCardMultiPreview() {
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = pairs,
+                    mapTIDByJobType = pairs,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = tags.take(index + 1),
@@ -154,7 +154,7 @@ private fun WaypointCardMixPreview() {
             WaypointCard(
                 waypointModel = WaypointCardUiState(
                     address = "3 Changi South street 2, Singapore 837484",
-                    jobListData = pairs,
+                    mapTIDByJobType = pairs,
                     name = "Butterfly shop",
                     enabled = true,
                     jobTags = arrayListOf(
@@ -204,13 +204,13 @@ fun WaypointCard(
                     Row {
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
-                                if (waypointModel.jobListData != null) {
+                                if (waypointModel.mapTIDByJobType != null) {
                                     Row {
-                                        waypointModel.jobListData.forEach { pair ->
+                                        waypointModel.mapTIDByJobType.forEach { pair ->
                                             JobTypeLabel(
                                                 type = pair.first,
                                                 parcels = pair.second,
-                                                isMix = waypointModel.jobListData.size > 1,
+                                                isMix = waypointModel.mapTIDByJobType.size > 1,
                                                 enable = waypointModel.enabled
                                             )
                                         }

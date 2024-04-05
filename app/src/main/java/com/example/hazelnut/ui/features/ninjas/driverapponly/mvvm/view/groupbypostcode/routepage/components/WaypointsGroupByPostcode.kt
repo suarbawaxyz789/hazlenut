@@ -33,7 +33,7 @@ private fun WaypointsGroupByPostcodePreview() {
 
     var wpModel = WaypointCardUiState(
         address = "3 Changi South street 2, Singapore 837484",
-        jobListData = sampleMultiRTS,
+        mapTIDByJobType = sampleMultiRTS,
         name = "Butterfly shop",
         enabled = true,
         jobTags = tags,
@@ -44,7 +44,7 @@ private fun WaypointsGroupByPostcodePreview() {
             "123456",
             3,
             1,
-            jobListData = listOf(wpModel)
+            waypoints = listOf(wpModel)
         )
     )
 }
@@ -74,7 +74,7 @@ fun WaypointsGroupByPostcode(
             ItemWithCount(numOfItem = waypointsGroupModel.numOfPickup, jobType = JobType.PICKUP)
         }
         Column {
-            waypointsGroupModel.jobListData.map { job ->
+            waypointsGroupModel.waypoints.map { job ->
                 WaypointCard(waypointModel = job)
             }
         }
