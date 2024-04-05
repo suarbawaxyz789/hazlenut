@@ -127,11 +127,11 @@ private fun WaypointCardMultiPreview() {
 @Composable
 private fun WaypointCardMixPreview() {
     var sampleDeliveryRpu: Map<JobType, List<String>> = mapOf(
+        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
         JobType.DELIVERY to listOf(
             "NVSGCTTDR000000111",
             "NVSGCTTDR000000112",
         ),
-        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
     )
     val sampleRtsPickup: Map<JobType, List<String>> = mapOf(
         JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
@@ -139,8 +139,8 @@ private fun WaypointCardMixPreview() {
     )
 
     val sampleRtsSinglePickup: Map<JobType, List<String>> = mapOf(
+        JobType.PICKUP to listOf("NVSGCTTDR000000111"),
         JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
-        JobType.PICKUP to listOf("NVSGCTTDR000000111")
     )
 
     var listOfSample =
@@ -213,7 +213,14 @@ fun WaypointCard(
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
                                 Row {
-                                    waypointModel.mapTIDByJobType.forEach { pair ->
+                                    waypointModel.mapTIDByJobType.toSortedMap(compareBy { key ->
+                                        when (key) {
+                                            JobType.DELIVERY -> 1
+                                            JobType.RTS -> 2
+                                            JobType.RPU -> 3
+                                            JobType.PICKUP -> 4
+                                        }
+                                    }).forEach { pair ->
                                         JobTypeLabel(
                                             type = pair.key,
                                             parcels = pair.value,

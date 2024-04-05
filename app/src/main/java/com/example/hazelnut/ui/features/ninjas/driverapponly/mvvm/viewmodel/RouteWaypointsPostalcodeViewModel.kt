@@ -139,28 +139,13 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                     WaypointCardUiState(
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
-                        mapTIDByJobType = mapOf(
-                            JobType.DELIVERY to listOf("NVSGCTTDR000000111")
-                        ),
+                        mapTIDByJobType = mapOf(JobType.DELIVERY to listOf("NVSGCTTDR000000111")),
                         enabled = true,
                         jobTags = arrayListOf(
                             JobLabelStyle.PRIOR,
                             JobLabelStyle.COD,
                             JobLabelStyle.DOOR_STEP,
                             JobLabelStyle.ID_CHECK,
-                        ),
-                        numOfUnscannedParcels = 4
-                    ),
-                    WaypointCardUiState(
-                        address = "3 Changi South street 2, Singapore 837484",
-                        name = "Butterfly shop",
-                        mapTIDByJobType = mapOf(
-                            JobType.DELIVERY to listOf("NVSGCTTDR000000111")
-                        ),
-                        enabled = true,
-                        jobTags = arrayListOf(
-                            JobLabelStyle.PRIOR,
-                            JobLabelStyle.COD,
                         ),
                     ),
                     WaypointCardUiState(
@@ -169,7 +154,31 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         mapTIDByJobType = mapOf(
                             JobType.PICKUP to listOf("NVSGCTTDR000000111")
                         ),
-                        enabled = false,
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                        ),
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.RPU to listOf("NVSGCTTDR000000111")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                        ),
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.RTS to listOf("NVSGCTTDR000000111")
+                        ),
+                        enabled = true,
                         jobTags = arrayListOf(
                             JobLabelStyle.PRIOR,
                             JobLabelStyle.COD,
@@ -178,7 +187,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                 ),
-            ), WaypointsGroupByPostcodeUiState(
+            ),
+            WaypointsGroupByPostcodeUiState(
                 numOfPickup = 1,
                 numOfDelivery = 3,
                 postcode = "123456",
@@ -187,7 +197,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
-                            JobType.DELIVERY to listOf("NVSGCTTDR000000111"),
+                            JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
                         ),
                         enabled = true,
                         jobTags = arrayListOf(
@@ -201,8 +211,105 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
-                            JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
-                            JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                            JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                ),
+            ),
+            WaypointsGroupByPostcodeUiState(
+                numOfPickup = 1,
+                numOfDelivery = 3,
+                postcode = "123456",
+                waypoints = listOf(
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.DELIVERY to listOf(
+                                "NVSGCTTDR000000111",
+                                "NVSGCTTDR000000112",
+                            ),
+                            JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+                            JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+                            JobType.PICKUP to listOf("NVSGCTTDR000000111")
+                        ),
+                        enabled = true,
+                        jobTags = arrayListOf(
+                            JobLabelStyle.PRIOR,
+                            JobLabelStyle.COD,
+                            JobLabelStyle.DOOR_STEP,
+                            JobLabelStyle.ID_CHECK
+                        )
+                    ),
+                    WaypointCardUiState(
+                        address = "3 Changi South street 2, Singapore 837484",
+                        name = "Butterfly shop",
+                        mapTIDByJobType = mapOf(
+                            JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+                            JobType.PICKUP to listOf("NVSGCTTDR000000111")
                         ),
                         enabled = false,
                         jobTags = arrayListOf(
