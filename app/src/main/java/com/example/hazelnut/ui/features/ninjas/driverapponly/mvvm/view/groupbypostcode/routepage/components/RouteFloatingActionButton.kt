@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -51,7 +52,7 @@ fun RouteFloatingActionButton(
             FloatingActionButton(
                 backgroundColor = colors.gray2,
                 onClick = {
-                    viewModel.setFilterActionBottomSheetVisible(true)
+                    viewModel.setFilterActionBottomSheetVisible(ModalBottomSheetValue.Expanded)
                 },
                 shape = CircleShape,
                 modifier = Modifier.size(50.dp)

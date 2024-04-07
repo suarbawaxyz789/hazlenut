@@ -45,8 +45,7 @@ private fun WaypointFilterActionPreview() {
 @Composable
 fun WaypointsFilterOption(
     uiState: MutableState<WaypointFilterUiState>,
-    onApply: (() -> Unit)? = null,
-    onClose: (() -> Unit)? = null,
+    onApply: (() -> Unit)? = null
 ) {
     Column(
         modifier = Modifier
@@ -55,13 +54,10 @@ fun WaypointsFilterOption(
             )
             .padding(
                 end = spacings.spacingS,
-                top = spacings.spacingL
-            )
+                top = spacings.spacingL,
+
+                )
     ) {
-        Column(modifier = Modifier.padding(start = spacings.spacingS)) {
-            BottomSheetHeader(title = stringResource(id = R.string.filter_by), onClose = onClose)
-            Spacer(modifier = Modifier.height(spacings.spacingL))
-        }
         Content(
             uiState = uiState,
         )

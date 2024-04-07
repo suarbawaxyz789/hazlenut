@@ -1,5 +1,6 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel
 
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -38,18 +39,18 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
     private val _routeId = MutableStateFlow(0L)
     val routeId = _routeId.asStateFlow()
 
-    private val _waypointsFilterOptionVisible = MutableStateFlow(false)
+    private val _waypointsFilterOptionVisible = MutableStateFlow(ModalBottomSheetValue.Hidden)
     val waypointsFilterOptionVisible = _waypointsFilterOptionVisible.asStateFlow()
 
-    private val _waypointsFilterActionVisible = MutableStateFlow(false)
+    private val _waypointsFilterActionVisible = MutableStateFlow(ModalBottomSheetValue.Hidden)
     val waypointsFilterActionVisible = _waypointsFilterActionVisible.asStateFlow()
 
-    fun setFilterOptionBottomSheetVisible(visible: Boolean) {
-        _waypointsFilterOptionVisible.value = visible
+    fun setFilterOptionBottomSheetVisible(value: ModalBottomSheetValue) {
+        _waypointsFilterOptionVisible.value = value
     }
 
-    fun setFilterActionBottomSheetVisible(visible: Boolean) {
-        _waypointsFilterActionVisible.value = visible
+    fun setFilterActionBottomSheetVisible(value: ModalBottomSheetValue) {
+        _waypointsFilterActionVisible.value = value
     }
 
     private val _waypointsFilter = MutableStateFlow(

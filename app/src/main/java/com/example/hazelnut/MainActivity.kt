@@ -8,21 +8,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import co.ninjavan.akira.designsystem.component.drawer.Drawer
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RouteFloatingActionButton
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.RoutePageAppBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.WaypointsFilterAction
@@ -47,19 +44,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
-
-    if (viewModel.waypointsFilterOptionVisible.collectAsState().value) {
-        WaypointFilterOptionBottomSheet(viewModel = viewModel) {
-            viewModel.setFilterOptionBottomSheetVisible(false)
-        }
-    }
-
-    if (viewModel.waypointsFilterActionVisible.collectAsState().value) {
-        WaypointFilterActionBottomSheet(viewModel = viewModel) {
-            viewModel.setFilterActionBottomSheetVisible(false)
-        }
-    }
-
     AkiraTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
@@ -84,83 +68,73 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
                         viewModel.sequencedWaypointsGroupedByPostCode.value.map { waypointsGroup ->
                             WaypointsGroupByPostcode(
                                 waypointsGroupModel = waypointsGroup,
-                                onWaypointClick = {
-                                    waypoint -> viewModel.toWaypointDetail(waypointId = waypoint.id)
+                                onWaypointClick = { waypoint ->
+                                    viewModel.toWaypointDetail(waypointId = waypoint.id)
                                 }
                             )
                         }
                     }
                 }
             }
+            WaypointFilterActionBottomSheet(viewModel = viewModel)
+            WaypointFilterOptionBottomSheet(viewModel = viewModel)
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WaypointFilterOptionBottomSheet(
-    viewModel: RouteWaypointsPostalcodeViewModel,
-    onDismiss: () -> Unit
+    viewModel: RouteWaypointsPostalcodeViewModel
 ) {
-    val modalBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-    ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
-        sheetState = modalBottomSheetState,
-        dragHandle = { BottomSheetDefaults.HiddenShape },
-        shape = RoundedCornerShape(
-            topStart = spacings.spacingXxs,
-            topEnd = spacings.spacingXxs,
-        ),
-    ) {
-        var filterState = remember {
-            mutableStateOf(viewModel.waypointsFilter.value)
+    Drawer(
+        headerText = stringResource(id = R.string.filter_by),
+        onStateChanged = {
+            viewModel.setFilterOptionBottomSheetVisible(it)
+        },
+        showState = viewModel.waypointsFilterOptionVisible.collectAsState().value,
+        forceFullScreen = true,
+        skipHalfExpanded = true,
+        content = {
+            var filterState = remember {
+                mutableStateOf(viewModel.waypointsFilter.value)
+            }
+            WaypointsFilterOption(
+                filterState,
+                onApply = {
+                    viewModel.updateFilter(
+                        selectedJobTypes = filterState.value.selectedJobTypes,
+                        selectedTags = filterState.value.selectedTags,
+                    )
+                    viewModel.setFilterOptionBottomSheetVisible(ModalBottomSheetValue.Hidden)
+                    viewModel.setFilterActionBottomSheetVisible(ModalBottomSheetValue.Hidden)
+                },
+            )
         }
-        WaypointsFilterOption(
-            filterState,
-            onClose = {
-                viewModel.setFilterOptionBottomSheetVisible(false)
-            },
-            onApply = {
-                viewModel.updateFilter(
-                    selectedJobTypes = filterState.value.selectedJobTypes,
-                    selectedTags = filterState.value.selectedTags,
-                )
-                viewModel.setFilterOptionBottomSheetVisible(false)
-                viewModel.setFilterActionBottomSheetVisible(false)
-            },
-        )
-    }
+    )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WaypointFilterActionBottomSheet(
-    viewModel: RouteWaypointsPostalcodeViewModel,
-    onDismiss: () -> Unit
+    viewModel: RouteWaypointsPostalcodeViewModel
 ) {
-    val modalBottomSheetState = rememberModalBottomSheetState()
-
-    ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
-        sheetState = modalBottomSheetState,
-        dragHandle = { BottomSheetDefaults.HiddenShape },
-        shape = RoundedCornerShape(
-            topStart = spacings.spacingXxs,
-            topEnd = spacings.spacingXxs,
-        ),
-    ) {
-        WaypointsFilterAction(
-            viewModel.waypointsFilter.collectAsState().value,
-            onFilterClick = {
-                viewModel.setFilterOptionBottomSheetVisible(true)
-            },
-            onParcelStatusClick = {
-                /// TODO
-            },
-            onClose = {
-                viewModel.setFilterActionBottomSheetVisible(false)
-            },
-        )
-    }
+    Drawer(
+        headerText = stringResource(id = R.string.actions),
+        onStateChanged = {
+            viewModel.setFilterActionBottomSheetVisible(it)
+        },
+        showState = viewModel.waypointsFilterActionVisible.collectAsState().value,
+        forceFullScreen = false,
+        skipHalfExpanded = false,
+        content = {
+            WaypointsFilterAction(
+                viewModel.waypointsFilter.collectAsState().value,
+                onFilterClick = {
+                    viewModel.setFilterOptionBottomSheetVisible(ModalBottomSheetValue.Expanded)
+                },
+                onParcelStatusClick = {
+                    /// TODO
+                },
+            )
+        }
+    )
 }
