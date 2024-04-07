@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -24,20 +25,24 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.Legend
 import com.example.hazelnut.ui.features.ninjas.bespoke.MultiColorProgressBar
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.MultiColorProgressBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.RectangleShimmer
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.RouteWaypointsPostalcodeViewModel
 
 @Composable
 fun RoutePageAppBar(
     viewModel: RouteWaypointsPostalcodeViewModel,
-    progressBarUiState: MultiColorProgressBarUiState
+    progressBarUiState: MultiColorProgressBarUiState,
+    isShowShimmerLoading: Boolean = false,
 ) {
     /// system status bar should follow appbar color
     val context = LocalContext.current
@@ -81,10 +86,10 @@ fun RoutePageAppBar(
                 },
                 subtitleContent = {
                     Text(
-                        text = stringResource(
+                        text = if (isShowShimmerLoading) stringResource(
                             id = R.string.route_id_number,
                             viewModel.routeId.collectAsState().value
-                        ),
+                        ) else "",
                         style = AkiraTheme.typography.body2.copy(
                             color = AkiraTheme.colors.gray3
                         ),
@@ -93,15 +98,40 @@ fun RoutePageAppBar(
                 },
                 actions = actions,
             )
-            Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingS))
-            AppBarProgressBar(uiState = progressBarUiState)
-            Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
+            if (isShowShimmerLoading) {
+                Spacer(modifier = Modifier.height(spacings.spacingXl))
+                ProgressBarShimmerLoading()
+            } else {
+                Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingS))
+                AppBarProgressBar(uiState = progressBarUiState)
+                Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxs))
+            }
         }
     }
 }
 
 @Composable
-fun AppBarProgressBar(uiState: MultiColorProgressBarUiState) {
+private fun ProgressBarShimmerLoading() {
+    RectangleShimmer(
+        modifier = Modifier
+            .padding(start = spacings.spacingS)
+            .padding(end = spacings.spacingS)
+            .height(spacings.spacingS)
+            .fillMaxWidth()
+    )
+    Spacer(modifier = Modifier.height(spacings.spacingXs))
+    RectangleShimmer(
+        modifier = Modifier
+            .padding(start = spacings.spacingS)
+            .padding(end = spacings.spacingS)
+            .height(spacings.spacingS)
+            .width(140.dp)
+    )
+    Spacer(modifier = Modifier.height(spacings.spacingS))
+}
+
+@Composable
+private fun AppBarProgressBar(uiState: MultiColorProgressBarUiState) {
     var expandedState = remember {
         mutableStateOf(false)
     }
