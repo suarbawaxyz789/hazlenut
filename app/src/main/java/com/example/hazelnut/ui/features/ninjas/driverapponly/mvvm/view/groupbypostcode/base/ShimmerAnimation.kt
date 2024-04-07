@@ -48,7 +48,7 @@ fun Modifier.shimmerLoadingAnimation(
             AkiraTheme.colors.white.copy(alpha = 0.3f),
         )
 
-        val transition = rememberInfiniteTransition(label = "")
+        val transition = rememberInfiniteTransition()
 
         val translateAnimation = transition.animateFloat(
             initialValue = 0f,
@@ -60,7 +60,6 @@ fun Modifier.shimmerLoadingAnimation(
                 ),
                 repeatMode = RepeatMode.Restart,
             ),
-            label = "Shimmer loading animation",
         )
 
         this.background(
