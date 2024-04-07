@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
@@ -186,29 +188,29 @@ fun WaypointCard(
     Column {
         Box(
             modifier = Modifier
-                .background(color = AkiraTheme.colors.white)
+                .background(color = colors.white)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(all = AkiraTheme.spacings.spacingS)
+                    .padding(all = spacings.spacingS)
             ) {
                 Text(
                     text = waypointModel.address,
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
+                    style = typography.body2.copy(
+                        color = if (waypointModel.enabled) colors.gray1 else colors.gray6
                     ),
                 )
 
-                Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXs))
+                Spacer(modifier = Modifier.height(spacings.spacingXs))
 
                 Column {
                     Text(
                         text = waypointModel.name,
-                        style = AkiraTheme.typography.body2Bold.copy(
-                            color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
+                        style = typography.body2Bold.copy(
+                            color = if (waypointModel.enabled) colors.gray1 else colors.gray6
                         ),
                     )
-                    Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxxs))
+                    Spacer(modifier = Modifier.height(spacings.spacingXxxs))
                     Row {
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
@@ -231,11 +233,11 @@ fun WaypointCard(
                                 }
                                 waypointModel.numOfUnscannedParcels?.let {
                                     Chip(
-                                        shape = RoundedCornerShape(AkiraTheme.spacings.spacingXxxs),
+                                        shape = RoundedCornerShape(spacings.spacingXxxs),
                                         onClick = {},
                                         colors = ChipDefaults.chipColors(
-                                            backgroundColor = AkiraTheme.colors.red5,
-                                            contentColor = AkiraTheme.colors.red3
+                                            backgroundColor = colors.red5,
+                                            contentColor = colors.red3
                                         ),
                                     ) {
                                         Text(
@@ -245,8 +247,8 @@ fun WaypointCard(
                                                 waypointModel.numOfUnscannedParcels,
                                                 waypointModel.numOfUnscannedParcels
                                             ),
-                                            style = AkiraTheme.typography.body2.copy(
-                                                color = AkiraTheme.colors.red3
+                                            style = typography.body2.copy(
+                                                color = colors.red3
                                             ),
                                         )
                                     }
@@ -261,8 +263,8 @@ fun WaypointCard(
                                         JobLabel(
                                             tagStyle = jobTag,
                                             modifier = Modifier.padding(
-                                                end = AkiraTheme.spacings.spacingXxxs,
-                                                bottom = AkiraTheme.spacings.spacingXxxs
+                                                end = spacings.spacingXxxs,
+                                                bottom = spacings.spacingXxxs
                                             ),
                                             enable = waypointModel.enabled,
                                         )
@@ -274,8 +276,8 @@ fun WaypointCard(
                                             JobLabel(
                                                 tagStyle = jobTag,
                                                 modifier = Modifier.padding(
-                                                    end = AkiraTheme.spacings.spacingXxxs,
-                                                    bottom = AkiraTheme.spacings.spacingXxxs
+                                                    end = spacings.spacingXxxs,
+                                                    bottom = spacings.spacingXxxs
                                                 ),
                                                 enable = waypointModel.enabled,
                                             )
@@ -290,10 +292,11 @@ fun WaypointCard(
             }
         }
         Divider(
-            color = AkiraTheme.colors.gray7,
+            color = colors.gray7,
         )
     }
 }
+
 
 @Composable
 private fun JobTypeLabel(
@@ -306,69 +309,69 @@ private fun JobTypeLabel(
     if (isMultipleJobType || parcels.size > 1) {
         return Row(verticalAlignment = Alignment.CenterVertically) {
             IconByJobType(type = type, enable = enable)
-            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
+            Spacer(modifier = Modifier.width(spacings.spacingXxxs))
             when (type) {
                 JobType.DELIVERY -> Text(
                     text = parcels.size.toString(),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray1 else colors.gray5
                     ),
                     maxLines = 1,
                 )
 
                 JobType.RTS -> Text(
                     text = stringResource(R.string.num_of_rts_parcels, parcels.size),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
 
                 JobType.RPU -> Text(
                     text = stringResource(R.string.num_of_rpu_parcels, parcels.size),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
 
                 JobType.PICKUP -> Text(
                     text = parcels.size.toString(),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray1 else colors.gray5
                     ),
                     maxLines = 1,
                 )
             }
-            Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+            Spacer(modifier = Modifier.width(spacings.spacingXxs))
         }
     }
 
     return Row(verticalAlignment = Alignment.CenterVertically) {
         IconByJobType(type = type, enable = enable)
-        Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxxs))
+        Spacer(modifier = Modifier.width(spacings.spacingXxxs))
         when (type) {
             JobType.DELIVERY -> {}
             JobType.RTS -> Row {
                 Text(
                     text = stringResource(id = R.string.parcel_rts),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
-                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+                Spacer(modifier = Modifier.width(spacings.spacingXxs))
             }
 
             JobType.RPU -> Row {
                 Text(
                     text = stringResource(id = R.string.text_rpu_tag),
-                    style = AkiraTheme.typography.body2.copy(
-                        color = if (enable) AkiraTheme.colors.gray2 else AkiraTheme.colors.gray5
+                    style = typography.body2.copy(
+                        color = if (enable) colors.gray2 else colors.gray5
                     ),
                     maxLines = 1,
                 )
-                Spacer(modifier = Modifier.width(AkiraTheme.spacings.spacingXxs))
+                Spacer(modifier = Modifier.width(spacings.spacingXxs))
             }
 
             JobType.PICKUP -> {}
@@ -376,8 +379,8 @@ private fun JobTypeLabel(
 
         Text(
             text = parcels.first(),
-            style = AkiraTheme.typography.body2.copy(
-                color = if (enable) AkiraTheme.colors.gray3 else AkiraTheme.colors.gray5
+            style = typography.body2.copy(
+                color = if (enable) colors.gray3 else colors.gray5
             ),
             maxLines = 1,
         )

@@ -116,7 +116,7 @@ private fun ProgressBarShimmerLoading() {
         modifier = Modifier
             .padding(start = spacings.spacingS)
             .padding(end = spacings.spacingS)
-            .height(spacings.spacingS)
+            .height(spacings.spacingXxs)
             .fillMaxWidth()
     )
     Spacer(modifier = Modifier.height(spacings.spacingXs))
@@ -124,7 +124,7 @@ private fun ProgressBarShimmerLoading() {
         modifier = Modifier
             .padding(start = spacings.spacingS)
             .padding(end = spacings.spacingS)
-            .height(spacings.spacingS)
+            .height(spacings.spacingXxs)
             .width(140.dp)
     )
     Spacer(modifier = Modifier.height(spacings.spacingS))
