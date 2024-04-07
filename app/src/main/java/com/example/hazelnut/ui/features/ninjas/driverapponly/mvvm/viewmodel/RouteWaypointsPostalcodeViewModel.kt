@@ -87,6 +87,12 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
         updateActiveFilterStatus()
     }
 
+    fun toWaypointDetail(waypointId: String) {
+        print(waypointId)
+        /// TODO initiate navigator
+        /// TODO open waypoint detail with existing flow.
+    }
+
     fun getWaypoints() {
 //         waypointsRepository.getWaypoints.map {
 //             // add transformer
@@ -137,6 +143,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                 postcode = "123456",
                 waypoints = listOf(
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(JobType.DELIVERY to listOf("NVSGCTTDR000000111")),
@@ -149,6 +156,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         ),
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -161,6 +169,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         ),
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -173,6 +182,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         ),
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -194,6 +204,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                 postcode = "123456",
                 waypoints = listOf(
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -208,6 +219,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -222,6 +234,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -236,6 +249,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -257,6 +271,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                 postcode = "123456",
                 waypoints = listOf(
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -275,6 +290,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -290,6 +306,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
@@ -305,6 +322,7 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         )
                     ),
                     WaypointCardUiState(
+                        id = "1",
                         address = "3 Changi South street 2, Singapore 837484",
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(

@@ -1,6 +1,7 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -63,6 +64,7 @@ private fun WaypointCardSinglePreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
+                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -113,6 +115,7 @@ private fun WaypointCardMultiPreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
+                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -163,6 +166,7 @@ private fun WaypointCardMixPreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
+                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -183,9 +187,12 @@ private fun WaypointCardMixPreview() {
 @Composable
 fun WaypointCard(
     waypointModel: WaypointCardUiState,
+    onClick: (() -> Unit)? = null,
 ) {
     val resources = LocalContext.current.resources
-    Column {
+    Column(modifier = Modifier.clickable {
+        onClick?.invoke()
+    }) {
         Box(
             modifier = Modifier
                 .background(color = colors.white)

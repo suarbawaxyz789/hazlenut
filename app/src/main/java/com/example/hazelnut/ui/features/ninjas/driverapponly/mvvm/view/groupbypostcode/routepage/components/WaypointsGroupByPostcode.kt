@@ -39,6 +39,7 @@ private fun WaypointsGroupByPostcodePreview() {
     )
 
     var wpModel = WaypointCardUiState(
+        id = "1",
         address = "3 Changi South street 2, Singapore 837484",
         mapTIDByJobType = sampleMultiRTS,
         name = "Butterfly shop",
@@ -60,6 +61,7 @@ private fun WaypointsGroupByPostcodePreview() {
 fun WaypointsGroupByPostcode(
     waypointsGroupModel: WaypointsGroupByPostcodeUiState,
     isShowShimmerLoading: Boolean = false,
+    onWaypointClick: ((WaypointCardUiState) -> Unit)? = null,
 ) {
     if (isShowShimmerLoading) {
         WaypointCardShimmerLoading()
@@ -87,7 +89,9 @@ fun WaypointsGroupByPostcode(
         }
         Column {
             waypointsGroupModel.waypoints.map { job ->
-                WaypointCard(waypointModel = job)
+                WaypointCard(waypointModel = job, onClick = {
+                    onWaypointClick?.invoke(job)
+                })
             }
         }
     }
