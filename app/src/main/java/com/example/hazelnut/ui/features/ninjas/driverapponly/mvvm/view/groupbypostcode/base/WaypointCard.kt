@@ -54,10 +54,10 @@ private fun WaypointCardSinglePreview() {
         )
 
     var tags = arrayListOf(
-        JobLabelStyle.COD,
         JobLabelStyle.PRIOR,
-        JobLabelStyle.DOOR_STEP,
-        JobLabelStyle.ID_CHECK
+        JobLabelStyle.COD,
+        JobLabelStyle.ID_CHECK,
+        JobLabelStyle.DOOR_STEP
     )
 
     Column {
@@ -105,12 +105,11 @@ private fun WaypointCardMultiPreview() {
         )
 
     var tags = arrayListOf(
-        JobLabelStyle.COD,
-        JobLabelStyle.PRIOR,
+        JobLabelStyle.ID_CHECK,
         JobLabelStyle.DOOR_STEP,
-        JobLabelStyle.ID_CHECK
+        JobLabelStyle.PRIOR,
+        JobLabelStyle.COD,
     )
-
     Column {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
@@ -156,10 +155,10 @@ private fun WaypointCardMixPreview() {
         )
 
     var tags = arrayListOf(
-        JobLabelStyle.COD,
         JobLabelStyle.PRIOR,
-        JobLabelStyle.DOOR_STEP,
-        JobLabelStyle.ID_CHECK
+        JobLabelStyle.COD,
+        JobLabelStyle.ID_CHECK,
+        JobLabelStyle.DOOR_STEP
     )
 
     Column {
@@ -171,12 +170,7 @@ private fun WaypointCardMixPreview() {
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
                     enabled = true,
-                    jobTags = arrayListOf(
-                        JobLabelStyle.COD,
-                        JobLabelStyle.PRIOR,
-                        JobLabelStyle.DOOR_STEP,
-                        JobLabelStyle.ID_CHECK
-                    ),
+                    jobTags = tags.take(index + 1),
                     numOfUnscannedParcels = 12,
                 ),
             )
@@ -262,11 +256,29 @@ fun WaypointCard(
                                 }
                             }
                         }
-                        waypointModel.jobTags?.let { jobTagList ->
+                        waypointModel.jobTags?.sortedWith(compareBy { value ->
+                            when (value) {
+                                JobLabelStyle.COD -> 1
+                                JobLabelStyle.PRIOR -> 2
+                                JobLabelStyle.DOOR_STEP -> 3
+                                JobLabelStyle.ID_CHECK -> 4
+                                JobLabelStyle.DELIVERY -> 5
+                                JobLabelStyle.RPU -> 6
+                                JobLabelStyle.OPEN_BOX -> 7
+                                JobLabelStyle.CONFIRMED -> 8
+                            }
+                        })?.let { jobTagList ->
                             /// this can be simplified later using FlowRow but need to add foundation:1.4.3
                             Column(horizontalAlignment = Alignment.End) {
                                 Row {
-                                    jobTagList.take(2).map { jobTag ->
+                                    jobTagList.take(2).sortedWith(compareBy { value ->
+                                        when (value) {
+                                            JobLabelStyle.PRIOR -> 2
+                                            else -> {
+                                                1
+                                            }
+                                        }
+                                    }).map { jobTag ->
                                         JobLabel(
                                             tagStyle = jobTag,
                                             modifier = Modifier.padding(
