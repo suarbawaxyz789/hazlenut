@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
@@ -33,13 +34,13 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.Waypoi
 @Composable
 private fun WaypointCardSinglePreview() {
     var sample1Delivery: Map<JobType, List<String>> =
-        mapOf(JobType.DELIVERY to listOf("NVSGCTTDR000000111"))
+        mapOf(JobType.DELIVERY to listOf("NVSGCTTDR0000001117390750938758930981"))
     val sample1Pickup: Map<JobType, List<String>> = mapOf(
-        JobType.PICKUP to listOf("NVSGCTTDR000000111")
+        JobType.PICKUP to listOf("NVSGCTTDR0000076523235981")
     )
 
     val sample1RPU: Map<JobType, List<String>> = mapOf(
-        JobType.RPU to listOf("NVSGCTTDR000000111")
+        JobType.RPU to listOf("NVSGCTTDR0000001113245236465332453254981")
     )
 
     val sample1RTS: Map<JobType, List<String>> = mapOf(
@@ -395,13 +396,11 @@ private fun JobTypeLabel(
 
             JobType.PICKUP -> {}
         }
-
-        Text(
+        CustomEllipsisText(
             text = parcels.first(),
             style = typography.body2.copy(
                 color = if (enable) colors.gray3 else colors.gray5
             ),
-            maxLines = 1,
         )
     }
 }
