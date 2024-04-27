@@ -12,6 +12,17 @@ dependencyResolutionManagement {
         mavenCentral()
 
         maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://nexus.ninjavan.co/repository/maven-snapshots/'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = "ninjavan"
+
+                password = "Eiquoo3Vsheda6SheiQu5Wio"
+            }
+        }
     }
 }
 rootProject.name = "Hazelnut"

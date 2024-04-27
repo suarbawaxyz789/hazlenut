@@ -84,6 +84,7 @@ dependencies {
     implementation("com.maxkeppeler.sheets-compose-dialogs:core:1.2.0")
     implementation("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
     implementation "com.google.android.material:material:1.4.0"
+    implementation "co.ninjavan.android:akira-designsystem:0.1-SNAPSHOT"
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
 

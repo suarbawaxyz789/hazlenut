@@ -21,3 +21,14 @@ enum class CurrentWaypointByStatusFilter {
     FAILED,
     ALL,
 }
+
+enum class CTAButton {
+    SCAN_UNSCANNED_PARCELS,
+    CONTINUE_SEQUENCING,
+    UPDATE_SEQUENCE,
+    START_SEQUENCING,
+    CHANGE_SEQUENCE,
+    START_SCANNING,
+    START_ROUTE,
+    SCAN_PARCELS,
+}

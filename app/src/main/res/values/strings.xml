@@ -91,4 +91,14 @@
     </plurals>
     <string name="num_of_rts_parcels">%d RTS</string>
     <string name="num_of_rpu_parcels">%d RPU</string>
+    <string name="scan_unscanned_parcels">Scan unscanned parcels</string>
+    <string name="start_route_text">Start route</string>
+    <string name="cta_update_sequence">Update sequence</string>
+    <string name="cta_continue_sequencing">Continue sequencing</string>
+    <string name="text_scan_parcels">Scan Parcels</string>
+    <string name="text_scan_parcel">Scan Parcel</string>
+    <string name="sequence">Sequence</string>
+    <string name="cta_start_sequencing">Start sequencing</string>
+    <string name="cta_change_sequence">Change sequence</string>
+    <string name="cta_start_scanning">Start scanning</string>
 </resources>
