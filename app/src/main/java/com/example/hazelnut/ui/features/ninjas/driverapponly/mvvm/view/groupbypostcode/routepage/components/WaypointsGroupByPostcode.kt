@@ -18,7 +18,9 @@ import androidx.compose.ui.unit.dp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointSearchUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointsGroupByPostcodeUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.ItemWithCount
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.RectangleShimmer
@@ -27,8 +29,8 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 @Preview
 @Composable
 private fun WaypointsGroupByPostcodePreview() {
-    val sampleMultiRTS: Map<JobType, List<String>> = mapOf(
-        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleMultiRTS: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RTS to listOf(JobUiState("SUCCESS","NVSGCTTDR000000111"), JobUiState("SUCCESS","NVSGCTTDR000000112"))
     )
 
     var tags = arrayListOf(
@@ -39,7 +41,6 @@ private fun WaypointsGroupByPostcodePreview() {
     )
 
     var wpModel = WaypointCardUiState(
-        id = "1",
         address = "3 Changi South street 2, Singapore 837484",
         mapTIDByJobType = sampleMultiRTS,
         name = "Butterfly shop",
@@ -53,13 +54,14 @@ private fun WaypointsGroupByPostcodePreview() {
             3,
             1,
             waypoints = listOf(wpModel)
-        )
+        ),
     )
 }
 
 @Composable
 fun WaypointsGroupByPostcode(
-    waypointsGroupModel: WaypointsGroupByPostcodeUiState,
+    waypointsGroupModel: WaypointsGroupByPostcodeUiState? = null,
+    searchState : WaypointSearchUiState? = null,
     isShowShimmerLoading: Boolean = false,
     onWaypointClick: ((WaypointCardUiState) -> Unit)? = null,
 ) {
@@ -79,16 +81,26 @@ fun WaypointsGroupByPostcode(
                 ), verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = waypointsGroupModel.postcode,
+                text = waypointsGroupModel?.postcode ?: "0",
                 style = AkiraTheme.typography.heading6Bold,
                 maxLines = 1,
                 modifier = Modifier.weight(1f)
             )
-            ItemWithCount(numOfItem = waypointsGroupModel.numOfDelivery, jobType = JobType.DELIVERY)
-            ItemWithCount(numOfItem = waypointsGroupModel.numOfPickup, jobType = JobType.PICKUP)
+            if ((waypointsGroupModel?.numOfDelivery ?: 0) != 0 && searchState?.isSearchPageActive != true) {
+                ItemWithCount(
+                    numOfItem = waypointsGroupModel?.numOfDelivery ?: 0,
+                    jobType = JobType.DELIVERY
+                )
+            }
+            if ((waypointsGroupModel?.numOfPickup ?: 0) != 0 && searchState?.isSearchPageActive != true) {
+                ItemWithCount(
+                    numOfItem = waypointsGroupModel?.numOfPickup ?: 0,
+                    jobType = JobType.PICKUP
+                )
+            }
         }
         Column {
-            waypointsGroupModel.waypoints.map { job ->
+            waypointsGroupModel?.waypoints?.map { job ->
                 WaypointCard(waypointModel = job, onClick = {
                     onWaypointClick?.invoke(job)
                 })
@@ -96,7 +108,6 @@ fun WaypointsGroupByPostcode(
         }
     }
 }
-
 
 @Composable
 private fun WaypointCardShimmerLoading() {

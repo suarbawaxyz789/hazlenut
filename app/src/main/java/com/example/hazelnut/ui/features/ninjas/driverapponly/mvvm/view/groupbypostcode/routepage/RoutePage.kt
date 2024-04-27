@@ -58,7 +58,9 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
         viewModel.sequencedWaypointsGroupedByPostCode.value.map { waypointsGroup ->
             WaypointsGroupByPostcode(
                 waypointsGroupModel = waypointsGroup,
-                onWaypointClick = { waypoint -> viewModel.toWaypointDetail(waypointId = waypoint.id) }
+                onWaypointClick = { waypoint ->
+                    /// nothing here.
+                }
             )
         }
     }

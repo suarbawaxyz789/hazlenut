@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Chip
 import androidx.compose.material.ChipDefaults
@@ -18,33 +17,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
+import ninjavan.swiftninja.mvvm.ui.groupbypostcode.base.JobTypeLabel
 
 @Preview
 @Composable
 private fun WaypointCardSinglePreview() {
-    var sample1Delivery: Map<JobType, List<String>> =
-        mapOf(JobType.DELIVERY to listOf("NVSGCTTDR0000001117390750938758930981"))
-    val sample1Pickup: Map<JobType, List<String>> = mapOf(
-        JobType.PICKUP to listOf("NVSGCTTDR0000076523235981")
+    var sample1Delivery: Map<JobType, List<JobUiState>> =
+        mapOf(JobType.DELIVERY to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111")))
+    val sample1Pickup: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.PICKUP to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
     )
 
-    val sample1RPU: Map<JobType, List<String>> = mapOf(
-        JobType.RPU to listOf("NVSGCTTDR0000001113245236465332453254981")
+    val sample1RPU: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RPU to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
     )
 
-    val sample1RTS: Map<JobType, List<String>> = mapOf(
-        JobType.RTS to listOf("NVSGCTTDR000000111")
+    val sample1RTS: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RTS to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
     )
     var listOfSample =
         arrayListOf(
@@ -65,7 +62,6 @@ private fun WaypointCardSinglePreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
-                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -81,20 +77,32 @@ private fun WaypointCardSinglePreview() {
 @Preview
 @Composable
 private fun WaypointCardMultiPreview() {
-    val sampleMultiDelivery: Map<JobType, List<String>> = mapOf(
-        JobType.DELIVERY to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleMultiDelivery: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.DELIVERY to listOf(
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        )
     )
 
-    val sampleMultiPickup: Map<JobType, List<String>> = mapOf(
-        JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleMultiPickup: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.PICKUP to listOf(
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        )
     )
 
-    val sampleMultiRPU: Map<JobType, List<String>> = mapOf(
-        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleMultiRPU: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RPU to listOf(
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        )
     )
 
-    val sampleMultiRTS: Map<JobType, List<String>> = mapOf(
-        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleMultiRTS: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RTS to listOf(
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        )
     )
 
     var listOfSample =
@@ -115,7 +123,6 @@ private fun WaypointCardMultiPreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
-                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -131,21 +138,48 @@ private fun WaypointCardMultiPreview() {
 @Preview
 @Composable
 private fun WaypointCardMixPreview() {
-    var sampleDeliveryRpu: Map<JobType, List<String>> = mapOf(
-        JobType.RPU to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+    var sampleDeliveryRpu: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RPU to listOf(
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        ),
         JobType.DELIVERY to listOf(
-            "NVSGCTTDR000000111",
-            "NVSGCTTDR000000112",
+            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112"),
         ),
     )
-    val sampleRtsPickup: Map<JobType, List<String>> = mapOf(
-        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
-        JobType.PICKUP to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112")
+    val sampleRtsPickup: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.RTS to listOf(
+            JobUiState(
+                "SUCCESS",
+                "NVSGCTTDR000000111"
+            ),
+            JobUiState(
+                "SUCCESS", "NVSGCTTDR000000112"
+            )
+        ),
+        JobType.PICKUP to listOf(
+            JobUiState(
+                "SUCCESS",
+                "NVSGCTTDR000000111"
+            ),
+            JobUiState(
+                "SUCCESS", "NVSGCTTDR000000112"
+            )
+        )
     )
 
-    val sampleRtsSinglePickup: Map<JobType, List<String>> = mapOf(
-        JobType.PICKUP to listOf("NVSGCTTDR000000111"),
-        JobType.RTS to listOf("NVSGCTTDR000000111", "NVSGCTTDR000000112"),
+    val sampleRtsSinglePickup: Map<JobType, List<JobUiState>> = mapOf(
+        JobType.PICKUP to listOf(
+            JobUiState(
+                jobStatus = "SUCCESS",
+                trackingId = "NVSGCTTDR000000111"
+            )
+        ),
+        JobType.RTS to listOf(
+            JobUiState(jobStatus = "SUCCESS", trackingId = "NVSGCTTDR000000111"),
+            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+        ),
     )
 
     var listOfSample =
@@ -166,7 +200,6 @@ private fun WaypointCardMixPreview() {
         listOfSample.mapIndexed { index, pair ->
             WaypointCard(
                 waypointModel = WaypointCardUiState(
-                    id = "1",
                     address = "3 Changi South street 2, Singapore 837484",
                     mapTIDByJobType = pair,
                     name = "Butterfly shop",
@@ -179,52 +212,60 @@ private fun WaypointCardMixPreview() {
     }
 }
 
+@Preview
+@Composable
+private fun WaypointCardRtsNoParcels() {
+    WaypointCard(
+        waypointModel = WaypointCardUiState(
+            address = "success return pickup parcel, RPU parcel",
+            enabled = true,
+            name = "TEST-LERI-SHIPPER",
+            numOfUnscannedParcels = 0,
+            jobTags = mutableListOf(),
+            mapTIDByJobType = mutableMapOf(),
+        )
+    )
+}
+
 @Composable
 fun WaypointCard(
     waypointModel: WaypointCardUiState,
     onClick: (() -> Unit)? = null,
 ) {
     val resources = LocalContext.current.resources
-    Column(modifier = Modifier.clickable {
+    Column(modifier = if (waypointModel.enabled) Modifier.clickable {
         onClick?.invoke()
-    }) {
+    } else Modifier) {
         Box(
             modifier = Modifier
-                .background(color = colors.white)
+                .background(color = AkiraTheme.colors.white)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(all = spacings.spacingS)
+                    .padding(all = AkiraTheme.spacings.spacingS)
             ) {
                 Text(
                     text = waypointModel.address,
-                    style = typography.body2.copy(
-                        color = if (waypointModel.enabled) colors.gray1 else colors.gray6
+                    style = AkiraTheme.typography.body2.copy(
+                        color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
                     ),
                 )
 
-                Spacer(modifier = Modifier.height(spacings.spacingXs))
+                Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXs))
 
                 Column {
                     Text(
                         text = waypointModel.name,
-                        style = typography.body2Bold.copy(
-                            color = if (waypointModel.enabled) colors.gray1 else colors.gray6
+                        style = AkiraTheme.typography.body2Bold.copy(
+                            color = if (waypointModel.enabled) AkiraTheme.colors.gray1 else AkiraTheme.colors.gray6
                         ),
                     )
-                    Spacer(modifier = Modifier.height(spacings.spacingXxxs))
+                    Spacer(modifier = Modifier.height(AkiraTheme.spacings.spacingXxxs))
                     Row {
                         Row(modifier = Modifier.weight(1f)) {
                             Column {
                                 Row {
-                                    waypointModel.mapTIDByJobType.toSortedMap(compareBy { key ->
-                                        when (key) {
-                                            JobType.DELIVERY -> 1
-                                            JobType.RTS -> 2
-                                            JobType.RPU -> 3
-                                            JobType.PICKUP -> 4
-                                        }
-                                    }).forEach { pair ->
+                                    waypointModel.mapTIDByJobType.forEach { pair ->
                                         JobTypeLabel(
                                             type = pair.key,
                                             parcels = pair.value,
@@ -233,13 +274,13 @@ fun WaypointCard(
                                         )
                                     }
                                 }
-                                waypointModel.numOfUnscannedParcels?.let {
+                                if (waypointModel.numOfUnscannedParcels != null && waypointModel.numOfUnscannedParcels > 0) {
                                     Chip(
-                                        shape = RoundedCornerShape(spacings.spacingXxxs),
+                                        shape = RoundedCornerShape(AkiraTheme.spacings.spacingXxxs),
                                         onClick = {},
                                         colors = ChipDefaults.chipColors(
-                                            backgroundColor = colors.red5,
-                                            contentColor = colors.red3
+                                            backgroundColor = AkiraTheme.colors.red5,
+                                            contentColor = AkiraTheme.colors.red3
                                         ),
                                     ) {
                                         Text(
@@ -249,26 +290,15 @@ fun WaypointCard(
                                                 waypointModel.numOfUnscannedParcels,
                                                 waypointModel.numOfUnscannedParcels
                                             ),
-                                            style = typography.body2.copy(
-                                                color = colors.red3
+                                            style = AkiraTheme.typography.body2.copy(
+                                                color = AkiraTheme.colors.red3
                                             ),
                                         )
                                     }
                                 }
                             }
                         }
-                        waypointModel.jobTags?.sortedWith(compareBy { value ->
-                            when (value) {
-                                JobLabelStyle.COD -> 1
-                                JobLabelStyle.PRIOR -> 2
-                                JobLabelStyle.DOOR_STEP -> 3
-                                JobLabelStyle.ID_CHECK -> 4
-                                JobLabelStyle.DELIVERY -> 5
-                                JobLabelStyle.RPU -> 6
-                                JobLabelStyle.OPEN_BOX -> 7
-                                JobLabelStyle.CONFIRMED -> 8
-                            }
-                        })?.let { jobTagList ->
+                        waypointModel.jobTags?.let { jobTagList ->
                             /// this can be simplified later using FlowRow but need to add foundation:1.4.3
                             Column(horizontalAlignment = Alignment.End) {
                                 Row {
@@ -283,8 +313,8 @@ fun WaypointCard(
                                         JobLabel(
                                             tagStyle = jobTag,
                                             modifier = Modifier.padding(
-                                                end = spacings.spacingXxxs,
-                                                bottom = spacings.spacingXxxs
+                                                end = AkiraTheme.spacings.spacingXxxs,
+                                                bottom = AkiraTheme.spacings.spacingXxxs
                                             ),
                                             enable = waypointModel.enabled,
                                         )
@@ -296,8 +326,8 @@ fun WaypointCard(
                                             JobLabel(
                                                 tagStyle = jobTag,
                                                 modifier = Modifier.padding(
-                                                    end = spacings.spacingXxxs,
-                                                    bottom = spacings.spacingXxxs
+                                                    end = AkiraTheme.spacings.spacingXxxs,
+                                                    bottom = AkiraTheme.spacings.spacingXxxs
                                                 ),
                                                 enable = waypointModel.enabled,
                                             )
@@ -312,95 +342,7 @@ fun WaypointCard(
             }
         }
         Divider(
-            color = colors.gray7,
-        )
-    }
-}
-
-
-@Composable
-private fun JobTypeLabel(
-    type: JobType,
-    parcels: List<String>,
-    isMultipleJobType: Boolean,
-    enable: Boolean = true
-) {
-    if (parcels.isEmpty()) return Row {}
-    if (isMultipleJobType || parcels.size > 1) {
-        return Row(verticalAlignment = Alignment.CenterVertically) {
-            IconByJobType(type = type, enable = enable)
-            Spacer(modifier = Modifier.width(spacings.spacingXxxs))
-            when (type) {
-                JobType.DELIVERY -> Text(
-                    text = parcels.size.toString(),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray1 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-
-                JobType.RTS -> Text(
-                    text = stringResource(R.string.num_of_rts_parcels, parcels.size),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-
-                JobType.RPU -> Text(
-                    text = stringResource(R.string.num_of_rpu_parcels, parcels.size),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-
-                JobType.PICKUP -> Text(
-                    text = parcels.size.toString(),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray1 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-            }
-            Spacer(modifier = Modifier.width(spacings.spacingXxs))
-        }
-    }
-
-    return Row(verticalAlignment = Alignment.CenterVertically) {
-        IconByJobType(type = type, enable = enable)
-        Spacer(modifier = Modifier.width(spacings.spacingXxxs))
-        when (type) {
-            JobType.DELIVERY -> {}
-            JobType.RTS -> Row {
-                Text(
-                    text = stringResource(id = R.string.parcel_rts),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-                Spacer(modifier = Modifier.width(spacings.spacingXxs))
-            }
-
-            JobType.RPU -> Row {
-                Text(
-                    text = stringResource(id = R.string.text_rpu_tag),
-                    style = typography.body2.copy(
-                        color = if (enable) colors.gray2 else colors.gray5
-                    ),
-                    maxLines = 1,
-                )
-                Spacer(modifier = Modifier.width(spacings.spacingXxs))
-            }
-
-            JobType.PICKUP -> {}
-        }
-        CustomEllipsisText(
-            text = parcels.first(),
-            style = typography.body2.copy(
-                color = if (enable) colors.gray3 else colors.gray5
-            ),
+            color = AkiraTheme.colors.gray7,
         )
     }
 }

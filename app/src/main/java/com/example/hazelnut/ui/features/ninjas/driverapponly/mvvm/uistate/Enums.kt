@@ -13,3 +13,11 @@ enum class JobTag {
     DOORSTEP,
     ID_CHECK
 }
+
+enum class CurrentWaypointByStatusFilter {
+    PENDING,
+    PARTIAL,
+    SUCCESSFUL,
+    FAILED,
+    ALL,
+}

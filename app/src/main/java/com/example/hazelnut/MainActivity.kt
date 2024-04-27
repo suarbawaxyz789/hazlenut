@@ -69,7 +69,7 @@ private fun Content(viewModel: RouteWaypointsPostalcodeViewModel) {
                             WaypointsGroupByPostcode(
                                 waypointsGroupModel = waypointsGroup,
                                 onWaypointClick = { waypoint ->
-                                    viewModel.toWaypointDetail(waypointId = waypoint.id)
+//                                    viewModel.toWaypointDetail(waypointId = waypoint.id)
                                 }
                             )
                         }
