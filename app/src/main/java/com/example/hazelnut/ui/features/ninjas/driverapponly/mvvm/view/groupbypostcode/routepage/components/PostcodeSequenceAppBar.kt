@@ -33,7 +33,7 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 private fun PostcodeSequenceAppBarPreview() {
     PostcodeSequenceAppBar(
         uiState = PostcodeSequenceAppBarUiState(
-            numOfSequencedPostcodes = 0,
+            numOfSequencedPostcodes = 3,
             totalPostcodes = 80,
         )
     )
@@ -68,7 +68,11 @@ fun PostcodeSequenceAppBar(
                 subtitleContent = {
                     Row {
                         Text(
-                            text = "40 of 80 postcodes sequenced",
+                            text = stringResource(
+                                id = R.string.postcodes_sequenced,
+                                uiState.numOfSequencedPostcodes,
+                                uiState.totalPostcodes
+                            ),
                             style = typography.body2.copy(
                                 color = colors.gray2
                             ),
@@ -82,7 +86,10 @@ fun PostcodeSequenceAppBar(
                 },
             )
             Spacer(modifier = Modifier.height(spacings.spacingXxs))
-            ProgressBar(progress = 0.5F, modifier = Modifier.fillMaxWidth())
+            ProgressBar(
+                progress = uiState.numOfSequencedPostcodes.toFloat() / uiState.totalPostcodes.toFloat(),
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(modifier = Modifier.height(spacings.spacingS))
         }
     }
