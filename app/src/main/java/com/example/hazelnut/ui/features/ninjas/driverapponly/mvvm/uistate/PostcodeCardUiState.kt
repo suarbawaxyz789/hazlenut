@@ -5,7 +5,7 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelS
 data class PostcodeCardUiState(
     val postcode: String,
     val address: String,
-    val mapTIDByJobType: Map<JobType, List<JobUiState>>,
+    val mapTIDByJobType: Map<JobType, List<TidWithJobStatus>>,
     val numOfBulky: Int,
     val seqNumber: Int,
     val enabled: Boolean,

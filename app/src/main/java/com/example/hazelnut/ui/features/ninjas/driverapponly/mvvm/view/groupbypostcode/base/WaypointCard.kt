@@ -23,25 +23,25 @@ import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
 import ninjavan.swiftninja.mvvm.ui.groupbypostcode.base.JobTypeLabel
 
 @Preview
 @Composable
 private fun WaypointCardSinglePreview() {
-    var sample1Delivery: Map<JobType, List<JobUiState>> =
-        mapOf(JobType.DELIVERY to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111")))
-    val sample1Pickup: Map<JobType, List<JobUiState>> = mapOf(
-        JobType.PICKUP to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
+    var sample1Delivery: Map<JobType, List<TidWithJobStatus>> =
+        mapOf(JobType.DELIVERY to listOf(TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111")))
+    val sample1Pickup: Map<JobType, List<TidWithJobStatus>> = mapOf(
+        JobType.PICKUP to listOf(TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"))
     )
 
-    val sample1RPU: Map<JobType, List<JobUiState>> = mapOf(
-        JobType.RPU to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
+    val sample1RPU: Map<JobType, List<TidWithJobStatus>> = mapOf(
+        JobType.RPU to listOf(TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"))
     )
 
-    val sample1RTS: Map<JobType, List<JobUiState>> = mapOf(
-        JobType.RTS to listOf(JobUiState("SUCCESS", "NVSGCTTDR000000111"))
+    val sample1RTS: Map<JobType, List<TidWithJobStatus>> = mapOf(
+        JobType.RTS to listOf(TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"))
     )
     var listOfSample =
         arrayListOf(
@@ -77,31 +77,31 @@ private fun WaypointCardSinglePreview() {
 @Preview
 @Composable
 private fun WaypointCardMultiPreview() {
-    val sampleMultiDelivery: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleMultiDelivery: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.DELIVERY to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         )
     )
 
-    val sampleMultiPickup: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleMultiPickup: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.PICKUP to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         )
     )
 
-    val sampleMultiRPU: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleMultiRPU: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.RPU to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         )
     )
 
-    val sampleMultiRTS: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleMultiRTS: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.RTS to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         )
     )
 
@@ -138,47 +138,47 @@ private fun WaypointCardMultiPreview() {
 @Preview
 @Composable
 private fun WaypointCardMixPreview() {
-    var sampleDeliveryRpu: Map<JobType, List<JobUiState>> = mapOf(
+    var sampleDeliveryRpu: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.RPU to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         ),
         JobType.DELIVERY to listOf(
-            JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112"),
         ),
     )
-    val sampleRtsPickup: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleRtsPickup: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.RTS to listOf(
-            JobUiState(
+            TidWithJobStatus(
                 "SUCCESS",
                 "NVSGCTTDR000000111"
             ),
-            JobUiState(
+            TidWithJobStatus(
                 "SUCCESS", "NVSGCTTDR000000112"
             )
         ),
         JobType.PICKUP to listOf(
-            JobUiState(
+            TidWithJobStatus(
                 "SUCCESS",
                 "NVSGCTTDR000000111"
             ),
-            JobUiState(
+            TidWithJobStatus(
                 "SUCCESS", "NVSGCTTDR000000112"
             )
         )
     )
 
-    val sampleRtsSinglePickup: Map<JobType, List<JobUiState>> = mapOf(
+    val sampleRtsSinglePickup: Map<JobType, List<TidWithJobStatus>> = mapOf(
         JobType.PICKUP to listOf(
-            JobUiState(
+            TidWithJobStatus(
                 jobStatus = "SUCCESS",
                 trackingId = "NVSGCTTDR000000111"
             )
         ),
         JobType.RTS to listOf(
-            JobUiState(jobStatus = "SUCCESS", trackingId = "NVSGCTTDR000000111"),
-            JobUiState("SUCCESS", "NVSGCTTDR000000112")
+            TidWithJobStatus(jobStatus = "SUCCESS", trackingId = "NVSGCTTDR000000111"),
+            TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
         ),
     )
 

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointCardUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointSearchUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointsGroupByPostcodeUiState
@@ -29,8 +29,8 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 @Preview
 @Composable
 private fun WaypointsGroupByPostcodePreview() {
-    val sampleMultiRTS: Map<JobType, List<JobUiState>> = mapOf(
-        JobType.RTS to listOf(JobUiState("SUCCESS","NVSGCTTDR000000111"), JobUiState("SUCCESS","NVSGCTTDR000000112"))
+    val sampleMultiRTS: Map<JobType, List<TidWithJobStatus>> = mapOf(
+        JobType.RTS to listOf(TidWithJobStatus("SUCCESS","NVSGCTTDR000000111"), TidWithJobStatus("SUCCESS","NVSGCTTDR000000112"))
     )
 
     var tags = arrayListOf(

@@ -9,9 +9,8 @@ import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.BarValueUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobTag
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.MultiColorProgressBarUiState
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.RouteStatusesUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.RouteWaypointsPostalCodeActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointFilterUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointsGroupByPostcodeUiState
@@ -150,8 +149,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.DELIVERY to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -167,8 +166,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.PICKUP to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -184,8 +183,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.RPU to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -201,8 +200,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.RTS to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -225,8 +224,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.DELIVERY to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -242,8 +241,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.PICKUP to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -259,8 +258,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.RPU to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -276,8 +275,8 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.RTS to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -300,12 +299,12 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.DELIVERY to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             ),
                             JobType.RPU to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -321,12 +320,12 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.RTS to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             ),
                             JobType.PICKUP to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             )
                         ),
                         enabled = true,
@@ -342,11 +341,11 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.DELIVERY to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             ),
                             JobType.PICKUP to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111")
                             )
                         ),
                         enabled = true,
@@ -362,11 +361,11 @@ class RouteWaypointsPostalcodeViewModel @Inject constructor() : ViewModel() {
                         name = "Butterfly shop",
                         mapTIDByJobType = mapOf(
                             JobType.DELIVERY to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111"),
-                                JobUiState("SUCCESS", "NVSGCTTDR000000112")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111"),
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000112")
                             ),
                             JobType.PICKUP to listOf(
-                                JobUiState("SUCCESS", "NVSGCTTDR000000111")
+                                TidWithJobStatus("SUCCESS", "NVSGCTTDR000000111")
                             )
                         ),
                         enabled = false,

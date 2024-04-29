@@ -19,7 +19,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeCardUiState
 
 @Preview
@@ -32,12 +32,12 @@ fun PostcodeCardPreview() {
                 address = "3 Changi South Street 2, Singapore",
                 mapTIDByJobType = mapOf(
                     JobType.DELIVERY to mutableListOf(
-                        JobUiState(
+                        TidWithJobStatus(
                             jobStatus = "PENDING", "NVSGCTTDR000000989",
                         )
                     ),
                     JobType.PICKUP to mutableListOf(
-                        JobUiState(
+                        TidWithJobStatus(
                             jobStatus = "PENDING", "NVSGCTTDR000000888",
                         )
                     )
@@ -54,12 +54,12 @@ fun PostcodeCardPreview() {
                 address = "3 Changi South Street 2, Singapore",
                 mapTIDByJobType = mapOf(
                     JobType.DELIVERY to mutableListOf(
-                        JobUiState(
+                        TidWithJobStatus(
                             jobStatus = "PENDING", "NVSGCTTDR000000989",
                         )
                     ),
                     JobType.PICKUP to mutableListOf(
-                        JobUiState(
+                        TidWithJobStatus(
                             jobStatus = "PENDING", "NVSGCTTDR000000888",
                         )
                     )

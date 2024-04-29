@@ -5,13 +5,13 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelS
 data class WaypointCardUiState(
     val address: String,
     val name: String,
-    val mapTIDByJobType: Map<JobType, List<JobUiState>>,
+    val mapTIDByJobType: Map<JobType, List<TidWithJobStatus>>,
     val jobTags: List<JobLabelStyle>?,
     val enabled: Boolean,
     val numOfUnscannedParcels: Int? = null,
 )
 
-data class JobUiState(
+data class TidWithJobStatus(
     val jobStatus: String,
     val trackingId: String,
 )

@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.CustomEllipsisText
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.IconByJobType
 import com.example.hazelnut.ui.features.ninjas.nonakira.StatusValue
@@ -19,7 +19,7 @@ import com.example.hazelnut.ui.features.ninjas.nonakira.StatusValue
 @Composable
 fun JobTypeLabel(
     type: JobType,
-    parcels: List<JobUiState>,
+    parcels: List<TidWithJobStatus>,
     isMultipleJobType: Boolean,
     enable: Boolean = true
 ) {
