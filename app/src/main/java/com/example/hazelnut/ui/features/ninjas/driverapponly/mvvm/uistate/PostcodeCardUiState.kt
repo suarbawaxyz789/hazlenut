@@ -9,5 +9,7 @@ data class PostcodeCardUiState(
     val numOfBulky: Int,
     val seqNumber: Int,
     val enabled: Boolean,
+    val selected: Boolean = false,
     val jobTags: List<JobLabelStyle>?,
+    val waypointIds: List<Long>,
 )
