@@ -45,7 +45,7 @@ class PostcodeSequencingViewModel @Inject constructor() : ViewModel() {
         deselectAll: Boolean = false,
     ) {
         _uiState.value = uiState.value.copy(
-            postcodesUiState = uiState.value.postcodesUiState.map {
+            sequencedPostcodesUiState = uiState.value.sequencedPostcodesUiState.map {
                 if (selectAll) {
                     it.copy(
                         selected = true
@@ -70,12 +70,12 @@ class PostcodeSequencingViewModel @Inject constructor() : ViewModel() {
 
     private fun updateNumOfSelectedPostcodes() {
         _uiState.value =
-            uiState.value.copy(numOfSelectedPostcodes = uiState.value.postcodesUiState.count { it.selected })
+            uiState.value.copy(numOfSelectedPostcodes = uiState.value.sequencedPostcodesUiState.count { it.selected })
     }
 
     fun testData() {
         _uiState.value = uiState.value.copy(
-            postcodesUiState = mutableListOf(
+            sequencedPostcodesUiState = mutableListOf(
                 PostcodeCardUiState(
                     postcode = "123456",
                     address = "3 Changi South Street 2, Singapore",

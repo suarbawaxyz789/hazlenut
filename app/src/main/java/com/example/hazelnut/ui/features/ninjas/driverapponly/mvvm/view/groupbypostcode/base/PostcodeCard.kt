@@ -20,6 +20,7 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.AddPostcodeButton
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.WaypointToAddLocation
@@ -108,7 +109,9 @@ fun PostcodeCardPreview() {
 @Composable
 fun PostcodeCard(
     cardUiState: PostcodeCardUiState,
+    postcodeSearchUiState: PostcodeSearchUiState? = null,
     numOfSelectedPostcode: Int = 0,
+    allowToShowAddPostcodeButton: Boolean = false,
     onClick: (() -> Unit)? = null,
 ) {
     Column {
@@ -185,8 +188,11 @@ fun PostcodeCard(
             )
         }
 
-        if (cardUiState.selected && numOfSelectedPostcode == 1) {
-            AddPostcodeButton(location = WaypointToAddLocation.BELOW_SELECTED_WAYPOINT)
+        if (cardUiState.selected && numOfSelectedPostcode == 1 && allowToShowAddPostcodeButton) {
+            AddPostcodeButton(
+                location = WaypointToAddLocation.BELOW_SELECTED_WAYPOINT,
+                postcodeSearchUiState = postcodeSearchUiState,
+            )
         }
     }
 }

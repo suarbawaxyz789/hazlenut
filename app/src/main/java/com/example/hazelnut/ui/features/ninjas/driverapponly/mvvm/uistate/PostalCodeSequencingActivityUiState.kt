@@ -9,7 +9,9 @@ data class PostalCodeSequencingActivityUiState(
         numOfSequencedPostcodes = 80,
         totalPostcodes = 3,
     ),
-    val postcodesUiState: List<PostcodeCardUiState> = listOf(),
+    val sequencedPostcodesUiState: List<PostcodeCardUiState> = listOf(),
+    val unsequencedPostcodesUiState: List<PostcodeCardUiState> = listOf(),
     val addWaypointAt: WaypointToAddLocation? = null,
     val numOfSelectedPostcodes: Int = 0,
+    val unsequencedPostcodesSearch: PostcodeSearchUiState = PostcodeSearchUiState()
 )

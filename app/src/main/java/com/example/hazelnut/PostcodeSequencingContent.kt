@@ -1,9 +1,11 @@
 package com.example.hazelnut
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -19,9 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import co.ninjavan.akira.designsystem.component.button.BaseSecondaryButton
 import co.ninjavan.akira.designsystem.component.button.ButtonTextLink
+import co.ninjavan.akira.designsystem.component.button.PrimaryLabelGrayButton
+import co.ninjavan.akira.designsystem.component.button.SecondaryLabelGrayButton
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.AddPostcodeButton
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.WaypointToAddLocation
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.PostcodeSequenceAppBar
@@ -40,6 +46,7 @@ private fun PostcodeSequenceContentPreview() {
 
 @Composable
 private fun Content(viewModel: PostcodeSequencingViewModel) {
+    val uiState: PostalCodeSequencingActivityUiState = viewModel.uiState.collectAsState().value
     AkiraTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
@@ -47,15 +54,18 @@ private fun Content(viewModel: PostcodeSequencingViewModel) {
             Column {
                 Scaffold(
                     floatingActionButton = {
-                        PostcodeSequencingFloatingButton(onShowFilterButtonClick = {
+                        PageFloatingButton(onShowFilterButtonClick = {
                             /// TODO open filter.
                         })
                     },
                     topBar = {
                         PostcodeSequenceAppBar(
-                            uiState = viewModel.uiState.collectAsState().value.appBarUiState
+                            uiState = uiState.appBarUiState
                         )
                     },
+                    bottomBar = {
+                        MainButton(uiState = uiState)
+                    }
                 ) { innerPadding ->
                     Column(
                         modifier = Modifier
@@ -63,18 +73,22 @@ private fun Content(viewModel: PostcodeSequencingViewModel) {
                             .padding(innerPadding)
                     ) {
                         SelectAllPostcodeButton(
-                            totalPostcodes = viewModel.uiState.collectAsState().value.postcodesUiState.size,
-                            numOfSelectedPostcode = viewModel.uiState.collectAsState().value.numOfSelectedPostcodes,
+                            totalPostcodes = uiState.sequencedPostcodesUiState.size,
+                            numOfSelectedPostcode = uiState.numOfSelectedPostcodes,
                             onSelectAll = {
                                 viewModel.onUserAction(PostcodeSequencingEvent.UserAction.SelectAllPostcodes)
                             },
                             onClear = {
                                 viewModel.onUserAction(PostcodeSequencingEvent.UserAction.ClearPostcodeSelection)
                             })
-                        AddPostcodeButton(location = WaypointToAddLocation.TOP)
-                        viewModel.uiState.collectAsState().value.postcodesUiState.map { postcodeState ->
+                        AddPostcodeButton(
+                            location = WaypointToAddLocation.TOP,
+                            postcodeSearchUiState = uiState.unsequencedPostcodesSearch
+                        )
+                        uiState.sequencedPostcodesUiState.map { postcodeState ->
                             PostcodeCard(
                                 cardUiState = postcodeState,
+                                postcodeSearchUiState = uiState.unsequencedPostcodesSearch,
                                 onClick = {
                                     viewModel.onUserAction(
                                         PostcodeSequencingEvent.UserAction.OnPostcodeCardTap(
@@ -82,15 +96,72 @@ private fun Content(viewModel: PostcodeSequencingViewModel) {
                                         )
                                     );
                                 },
-                                numOfSelectedPostcode = viewModel.uiState.collectAsState().value.numOfSelectedPostcodes,
+                                numOfSelectedPostcode = uiState.numOfSelectedPostcodes,
+                                allowToShowAddPostcodeButton = postcodeState.postcode != uiState.sequencedPostcodesUiState.last().postcode
                             )
                         }
-                        AddPostcodeButton(location = WaypointToAddLocation.BOTTOM)
+                        AddPostcodeButton(
+                            location = WaypointToAddLocation.BOTTOM,
+                            postcodeSearchUiState = uiState.unsequencedPostcodesSearch
+                        )
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun MainButton(uiState: PostalCodeSequencingActivityUiState) {
+    Row(
+        modifier = Modifier
+            .padding(all = spacings.spacingS)
+            .fillMaxWidth()
+    ) {
+        when {
+            uiState.numOfSelectedPostcodes > 0 -> {
+                SecondaryLabelRedButton(text = "Remove ${uiState.numOfSelectedPostcodes} postcode", onClick = {
+                    // TODO save sequence
+                }, modifier = Modifier.fillMaxWidth())
+            }
+
+            uiState.sequencedPostcodesUiState.isEmpty() || uiState.unsequencedPostcodesUiState.isNotEmpty() -> {
+                SecondaryLabelGrayButton(text = "Save sequence", onClick = {
+                    // TODO save sequence
+                }, modifier = Modifier.fillMaxWidth())
+            }
+
+            uiState.sequencedPostcodesUiState.isNotEmpty() && uiState.unsequencedPostcodesUiState.isEmpty() ->{
+                PrimaryLabelGrayButton(text = "Confirm sequence", onClick = {
+                    // TODO save sequence
+                }, modifier = Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+// TODO move this to akira later.
+@Composable
+fun SecondaryLabelRedButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    isLoading: Boolean = false,
+    iconResId: Int? = null
+) {
+    BaseSecondaryButton(
+        text = text,
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        containerColor = AkiraTheme.colors.white,
+        pressedContainerColor = AkiraTheme.colors.gray8,
+        contentColor = AkiraTheme.colors.red3,
+        isLoading = isLoading,
+        iconResId = iconResId,
+        borderStroke = BorderStroke(1.dp, AkiraTheme.colors.red3)
+    )
 }
 
 @Composable
@@ -121,7 +192,7 @@ private fun SelectAllPostcodeButton(
 }
 
 @Composable
-private fun PostcodeSequencingFloatingButton(onShowFilterButtonClick: (() -> Unit)?) {
+private fun PageFloatingButton(onShowFilterButtonClick: (() -> Unit)?) {
     Column {
         FloatingActionButton(
             backgroundColor = AkiraTheme.colors.gray2, onClick = {

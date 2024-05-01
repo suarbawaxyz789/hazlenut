@@ -13,6 +13,7 @@ import co.ninjavan.akira.designsystem.component.button.ButtonTextLink
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
 
 @Preview
 @Composable
@@ -38,9 +39,11 @@ enum class WaypointToAddLocation {
 @Composable
 fun AddPostcodeButton(
     location: WaypointToAddLocation,
+    postcodeSearchUiState: PostcodeSearchUiState? = null,
     onClick: ((WaypointToAddLocation) -> Unit)? = null,
     enabled: Boolean = true,
 ) {
+    if (postcodeSearchUiState?.isSearchPageActive == true) return
     val buttonText = when (location) {
         WaypointToAddLocation.TOP -> "Add postcodes to top"
         WaypointToAddLocation.BOTTOM -> "Add postcodes to bottom"
