@@ -54,9 +54,12 @@ private fun Content(viewModel: PostcodeSequencingViewModel) {
             Column {
                 Scaffold(
                     floatingActionButton = {
-                        PageFloatingButton(onShowFilterButtonClick = {
-                            /// TODO open filter.
-                        })
+                        PageFloatingButton(
+                            onShowFilterButtonClick = {
+                                /// TODO open filter.
+                            },
+                            uiState = uiState,
+                        )
                     },
                     topBar = {
                         PostcodeSequenceAppBar(
@@ -120,9 +123,13 @@ private fun MainButton(uiState: PostalCodeSequencingActivityUiState) {
     ) {
         when {
             uiState.numOfSelectedPostcodes > 0 -> {
-                SecondaryLabelRedButton(text = "Remove ${uiState.numOfSelectedPostcodes} postcode", onClick = {
-                    // TODO save sequence
-                }, modifier = Modifier.fillMaxWidth())
+                SecondaryLabelRedButton(
+                    text = "Remove ${uiState.numOfSelectedPostcodes} postcode",
+                    onClick = {
+                        // TODO save sequence
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             uiState.sequencedPostcodesUiState.isEmpty() || uiState.unsequencedPostcodesUiState.isNotEmpty() -> {
@@ -131,7 +138,7 @@ private fun MainButton(uiState: PostalCodeSequencingActivityUiState) {
                 }, modifier = Modifier.fillMaxWidth())
             }
 
-            uiState.sequencedPostcodesUiState.isNotEmpty() && uiState.unsequencedPostcodesUiState.isEmpty() ->{
+            uiState.sequencedPostcodesUiState.isNotEmpty() && uiState.unsequencedPostcodesUiState.isEmpty() -> {
                 PrimaryLabelGrayButton(text = "Confirm sequence", onClick = {
                     // TODO save sequence
                 }, modifier = Modifier.fillMaxWidth())
@@ -192,7 +199,11 @@ private fun SelectAllPostcodeButton(
 }
 
 @Composable
-private fun PageFloatingButton(onShowFilterButtonClick: (() -> Unit)?) {
+private fun PageFloatingButton(
+    onShowFilterButtonClick: (() -> Unit)?,
+    uiState: PostalCodeSequencingActivityUiState,
+) {
+    if (uiState.sequencedPostcodesUiState.isEmpty()) return
     Column {
         FloatingActionButton(
             backgroundColor = AkiraTheme.colors.gray2, onClick = {
