@@ -24,7 +24,7 @@ private fun AddPostcodeButtonPreview() {
         AddPostcodeButton(location = WaypointToAddLocation.BOTTOM)
         Divider()
         AddPostcodeButton(
-            location = WaypointToAddLocation.BELOW_SELECTED_WAYPOINT,
+            location = WaypointToAddLocation.MIDDLE,
             enabled = false,
         )
     }
@@ -33,7 +33,7 @@ private fun AddPostcodeButtonPreview() {
 enum class WaypointToAddLocation {
     TOP,
     BOTTOM,
-    BELOW_SELECTED_WAYPOINT,
+    MIDDLE,
 }
 
 @Composable
@@ -44,10 +44,13 @@ fun AddPostcodeButton(
     enabled: Boolean = true,
 ) {
     if (postcodeSearchUiState?.isSearchPageActive == true) return
+
+    // TODO if all postcode sequenced, then hide top, hide middle and disable bottom
+
     val buttonText = when (location) {
         WaypointToAddLocation.TOP -> "Add postcodes to top"
         WaypointToAddLocation.BOTTOM -> "Add postcodes to bottom"
-        WaypointToAddLocation.BELOW_SELECTED_WAYPOINT -> "Add postcodes"
+        WaypointToAddLocation.MIDDLE -> "Add postcodes"
     }
     Column {
         Row(
@@ -64,7 +67,7 @@ fun AddPostcodeButton(
         }
         when (location) {
             WaypointToAddLocation.BOTTOM -> {}
-            WaypointToAddLocation.BELOW_SELECTED_WAYPOINT, WaypointToAddLocation.TOP -> {
+            WaypointToAddLocation.MIDDLE, WaypointToAddLocation.TOP -> {
                 Divider(
                     color = AkiraTheme.colors.gray7,
                 )

@@ -190,7 +190,7 @@ fun PostcodeCard(
 
         if (cardUiState.selected && numOfSelectedPostcode == 1 && allowToShowAddPostcodeButton) {
             AddPostcodeButton(
-                location = WaypointToAddLocation.BELOW_SELECTED_WAYPOINT,
+                location = WaypointToAddLocation.MIDDLE,
                 postcodeSearchUiState = postcodeSearchUiState,
             )
         }
