@@ -1,6 +1,8 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,10 +33,12 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
+import com.example.hazelnut.ui.features.akira_not_compatible.SearchBar
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSequenceAppBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointToAddLocation
@@ -44,7 +48,7 @@ import ninjavan.swiftninja.mvvm.ui.groupbypostcode.event.PostcodeSequencingEvent
 
 @Preview
 @Composable
-private fun PostalCodeSequencingContentPreview() {
+private fun NormalContentPreview() {
     var uiState = PostalCodeSequencingActivityUiState(
         routeId = 394849,
         sequencedPostcodesUiState = mutableListOf(
@@ -140,7 +144,7 @@ private fun PostalCodeSequencingContentPreview() {
 
 @Preview
 @Composable
-private fun PostalCodeSequencingContentNoSequencedPostcodesPreview() {
+private fun NoSequencedPostcodesPreview() {
     var uiState = PostalCodeSequencingActivityUiState(
         routeId = 394849,
         unsequencedPostcodesUiState = mutableListOf(
@@ -173,10 +177,107 @@ private fun PostalCodeSequencingContentNoSequencedPostcodesPreview() {
     PostalCodeSequencingContent(uiState = uiState)
 }
 
+@Preview
+@Composable
+private fun WithSearchPreview() {
+    var uiState = PostalCodeSequencingActivityUiState(
+        routeId = 394849,
+        sequencedPostcodesUiState = mutableListOf(
+            PostcodeCardUiState(
+                postcode = "123456",
+                address = "3 Changi South Street 2, Singapore",
+                mapTIDByJobType = mapOf(
+                    JobType.DELIVERY to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000989",
+                        )
+                    ), JobType.PICKUP to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000888",
+                        )
+                    )
+                ),
+                enabled = true,
+                jobTags = mutableListOf(JobLabelStyle.PRIOR),
+                numOfBulky = 999,
+                seqNumber = 1,
+                waypointIds = listOf(1, 2, 3)
+            ), PostcodeCardUiState(
+                postcode = "234567",
+                address = "3 Changi South Street 2, Singapore",
+                mapTIDByJobType = mapOf(
+                    JobType.DELIVERY to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000989",
+                        )
+                    ), JobType.PICKUP to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000888",
+                        )
+                    )
+                ),
+                enabled = true,
+                jobTags = mutableListOf(),
+                numOfBulky = 1,
+                seqNumber = 2,
+                waypointIds = listOf(4, 5, 6)
+            ), PostcodeCardUiState(
+                postcode = "345678",
+                address = "3 Changi South Street 2, Singapore",
+                mapTIDByJobType = mapOf(
+                    JobType.DELIVERY to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000989",
+                        )
+                    ), JobType.PICKUP to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000888",
+                        )
+                    )
+                ),
+                enabled = true,
+                jobTags = mutableListOf(JobLabelStyle.PRIOR),
+                numOfBulky = 0,
+                seqNumber = 3,
+                waypointIds = listOf(7, 8, 9)
+            )
+        ),
+        unsequencedPostcodesUiState = mutableListOf(
+            PostcodeCardUiState(
+                postcode = "999999",
+                address = "3 Changi South Street 2, Singapore",
+                mapTIDByJobType = mapOf(
+                    JobType.DELIVERY to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000989",
+                        )
+                    ), JobType.PICKUP to mutableListOf(
+                        TidWithJobStatus(
+                            jobStatus = "PENDING", "NVSGCTTDR000000888",
+                        )
+                    )
+                ),
+                enabled = true,
+                jobTags = mutableListOf(),
+                numOfBulky = 0,
+                seqNumber = 3,
+                waypointIds = listOf(10, 11, 12)
+            )
+        ),
+        appBarUiState = PostcodeSequenceAppBarUiState(
+            totalPostcodes = 4,
+            numOfSequencedPostcodes = 3,
+        ),
+        unsequencedPostcodesSearch = PostcodeSearchUiState(
+            isSearchPageActive = true,
+        )
+    )
+    PostalCodeSequencingContent(uiState = uiState)
+}
 
 @Preview
 @Composable
-private fun PostalCodeSequencingContentAllSequencedPreview() {
+private fun AllSequencedPreview() {
     var uiState = PostalCodeSequencingActivityUiState(
         routeId = 394849,
         sequencedPostcodesUiState = mutableListOf(
@@ -276,6 +377,25 @@ fun PostalCodeSequencingContent(
                             .verticalScroll(rememberScrollState())
                             .padding(innerPadding)
                     ) {
+                        if (uiState.unsequencedPostcodesSearch.isSearchPageActive) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(
+                                        horizontal = spacings.spacingS,
+                                        vertical = spacings.spacingXxs
+                                    )
+                                    .background(
+                                        colors.white
+                                    )
+                            ) {
+                                SearchBar(
+                                    onTextChange = {
+                                        // TODO add action or searching
+                                    },
+                                    placeHolder = "",
+                                )
+                            }
+                        }
                         if (uiState.sequencedPostcodesUiState.isNotEmpty() && uiState.unsequencedPostcodesUiState.isNotEmpty()) {
                             SelectAllPostcodeButton(totalPostcodes = uiState.sequencedPostcodesUiState.size,
                                 numOfSelectedPostcode = uiState.numOfSelectedPostcodes,
