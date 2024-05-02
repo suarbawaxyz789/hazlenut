@@ -28,9 +28,9 @@ import co.ninjavan.akira.designsystem.component.button.SecondaryLabelGrayButton
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointToAddLocation
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.AddPostcodeButton
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.WaypointToAddLocation
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.PostcodeSequenceAppBar
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.components.PostcodeSequenceAppBar
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.viewmodel.PostcodeSequencingViewModel
 import ninjavan.swiftninja.mvvm.ui.groupbypostcode.base.PostcodeCard
 import ninjavan.swiftninja.mvvm.ui.groupbypostcode.event.PostcodeSequencingEvent

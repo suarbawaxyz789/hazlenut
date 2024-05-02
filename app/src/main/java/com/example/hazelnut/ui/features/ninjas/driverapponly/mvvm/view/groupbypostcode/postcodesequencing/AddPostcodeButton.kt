@@ -14,6 +14,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointToAddLocation
 
 @Preview
 @Composable
@@ -28,12 +29,6 @@ private fun AddPostcodeButtonPreview() {
             enabled = false,
         )
     }
-}
-
-enum class WaypointToAddLocation {
-    TOP,
-    BOTTOM,
-    MIDDLE,
 }
 
 @Composable

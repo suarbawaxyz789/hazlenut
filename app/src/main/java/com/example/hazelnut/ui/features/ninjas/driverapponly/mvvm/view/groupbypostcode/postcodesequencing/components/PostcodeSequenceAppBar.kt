@@ -1,4 +1,4 @@
-package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components
+package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
@@ -26,6 +26,7 @@ import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.R
 import com.example.hazelnut.ui.features.ninjas.bespoke.ProgressBar
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSequenceAppBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.base.AppBarHeader
 
 @Preview
@@ -38,11 +39,6 @@ private fun PostcodeSequenceAppBarPreview() {
         )
     )
 }
-
-data class PostcodeSequenceAppBarUiState(
-    val numOfSequencedPostcodes: Int,
-    val totalPostcodes: Int,
-)
 
 @Composable
 fun PostcodeSequenceAppBar(

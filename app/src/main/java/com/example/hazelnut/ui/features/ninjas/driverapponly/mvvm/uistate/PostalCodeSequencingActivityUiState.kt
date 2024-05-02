@@ -1,8 +1,5 @@
 package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate
 
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.postcodesequencing.WaypointToAddLocation
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypostcode.routepage.components.PostcodeSequenceAppBarUiState
-
 data class PostalCodeSequencingActivityUiState(
     val routeId: Long? = null,
     val appBarUiState: PostcodeSequenceAppBarUiState = PostcodeSequenceAppBarUiState(
@@ -14,4 +11,22 @@ data class PostalCodeSequencingActivityUiState(
     val addWaypointAt: WaypointToAddLocation? = null,
     val numOfSelectedPostcodes: Int = 0,
     val unsequencedPostcodesSearch: PostcodeSearchUiState = PostcodeSearchUiState()
+)
+
+enum class WaypointToAddLocation {
+    TOP,
+    BOTTOM,
+    MIDDLE,
+}
+
+data class PostcodeSequenceAppBarUiState(
+    val numOfSequencedPostcodes: Int,
+    val totalPostcodes: Int,
+)
+
+data class PostcodeSearchUiState(
+    val isSearchPageActive: Boolean = false,
+    val searchQuery: String? = null,
+    val filter: CurrentWaypointByStatusFilter = CurrentWaypointByStatusFilter.PENDING,
+    val isHasActiveSearch: Boolean = false,
 )
