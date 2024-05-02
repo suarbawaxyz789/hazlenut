@@ -5,6 +5,7 @@ import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelS
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeCardUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSequenceAppBarUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -73,6 +74,15 @@ class PostcodeSequencingViewModel @Inject constructor() : ViewModel() {
             uiState.value.copy(numOfSelectedPostcodes = uiState.value.sequencedPostcodesUiState.count { it.selected })
     }
 
+    private fun updatePostcodeCounter() {
+        _uiState.value = uiState.value.copy(
+            appBarUiState = uiState.value.appBarUiState.copy(
+                totalPostcodes = uiState.value.sequencedPostcodesUiState.size + uiState.value.unsequencedPostcodesUiState.size,
+                numOfSequencedPostcodes = uiState.value.sequencedPostcodesUiState.size,
+            )
+        )
+    }
+
     fun testData() {
         _uiState.value = uiState.value.copy(
             sequencedPostcodesUiState = mutableListOf(
@@ -134,7 +144,30 @@ class PostcodeSequencingViewModel @Inject constructor() : ViewModel() {
                     seqNumber = 3,
                     waypointIds = listOf(7, 8, 9)
                 )
+            ),
+            unsequencedPostcodesUiState = mutableListOf(
+                PostcodeCardUiState(
+                    postcode = "999999",
+                    address = "3 Changi South Street 2, Singapore",
+                    mapTIDByJobType = mapOf(
+                        JobType.DELIVERY to mutableListOf(
+                            TidWithJobStatus(
+                                jobStatus = "PENDING", "NVSGCTTDR000000989",
+                            )
+                        ), JobType.PICKUP to mutableListOf(
+                            TidWithJobStatus(
+                                jobStatus = "PENDING", "NVSGCTTDR000000888",
+                            )
+                        )
+                    ),
+                    enabled = true,
+                    jobTags = mutableListOf(),
+                    numOfBulky = 0,
+                    seqNumber = 3,
+                    waypointIds = listOf(10, 11, 12)
+                )
             )
         )
+        updatePostcodeCounter()
     }
 }

@@ -3,8 +3,8 @@ package com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate
 data class PostalCodeSequencingActivityUiState(
     val routeId: Long? = null,
     val appBarUiState: PostcodeSequenceAppBarUiState = PostcodeSequenceAppBarUiState(
-        numOfSequencedPostcodes = 80,
-        totalPostcodes = 3,
+        numOfSequencedPostcodes = 0,
+        totalPostcodes = 0,
     ),
     val sequencedPostcodesUiState: List<PostcodeCardUiState> = listOf(),
     val unsequencedPostcodesUiState: List<PostcodeCardUiState> = listOf(),
