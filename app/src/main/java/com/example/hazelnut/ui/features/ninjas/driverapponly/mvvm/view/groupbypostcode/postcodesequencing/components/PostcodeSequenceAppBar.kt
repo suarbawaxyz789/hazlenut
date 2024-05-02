@@ -60,7 +60,7 @@ fun PostcodeSequenceAppBar(
         ) {
             Spacer(modifier = Modifier.height(spacings.spacingXxs))
             AppBarHeader(
-                title = stringResource(id = R.string.route_title),
+                title = stringResource(id = R.string.your_sequence),
                 subtitleContent = {
                     Row {
                         Text(

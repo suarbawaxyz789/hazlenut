@@ -8,12 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import co.ninjavan.akira.designsystem.component.button.ButtonTextLink
-import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import com.example.hazelnut.R
-import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.WaypointToAddLocation
 
 @Preview
@@ -26,7 +27,6 @@ private fun AddPostcodeButtonPreview() {
         Divider()
         AddPostcodeButton(
             location = WaypointToAddLocation.MIDDLE,
-            enabled = false,
         )
     }
 }
@@ -34,18 +34,31 @@ private fun AddPostcodeButtonPreview() {
 @Composable
 fun AddPostcodeButton(
     location: WaypointToAddLocation,
-    postcodeSearchUiState: PostcodeSearchUiState? = null,
+    uiState: PostalCodeSequencingActivityUiState? = null,
     onClick: ((WaypointToAddLocation) -> Unit)? = null,
-    enabled: Boolean = true,
 ) {
-    if (postcodeSearchUiState?.isSearchPageActive == true) return
+    if (uiState?.unsequencedPostcodesSearch?.isSearchPageActive == true) return
 
-    // TODO if all postcode sequenced, then hide top, hide middle and disable bottom
+    // if no postcode sequenced, show only add waypoints (ADD_FOR_THE_FIRST_TIME)
+    if (uiState?.sequencedPostcodesUiState?.isEmpty() == true && location != WaypointToAddLocation.ADD_FOR_THE_FIRST_TIME) {
+        return
+    }
+
+    /// if all postcode sequenced, hide top, hide middle, shown bottom but disabled.
+    var enabled = true
+    if (uiState?.unsequencedPostcodesUiState?.isEmpty() == true) {
+        if (location == WaypointToAddLocation.TOP) return
+        if (location == WaypointToAddLocation.MIDDLE) return
+        if (location == WaypointToAddLocation.BOTTOM) {
+            enabled = false
+        }
+    }
 
     val buttonText = when (location) {
-        WaypointToAddLocation.TOP -> "Add postcodes to top"
-        WaypointToAddLocation.BOTTOM -> "Add postcodes to bottom"
-        WaypointToAddLocation.MIDDLE -> "Add postcodes"
+        WaypointToAddLocation.TOP -> stringResource(id = R.string.add_postcodes_to_top)
+        WaypointToAddLocation.BOTTOM -> stringResource(id = R.string.add_postcodes_to_bottom)
+        WaypointToAddLocation.MIDDLE -> stringResource(id = R.string.add_postcodes_to_middle)
+        WaypointToAddLocation.ADD_FOR_THE_FIRST_TIME -> stringResource(id = R.string.add_postcodes_to_middle)
     }
     Column {
         Row(
@@ -64,9 +77,11 @@ fun AddPostcodeButton(
             WaypointToAddLocation.BOTTOM -> {}
             WaypointToAddLocation.MIDDLE, WaypointToAddLocation.TOP -> {
                 Divider(
-                    color = AkiraTheme.colors.gray7,
+                    color = colors.gray7,
                 )
             }
+
+            WaypointToAddLocation.ADD_FOR_THE_FIRST_TIME -> {}
         }
     }
 }

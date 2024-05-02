@@ -78,11 +78,11 @@ fun JobLabel(
     enable: Boolean = true,
 ) {
     val tagName = when (tagStyle) {
-        JobLabelStyle.DELIVERY -> stringResource(id = R.string.tag_delivery)
+        JobLabelStyle.DELIVERY -> stringResource(id = R.string.text_delivery)
         JobLabelStyle.RPU -> stringResource(id = R.string.text_rpu_tag)
-        JobLabelStyle.PRIOR -> stringResource(id = R.string.tag_prior)
+        JobLabelStyle.PRIOR -> stringResource(id = R.string.text_prior_tag)
         JobLabelStyle.COD -> stringResource(id = R.string.tag_cod)
-        JobLabelStyle.CONFIRMED -> stringResource(id = R.string.tag_confirmed)
+        JobLabelStyle.CONFIRMED -> stringResource(id = R.string.order_tag_confirmed)
         JobLabelStyle.DOOR_STEP -> stringResource(id = R.string.tag_doorstep)
         JobLabelStyle.ID_CHECK -> stringResource(id = R.string.tag_id_check)
         JobLabelStyle.OPEN_BOX ->stringResource(id = R.string.tag_open_box)

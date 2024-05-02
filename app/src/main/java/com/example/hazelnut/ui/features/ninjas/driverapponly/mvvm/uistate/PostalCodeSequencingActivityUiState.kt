@@ -13,16 +13,17 @@ data class PostalCodeSequencingActivityUiState(
     val unsequencedPostcodesSearch: PostcodeSearchUiState = PostcodeSearchUiState()
 )
 
-enum class WaypointToAddLocation {
-    TOP,
-    BOTTOM,
-    MIDDLE,
-}
-
 data class PostcodeSequenceAppBarUiState(
     val numOfSequencedPostcodes: Int,
     val totalPostcodes: Int,
 )
+
+enum class WaypointToAddLocation {
+    TOP,
+    BOTTOM,
+    MIDDLE,
+    ADD_FOR_THE_FIRST_TIME,
+}
 
 data class PostcodeSearchUiState(
     val isSearchPageActive: Boolean = false,

@@ -13,12 +13,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.colors
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.spacings
 import co.ninjavan.akira.designsystem.compose.foundation.AkiraTheme.typography
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabel
 import com.example.hazelnut.ui.features.nijaswaypointdetail.components.JobLabelStyle
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.JobType
+import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostalCodeSequencingActivityUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeCardUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.PostcodeSearchUiState
 import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.uistate.TidWithJobStatus
@@ -30,7 +32,7 @@ import com.example.hazelnut.ui.features.ninjas.driverapponly.mvvm.view.groupbypo
 fun PostcodeCardPreview() {
     Column(
         modifier = Modifier.background(
-            colors.white
+            AkiraTheme.colors.white
         )
     ) {
         PostcodeCard(
@@ -109,9 +111,10 @@ fun PostcodeCardPreview() {
 @Composable
 fun PostcodeCard(
     cardUiState: PostcodeCardUiState,
-    postcodeSearchUiState: PostcodeSearchUiState? = null,
+    uiState: PostalCodeSequencingActivityUiState? = null,
     numOfSelectedPostcode: Int = 0,
     allowToShowAddPostcodeButton: Boolean = false,
+    isAllPostcodeSequenced: Boolean = false,
     onClick: (() -> Unit)? = null,
 ) {
     Column {
@@ -119,7 +122,7 @@ fun PostcodeCard(
             onClick?.invoke()
         } else Modifier).run {
             if (cardUiState.selected) {
-                this.background(colors.blue6)
+                this.background(AkiraTheme.colors.blue6)
             } else {
                 this
             }
@@ -184,14 +187,14 @@ fun PostcodeCard(
                 }
             }
             Divider(
-                color = colors.gray7,
+                color = AkiraTheme.colors.gray7,
             )
         }
 
         if (cardUiState.selected && numOfSelectedPostcode == 1 && allowToShowAddPostcodeButton) {
             AddPostcodeButton(
                 location = WaypointToAddLocation.MIDDLE,
-                postcodeSearchUiState = postcodeSearchUiState,
+                uiState = uiState,
             )
         }
     }
